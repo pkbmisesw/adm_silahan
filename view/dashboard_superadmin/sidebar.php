@@ -21,7 +21,7 @@
                 <li class="menu-title">Menu</li>
 
                 <li>
-                    <a href="../dashboard_pemohon/" class="waves-effect">
+                    <a href="index.html" class="waves-effect">
                         <i class="ri-dashboard-line"></i><span class="badge rounded-pill bg-success float-end">3</span>
                         <span>Dashboard</span>
                     </a>
@@ -33,11 +33,25 @@
                         <span>Master Surat</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="../m_surat/">Semua Permohonan</a></li>
+                        <li><a href="email-inbox.html">Surat Disposisi</a></li>
+                        <li><a href="../m_surat/diterima.php">Permohonan Diterima</a></li>
+                        <li><a href="../m_surat/sertifikasi.php">Permohonan Dengan Sertifikasi</a></li>
                     </ul>
                 </li>
 
                 <li class="menu-title">Other</li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="ri-account-box-fill"></i>
+                        <span>Master Pengguna</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="email-inbox.html">Pengaktifan User</a></li>
+                        <li><a href="email-inbox.html">Pengaktifan User Dengan Tembusan</a></li>
+                        <li><a href="email-inbox.html">Nama Penelaah</a></li>
+                    </ul>
+                </li>
+
                 <li>
                     <a href="../../index.php" class="waves-effect">
                         <i class="ri-logout-box-line"></i>
