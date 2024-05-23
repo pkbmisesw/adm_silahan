@@ -66,7 +66,7 @@
                                 <a href="view/dashboard_admin/" class="btn btn-warning w-100 waves-effect waves-light " name="login" type="submit">Login Sebagai Admin</a>
                             </div>
                             <div class="col-12 mt-2">
-                                <a href="" class="btn btn-warning w-100 waves-effect waves-light " name="login" type="submit">Login Sebagai Operator</a>
+                                <a href="view/dashboard_operator/" class="btn btn-warning w-100 waves-effect waves-light " name="login" type="submit">Login Sebagai Operator</a>
                             </div>
                             <div class="col-12 mt-2">
                                 <a href="view/dashboard_pemohon/" class="btn btn-warning w-100 waves-effect waves-light " name="login" type="submit">Login Sebagai Pemohon</a>
