@@ -5,12 +5,12 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>SI-SERTi</title>
+    <title>SI-Lahan Kawan</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesdesign" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="assets/images/favicon.png">
 
     <!-- Bootstrap Css -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -32,8 +32,8 @@
                 <div class="text-center mt-4">
                     <div class="mb-3">
                         <a href="index.html" class="auth-logo">
-                            <img src="assets/images/logo-dark.png?p=2" height="30" class="logo-dark mx-auto" alt="">
-                            <img src="assets/images/logo-light.png?p=1" height="30" class="logo-light mx-auto" alt="">
+                            <img src="assets/images/logo-dark.png?p=3" height="30" class="logo-dark mx-auto" alt="">
+                            <img src="assets/images/logo-light.png?p=4" height="30" class="logo-light mx-auto" alt="">
                         </a>
                     </div>
                 </div>
