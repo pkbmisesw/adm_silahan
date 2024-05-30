@@ -10,7 +10,21 @@
             </div>
             <div class="mt-3">
                 <h4 class="font-size-16 mb-1"><?= $_SESSION['nama']; ?></h4>
-                <span class="text-muted"><i class="ri-record-circle-line align-middle font-size-14 text-success"></i> Online</span>
+                <?php if($_SESSION['level_id'] == 1){ ?>
+                <span class="text-muted"><i class="ri-record-circle-line align-middle font-size-14 text-success"></i> Super Admin</span>
+                <?php } ?>
+                <?php if($_SESSION['level_id'] == 2){ ?>
+                    <span class="text-muted"><i class="ri-record-circle-line align-middle font-size-14 text-success"></i> Admin</span>
+                <?php } ?>
+                <?php if($_SESSION['level_id'] == 3){ ?>
+                    <span class="text-muted"><i class="ri-record-circle-line align-middle font-size-14 text-success"></i> Operator</span>
+                <?php } ?>
+                <?php if($_SESSION['level_id'] == 4){ ?>
+                    <span class="text-muted"><i class="ri-record-circle-line align-middle font-size-14 text-success"></i> Pimpinan</span>
+                <?php } ?>
+                <?php if($_SESSION['level_id'] == 5){ ?>
+                    <span class="text-muted"><i class="ri-record-circle-line align-middle font-size-14 text-success"></i> Pemohon</span>
+                <?php } ?>
             </div>
         </div>
 
