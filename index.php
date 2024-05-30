@@ -139,7 +139,7 @@ if(isset($_POST['login'])) {
             <div class="modal-body">
                 <form action="register.php" method="post" class="user" enctype="multipart/form-data">
                     <div class="form-label-group">
-                        <input type="checkbox" id="checkbox_pribadi">
+                        <input type="checkbox" name="checkbox" id="checkbox_pribadi">
                         <label for="checkbox_pribadi"> Daftar Sebagai Pribadi</label><br>
                     </div>
 
