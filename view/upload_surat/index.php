@@ -1,4 +1,5 @@
 <?php
+session_start();
 include('../head.php');
 ?>
 
@@ -15,7 +16,7 @@ include('../head.php');
     ?>
 
     <?php
-    include('../dashboard_admin/sidebar.php');
+    include('../sidebar.php');
     ?>
 
 

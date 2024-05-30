@@ -1,3 +1,47 @@
+<?php
+error_reporting(0);
+include 'config.php';
+
+if(!isset($_SESSION['email'] ) == 0) {
+    header('Location: view/admin/');
+}
+
+if(isset($_POST['login'])) {
+    $email    = $_POST['email'];
+    $password = $_POST['password'];
+
+    try {
+        //$sql = "SELECT * FROM users WHERE name = :name AND password = :password";
+        $sql = "SELECT * FROM m_user WHERE email = :email AND status_aktif = 1";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':email', $email);
+        //$stmt->bindParam(':password', $password);
+        $stmt->execute();
+
+        $row = $stmt->fetch();
+        $hash_password = $row['password'];
+        if (password_verify($password, $hash_password)){
+            $count = $stmt->rowCount();
+            if($count == 1) {
+                $_SESSION['email'] = $email;
+                $_SESSION['nama'] = $row['nama'];
+                $_SESSION['gambar'] = $row['gambar'];
+                $_SESSION['password'] = $row['password'];
+                $_SESSION['user_id'] = $row['id'];
+                $_SESSION['level_id'] = $row['level_id'];
+                header("Location: view/admin/");
+                return;
+            }else{
+                echo "<div class='notif'>Silahkan Lengkapi Data !</div>";
+            }
+        }
+    }
+    catch(PDOException $e) {
+        echo $e->getMessage();
+    }
+}
+
+?>
 
 <!doctype html>
 <html lang="en">
@@ -57,19 +101,7 @@
 
                         <div class="form-group mb-3 text-center row mt-3 pt-1">
                             <div class="col-12">
-                                <a href="view/dashboard_pimpinan/" class="btn btn-warning w-100 waves-effect waves-light " name="login" type="submit">Login Sebagai Pimpinan</a>
-                            </div>
-                            <div class="col-12 mt-2">
-                                <a href="view/dashboard_superadmin/" class="btn btn-warning w-100 waves-effect waves-light " name="login" type="submit">Login Sebagai Superadmin</a>
-                            </div>
-                            <div class="col-12 mt-2">
-                                <a href="view/dashboard_admin/" class="btn btn-warning w-100 waves-effect waves-light " name="login" type="submit">Login Sebagai Admin</a>
-                            </div>
-                            <div class="col-12 mt-2">
-                                <a href="view/dashboard_operator/" class="btn btn-warning w-100 waves-effect waves-light " name="login" type="submit">Login Sebagai Operator</a>
-                            </div>
-                            <div class="col-12 mt-2">
-                                <a href="view/dashboard_pemohon/" class="btn btn-warning w-100 waves-effect waves-light " name="login" type="submit">Login Sebagai Pemohon</a>
+                                <button class="btn btn-warning w-100 waves-effect waves-light" name="login" type="submit">Log In</button>
                             </div>
                         </div>
 
@@ -105,7 +137,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="" method="post" class="user" enctype="multipart/form-data">
+                <form action="register.php" method="post" class="user" enctype="multipart/form-data">
                     <div class="form-label-group">
                         <input type="checkbox" id="checkbox_pribadi">
                         <label for="checkbox_pribadi"> Daftar Sebagai Pribadi</label><br>

@@ -370,7 +370,7 @@
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img class="rounded-circle header-profile-user" src="../../assets/images/users/avatar-1.png"
                          alt="Header Avatar">
-                    <span class="d-none d-xl-inline-block ms-1">Admin</span>
+                    <span class="d-none d-xl-inline-block ms-1"><?= $_SESSION['nama']; ?></span>
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
