@@ -57,7 +57,7 @@ include('../head_table.php')
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">Master <?= $master; ?></a></li>
-                                    <li class="breadcrumb-item active"><?= $master; ?> Diterima</li>
+                                    <li class="breadcrumb-item active"><?= $master; ?> Selesai</li>
                                 </ol>
                             </div>
 
@@ -71,7 +71,7 @@ include('../head_table.php')
                         <div class="card">
                             <div class="card-body">
 
-                                <h4 class="card-title">Data <?= $master; ?> Diterima</h4>
+                                <h4 class="card-title">Data <?= $master; ?> Selesai</h4>
                                 <button type="button" class="btn btn-primary mb-4 mt-3" data-bs-toggle="modal" data-bs-target="#tambah">
                                     Tambah
                                 </button>
@@ -97,7 +97,7 @@ include('../head_table.php')
 
                                     $status = "";
 
-                                    $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE status=4 ORDER BY id DESC");
+                                    $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE status=6 ORDER BY id DESC");
                                     $sql->execute();
                                     while($data=$sql->fetch()) {
                                         if($data['status'] == 0){
@@ -247,7 +247,8 @@ include('../footer_table.php')
             </div>
             <div class="modal-body">
                 <form action="../../controller/<?php echo $dba;?>_controller.php?op=tambah" method="post"  enctype="multipart/form-data">
-                    <input type="hidden" name="status" value="4" />
+
+                    <input type="hidden" name="status" value="6" />
 
                     <div class="form-group">
                         <label class="control-label" >Nama : </label>

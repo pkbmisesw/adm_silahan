@@ -1,5 +1,9 @@
 <?php
 session_start();
+error_reporting(0);
+
+include('../../config.php');
+
 if(isset($_SESSION['email'])== 0) {
     header('Location: ../../index.php');
 }
@@ -48,12 +52,12 @@ include('../head_table.php')
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                            <h4 class="mb-sm-0">Data Semua Surat Permohonan</h4>
+                            <h4 class="mb-sm-0">Data <?= $master; ?></h4>
 
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Master Surat</a></li>
-                                    <li class="breadcrumb-item active">Semua Permohonan</li>
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Master <?= $master; ?></a></li>
+                                    <li class="breadcrumb-item active"><?= $master; ?> Keseluruhan</li>
                                 </ol>
                             </div>
 
@@ -67,32 +71,78 @@ include('../head_table.php')
                         <div class="card">
                             <div class="card-body">
 
-                                <h4 class="card-title">Data Surat Permohonan</h4>
+                                <h4 class="card-title">Data <?= $master; ?> Keseluruhan</h4>
+                                <button type="button" class="btn btn-primary mb-4 mt-3" data-bs-toggle="modal" data-bs-target="#tambah">
+                                    Tambah
+                                </button>
 
                                 <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama Permohonan</th>
+                                        <th>Petugas</th>
+                                        <th>Nama</th>
+                                        <th>Deskripsi</th>
                                         <th>Berkas</th>
                                         <th>Status</th>
+                                        <th>Aksi</th>
                                     </tr>
                                     </thead>
 
 
                                     <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Permohonan Izin Untuk Pemeriksaan Lapangan</td>
-                                        <td><a href>Lihat Berkas</a></td>
-                                        <td>Diterima</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Permohonan Izin Untuk Pemindahan Logistik</td>
-                                        <td><a href>Lihat Berkas</a></td>
-                                        <td>Ditolak - Logistik yang akan dipindahkan mengandung zat berbahaya</td>
-                                    </tr>
+                                    <?php
+                                    $count = 1;
+
+                                    $status = "";
+                                    $sql = $conn->prepare("SELECT m_surat.* FROM `m_surat` WHERE m_surat.user_id = :user_id ORDER BY id DESC");
+                                    $sql->execute([':user_id' => $_SESSION['user_id']]);
+                                    while($data=$sql->fetch()) {
+                                        if($data['status'] == 0){
+                                            $status = "Pending";
+                                        }
+
+                                        if($data['status'] == 1){
+                                            $status = "Diperiksa";
+                                        }
+
+                                        if($data['status'] == 2){
+                                            $status = "Di-disposisi";
+                                        }
+
+                                        if($data['status'] == 3){
+                                            $status = "Ditelaah";
+                                        }
+
+                                        if($data['status'] == 4){
+                                            $status = "Diterima";
+                                        }
+
+                                        if($data['status'] == 5){
+                                            $status = "Ditolak";
+                                        }
+
+                                        if($data['status'] == 6){
+                                            $status = "Selesai";
+                                        }
+                                        ?>
+                                        <tr>
+                                            <td><?= $count; ?></td>
+                                            <td></td>
+                                            <td><?= $data['nama']; ?></td>
+                                            <td><?= $data['des']; ?></td>
+                                            <td><a href="../../images/<?= $data['berkas']; ?>">Lihat Berkas</a></td>
+                                            <td><?= $status; ?></td>
+                                            <td>
+                                                <button
+                                                        data-id="<?= $data['id'] ?>"
+                                                        data-nama="<?= $data['nama']?>"
+                                                        data-des="<?= $data['des']?>"
+                                                        type="button" class="btn btn-light btn_update" data-toggle="modal">✎</button>
+                                                <a class="btn btn-danger" href="../../controller/<?php echo $dba;?>_controller.php?op=hapus&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?');">X</a>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
                                     </tbody>
                                 </table>
 
@@ -181,3 +231,162 @@ include('../head_table.php')
 <?php
 include('../footer_table.php')
 ?>
+
+<!-- Modal Tambah -->
+<div class="modal fade" id="tambah" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tambah <?php echo $master;?></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="../../controller/<?php echo $dba;?>_controller.php?op=tambah" method="post"  enctype="multipart/form-data">
+            <div class="modal-body">
+
+                    <div class="form-group">
+                        <label class="control-label" >Nama : </label>
+                        <input type="text" class="form-control" name="nama" placeholder="Silahkan Mengisi Nama"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" >Deskripsi : </label>
+                        <input type="text" class="form-control" name="des" placeholder="Silahkan Mengisi Deskripsi"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" >Berkas : </label>
+                        <input type="file" class="form-control" id="berkas_tambah" name="berkas" required/>
+                        <small class="text-danger">Hanya dapat upload file .pdf dan .zip dengan size maksimal 50mb.</small>
+                        <progress id="progressBar_tambah" value="0" max="100" style="width:100%;"></progress>
+                    </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button name="upload" type="submit" class="btn btn-primary" >Save changes</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Edit -->
+<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="edit.php" method="POST" enctype="multipart/form-data">
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="hidden" id="id_edit" name="id" />
+
+                        <div class="form-group">
+                            <label class="control-label" >Nama : </label>
+                            <input type="text" class="form-control" id="nama_edit" name="nama" placeholder="Silahkan Mengisi Nama"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" >Deskripsi : </label>
+                            <input type="text" class="form-control" id="des_edit" name="des" placeholder="Silahkan Mengisi Deskripsi"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" >Berkas : </label>
+                            <input type="file" class="form-control" id="berkas_edit" name="berkas" required/>
+                            <small class="text-danger">Hanya dapat upload file .pdf dan .zip dengan size maksimal 50mb.</small>
+                            <progress id="progressBar_edit" value="0" max="100" style="width:100%;"></progress>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="btn-save-update">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        $('#btn-save-update').click(function(){
+            $.ajax({
+                url: "edit.php",
+                type : 'post',
+                data : $('#form-edit-transaksi-masuk').serialize(),
+                success: function(data){
+                    var res = JSON.parse(data);
+                    if (res.code == 200){
+                        alert('Success Update');
+                        location.reload();
+                    }
+                }
+            })
+        });
+
+       $("#berkas_edit").on('change', function({target}){
+           const file = target.files[0];
+
+           const formdata = new FormData();
+           formdata.append("berkas", file);
+
+           const reader = new FileReader();
+           function progressHandler(event) {
+               if (event.lengthComputable) {
+                   let percentComplete = (event.loaded / event.total) * 100;
+                   $("#progressBar_edit").val(percentComplete);
+               }
+           }
+
+           reader.onprogress = progressHandler;
+           reader.readAsArrayBuffer(file);
+       });
+
+        $("#berkas_tambah").on('change', function({target}){
+            const file = target.files[0];
+
+            const formdata = new FormData();
+            formdata.append("berkas", file);
+
+            const reader = new FileReader();
+            function progressHandler(event) {
+                if (event.lengthComputable) {
+                    let percentComplete = (event.loaded / event.total) * 100;
+                    $("#progressBar_tambah").val(percentComplete);
+                }
+            }
+
+            reader.onprogress = progressHandler;
+            reader.readAsArrayBuffer(file);
+        });
+
+        $(document).on('click','.btn_update',function(){
+            $("#id_edit").val($(this).attr('data-id'));
+            $("#nama_edit").val($(this).attr('data-nama'));
+            $("#des_edit").val($(this).attr('data-des'));
+            $('#edit').modal('show');
+        });
+    });
+
+    $(document).ready(function() {
+        $('#tambah').on('shown.bs.modal', function() {
+            $('#myInput').trigger('focus');
+        });
+
+        $('#edit').on('shown.bs.modal', function() {
+            $('#nama_edit').trigger('focus');
+        });
+
+
+    });
+</script>

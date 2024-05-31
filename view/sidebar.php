@@ -141,6 +141,10 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="../m_surat/">Semua Permohonan</a></li>
+                        <li><a href="../m_surat/pending.php">Surat Pending</a></li>
+                        <li><a href="../m_surat/diterima.php">Surat Diterima</a></li>
+                        <li><a href="../m_surat/direview.php">Surat In Review</a></li>
+                        <li><a href="../m_surat/selesai.php">Surat Selesai</a></li>
                     </ul>
                 </li>
 
