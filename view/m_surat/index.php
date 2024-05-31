@@ -260,6 +260,7 @@ include('../footer_table.php')
                         <input type="file" class="form-control" id="berkas_tambah" name="berkas" required/>
                         <small class="text-danger">Hanya dapat upload file .pdf dan .zip dengan size maksimal 50mb.</small>
                         <progress id="progressBar_tambah" value="0" max="100" style="width:100%;"></progress>
+                        <small id="uploadStatus_tambah"></small>
                     </div>
 
 
@@ -302,6 +303,7 @@ include('../footer_table.php')
                             <input type="file" class="form-control" id="berkas_edit" name="berkas" required/>
                             <small class="text-danger">Hanya dapat upload file .pdf dan .zip dengan size maksimal 50mb.</small>
                             <progress id="progressBar_edit" value="0" max="100" style="width:100%;"></progress>
+                            <small id="uploadStatus_edit"></small>
                         </div>
 
                     </div>
@@ -345,6 +347,7 @@ include('../footer_table.php')
                if (event.lengthComputable) {
                    let percentComplete = (event.loaded / event.total) * 100;
                    $("#progressBar_edit").val(percentComplete);
+                   $("#uploadStatus_edit").html(percentComplete+"%");
                }
            }
 
@@ -363,6 +366,7 @@ include('../footer_table.php')
                 if (event.lengthComputable) {
                     let percentComplete = (event.loaded / event.total) * 100;
                     $("#progressBar_tambah").val(percentComplete);
+                    $("#uploadStatus_tambah").html(percentComplete+"%");
                 }
             }
 
