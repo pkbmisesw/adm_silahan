@@ -64,8 +64,8 @@ include('../head.php');
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
                                         <?php
-                                        $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM m_surat");
-                                        $query->execute([]);
+                                        $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM m_surat WHERE user_id=:user_id");
+                                        $query->execute([":user_id" => $_SESSION['user_id']]);
                                         $data = $query->fetch();
                                         ?>
                                         <p class="text-truncate font-size-14 mb-2">Semua Permohonan</p>
@@ -89,8 +89,8 @@ include('../head.php');
                                         $dateFirst = date("Y-m-1 00:00:00");
                                         $dateNow = date("Y-m-d 23:59:59");
 
-                                        $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM `m_surat` WHERE `created_at` BETWEEN :dateFirst AND :dateLast ORDER BY `created_at` DESC");
-                                        $query->execute([":dateFirst" => $dateFirst, ":dateLast" => $dateNow]);
+                                        $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM `m_surat` WHERE (`created_at` BETWEEN :dateFirst AND :dateLast) AND user_id=:user_id ORDER BY `created_at` DESC");
+                                        $query->execute([":dateFirst" => $dateFirst, ":dateLast" => $dateNow, ":user_id" => $_SESSION['user_id']]);
                                         $data = $query->fetch();
                                         ?>
                                         <p class="text-truncate font-size-14 mb-2">Permohonan Bulan Ini</p>
@@ -111,8 +111,8 @@ include('../head.php');
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
                                         <?php
-                                        $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM m_surat WHERE status=0");
-                                        $query->execute([]);
+                                        $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM m_surat WHERE status=0 AND user_id=:user_id");
+                                        $query->execute([":user_id" => $_SESSION['user_id']]);
                                         $data = $query->fetch();
                                         ?>
                                         <p class="text-truncate font-size-14 mb-2">Total Permohonan Pending</p>
@@ -133,8 +133,8 @@ include('../head.php');
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
                                         <?php
-                                        $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM m_surat WHERE status=4");
-                                        $query->execute([]);
+                                        $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM m_surat WHERE status=4 AND user_id=:user_id");
+                                        $query->execute([":user_id" => $_SESSION['user_id']]);
                                         $data = $query->fetch();
                                         ?>
                                         <p class="text-truncate font-size-14 mb-2">Total Permohonan Diterima</p>
