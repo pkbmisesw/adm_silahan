@@ -70,5 +70,40 @@ if($op == "tambah"){
     }else{
         echo "<script>alert('Gagal Menghapus'); history.back();</script>";
     }
+} else if($op == "approve"){
+    $id = isset($_GET['id']) ? $_GET['id'] : '';
 
+    if(!$id){
+        echo '<script>history.back();</script>';
+    }
+
+    $sql = "UPDATE `m_surat` SET `status`=1 WHERE `id`=:id";
+    $query = $conn->prepare($sql);
+    $result = $query->execute([":id" => $id]);
+
+    if ($result){
+        echo "<script>alert('Berhasil Approve'); history.back();</script>";
+        return;
+    }else{
+        echo "<script>alert('Gagal Approve'); history.back();</script>";
+        return;
+    }
+} else if($op == "deny"){
+    $id = isset($_GET['id']) ? $_GET['id'] : '';
+
+    if(!$id){
+        echo '<script>history.back();</script>';
+    }
+
+    $sql = "UPDATE `m_surat` SET `status`=5 WHERE `id`=:id";
+    $query = $conn->prepare($sql);
+    $result = $query->execute([":id" => $id]);
+
+    if ($result){
+        echo "<script>alert('Berhasil Approve'); history.back();</script>";
+        return;
+    }else{
+        echo "<script>alert('Gagal Approve'); history.back();</script>";
+        return;
+    }
 }

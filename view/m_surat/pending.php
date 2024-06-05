@@ -73,19 +73,17 @@ include('../head_table.php')
 
                                 <h4 class="card-title">Data <?= $master; ?> Pending</h4>
                                 <button type="button" class="btn btn-primary mb-4 mt-3" data-bs-toggle="modal" data-bs-target="#tambah">
-                                    Tambah
+                                    Ajukan Permohonan
                                 </button>
 
                                 <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>User</th>
-                                        <th>Petugas</th>
                                         <th>Nama</th>
-                                        <th>Deskripsi</th>
                                         <th>Berkas</th>
                                         <th>Status</th>
+                                        <th>Petugas</th>
                                         <th>Aksi</th>
                                     </tr>
                                     </thead>
@@ -129,12 +127,10 @@ include('../head_table.php')
                                         ?>
                                     <tr>
                                         <td><?= $count; ?></td>
-                                        <td><?= $data['nama_user']; ?></td>
-                                        <td></td>
-                                        <td><?= $data['nama']; ?></td>
-                                        <td><?= $data['des']; ?></td>
+                                        <td><?= $data['nama'] . ' - ' . $data['des']; ?></td>
                                         <td><a href="../../images/<?= $data['berkas']; ?>">Lihat Berkas</a></td>
                                         <td><?= $status; ?></td>
+                                        <td></td>
                                         <td>
                                             <button
                                                     data-id="<?= $data['id'] ?>"
@@ -269,7 +265,7 @@ include('../footer_table.php')
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button  type="submit" name="upload" type="button" class="btn btn-primary" >Save changes</button>
+                <button  type="submit" name="upload" type="button" class="btn btn-primary" >Kirim Permohonan</button>
             </div>
             </form>
         </div>

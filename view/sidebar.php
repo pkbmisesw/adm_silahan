@@ -107,6 +107,7 @@
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="../m_surat/">Semua Permohonan</a></li>
                         <li><a href="../m_surat/diterima.php">Permohonan Diterima</a></li>
+                        <li><a href="../m_surat/ditolak.php">Permohonan Ditolak</a></li>
                         <li><a href="../m_surat/sertifikasi.php">Permohonan Selesai</a></li>
                     </ul>
                 </li>

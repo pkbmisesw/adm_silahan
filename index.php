@@ -170,8 +170,8 @@ if(isset($_POST['login'])) {
 
                     <div class="form-label-group">
                         <label>Nomor HP / WA Narahubung :</label>
-                        <input type="text" name="hp" class="form-control" placeholder="6285200000000" required>
-                        <small style="color:red;">* isi dimulai dari 62852000000</small>
+                        <input type="text" name="hp" class="form-control" placeholder="085200000000" required>
+                        <small style="color:red;">* isi dimulai dari 0852000000</small>
                     </div>
 
                     <!-- <div class="form-label-group">

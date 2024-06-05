@@ -72,19 +72,20 @@ include('../head_table.php')
                             <div class="card-body">
 
                                 <h4 class="card-title">Data <?= $master; ?> Keseluruhan</h4>
+                                <?php if($_SESSION['level_id'] != 3){ ?>
                                 <button type="button" class="btn btn-primary mb-4 mt-3" data-bs-toggle="modal" data-bs-target="#tambah">
-                                    Tambah
+                                    Ajukan Permohonan
                                 </button>
+                                <?php } ?>
 
                                 <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Petugas</th>
                                         <th>Nama</th>
-                                        <th>Deskripsi</th>
                                         <th>Berkas</th>
                                         <th>Status</th>
+                                        <th>Petugas</th>
                                         <th>Aksi</th>
                                     </tr>
                                     </thead>
@@ -128,18 +129,22 @@ include('../head_table.php')
                                         ?>
                                         <tr>
                                             <td><?= $count; ?></td>
-                                            <td></td>
-                                            <td><?= $data['nama']; ?></td>
-                                            <td><?= $data['des']; ?></td>
+                                            <td><?= $data['nama'] . ' - ' . $data['des']; ?></td>
                                             <td><a href="../../images/<?= $data['berkas']; ?>">Lihat Berkas</a></td>
                                             <td><?= $status; ?></td>
+                                            <td></td>
                                             <td>
+                                                <?php if($_SESSION['level_id'] == 3){ ?>
+                                                    <a class="btn btn-success" href="../../controller/<?php echo $dba;?>_controller.php?op=approve&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin mengapprove permohonan ini?');">&#x2713;</a>
+                                                    <a class="btn btn-danger" href="../../controller/<?php echo $dba;?>_controller.php?op=deny&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin menolak permohonan ini?');">X</a>
+                                                <?php } else { ?>
                                                 <button
                                                         data-id="<?= $data['id'] ?>"
                                                         data-nama="<?= $data['nama']?>"
                                                         data-des="<?= $data['des']?>"
                                                         type="button" class="btn btn-light btn_update" data-toggle="modal">✎</button>
                                                 <a class="btn btn-danger" href="../../controller/<?php echo $dba;?>_controller.php?op=hapus&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?');">X</a>
+                                                <?php } ?>
                                             </td>
                                         </tr>
                                     <?php } ?>
@@ -232,6 +237,8 @@ include('../head_table.php')
 include('../footer_table.php')
 ?>
 
+<?php if($_SESSION['level_id'] != 3){ ?>
+
 <!-- Modal Tambah -->
 <div class="modal fade" id="tambah" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 
@@ -267,7 +274,7 @@ include('../footer_table.php')
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button name="upload" type="submit" class="btn btn-primary" >Save changes</button>
+                <button name="upload" type="submit" class="btn btn-primary" >Kirim Permohonan</button>
             </div>
             </form>
         </div>
@@ -317,6 +324,7 @@ include('../footer_table.php')
     </div>
 </div>
 
+<?php } ?>
 
 <script type="text/javascript">
     $(document).ready(function(){

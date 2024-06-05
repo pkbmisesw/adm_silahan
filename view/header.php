@@ -33,137 +33,6 @@
                     <span class="ri-search-line"></span>
                 </div>
             </form>
-
-            <div class="dropdown dropdown-mega d-none d-lg-block ms-2">
-                <button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
-                    Mega Menu
-                    <i class="mdi mdi-chevron-down"></i>
-                </button>
-                <div class="dropdown-menu dropdown-megamenu">
-                    <div class="row">
-                        <div class="col-sm-8">
-
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h5 class="font-size-14">UI Components</h5>
-                                    <ul class="list-unstyled megamenu-list">
-                                        <li>
-                                            <a href="javascript:void(0);">Lightbox</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">Range Slider</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">Sweet Alert</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">Rating</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">Forms</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">Tables</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">Charts</a>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <h5 class="font-size-14">Applications</h5>
-                                    <ul class="list-unstyled megamenu-list">
-                                        <li>
-                                            <a href="javascript:void(0);">Ecommerce</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">Calendar</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">Email</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">Projects</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">Tasks</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">Contacts</a>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <h5 class="font-size-14">Extra Pages</h5>
-                                    <ul class="list-unstyled megamenu-list">
-                                        <li>
-                                            <a href="javascript:void(0);">Light Sidebar</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">Compact Sidebar</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">Horizontal layout</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">Maintenance</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">Coming Soon</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">Timeline</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">FAQs</a>
-                                        </li>
-
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <h5 class="font-size-14">UI Components</h5>
-                                    <ul class="list-unstyled megamenu-list">
-                                        <li>
-                                            <a href="javascript:void(0);">Lightbox</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">Range Slider</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">Sweet Alert</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">Rating</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">Forms</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">Tables</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">Charts</a>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div class="col-sm-5">
-                                    <div>
-                                        <img src="../../assets/images/megamenu-img.png" alt="megamenu-img" class="img-fluid mx-auto d-block">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
         </div>
 
         <div class="d-flex">
@@ -189,34 +58,6 @@
                 </div>
             </div>
 
-            <div class="dropdown d-none d-sm-inline-block">
-                <button type="button" class="btn header-item waves-effect"
-                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="" src="../../assets/images/flags/us.jpg" alt="Header Language" height="16">
-                </button>
-                <div class="dropdown-menu dropdown-menu-end">
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <img src="../../assets/images/flags/spain.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Spanish</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <img src="../../assets/images/flags/germany.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">German</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <img src="../../assets/images/flags/italy.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Italian</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <img src="../../assets/images/flags/russia.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Russian</span>
-                    </a>
-                </div>
-            </div>
 
             <div class="dropdown d-none d-lg-inline-block ms-1">
                 <button type="button" class="btn header-item noti-icon waves-effect"
@@ -382,12 +223,6 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item text-danger" href="#"><i class="ri-shut-down-line align-middle me-1 text-danger"></i> Logout</a>
                 </div>
-            </div>
-
-            <div class="dropdown d-inline-block">
-                <button type="button" class="btn header-item noti-icon right-bar-toggle waves-effect">
-                    <i class="ri-settings-2-line"></i>
-                </button>
             </div>
 
         </div>

@@ -1,5 +1,8 @@
 <?php
 session_start();
+error_reporting(0);
+
+include('../../config.php');
 
 if(isset($_SESSION['email'])== 0) {
     header('Location: ../../index.php');
@@ -60,9 +63,13 @@ include('../head.php');
                             <div class="card-body">
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
-                                        <p class="text-truncate font-size-14 mb-2">Total Sales</p>
-                                        <h4 class="mb-2">1452</h4>
-                                        <p class="text-muted mb-0"><span class="text-success fw-bold font-size-12 me-2"><i class="ri-arrow-right-up-line me-1 align-middle"></i>9.23%</span>from previous period</p>
+                                        <?php
+                                        $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM m_surat");
+                                        $query->execute([]);
+                                        $data = $query->fetch();
+                                        ?>
+                                        <p class="text-truncate font-size-14 mb-2">Semua Permohonan</p>
+                                        <h4 class="mb-2"><?= $data['total_surat']; ?></h4>
                                     </div>
                                     <div class="avatar-sm">
                                                 <span class="avatar-title bg-light text-primary rounded-3">
@@ -78,9 +85,16 @@ include('../head.php');
                             <div class="card-body">
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
-                                        <p class="text-truncate font-size-14 mb-2">New Orders</p>
-                                        <h4 class="mb-2">938</h4>
-                                        <p class="text-muted mb-0"><span class="text-danger fw-bold font-size-12 me-2"><i class="ri-arrow-right-down-line me-1 align-middle"></i>1.09%</span>from previous period</p>
+                                        <?php
+                                        $dateFirst = date("Y-m-1 00:00:00");
+                                        $dateNow = date("Y-m-d 23:59:59");
+
+                                        $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM `m_surat` WHERE `created_at` BETWEEN :dateFirst AND :dateLast ORDER BY `created_at` DESC");
+                                        $query->execute([":dateFirst" => $dateFirst, ":dateLast" => $dateNow]);
+                                        $data = $query->fetch();
+                                        ?>
+                                        <p class="text-truncate font-size-14 mb-2">Permohonan Bulan Ini</p>
+                                        <h4 class="mb-2"><?= $data['total_surat']; ?></h4>
                                     </div>
                                     <div class="avatar-sm">
                                                 <span class="avatar-title bg-light text-success rounded-3">
@@ -96,9 +110,13 @@ include('../head.php');
                             <div class="card-body">
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
-                                        <p class="text-truncate font-size-14 mb-2">New Users</p>
-                                        <h4 class="mb-2">8246</h4>
-                                        <p class="text-muted mb-0"><span class="text-success fw-bold font-size-12 me-2"><i class="ri-arrow-right-up-line me-1 align-middle"></i>16.2%</span>from previous period</p>
+                                        <?php
+                                        $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM m_surat WHERE status=0");
+                                        $query->execute([]);
+                                        $data = $query->fetch();
+                                        ?>
+                                        <p class="text-truncate font-size-14 mb-2">Total Permohonan Pending</p>
+                                        <h4 class="mb-2"><?= $data['total_surat']; ?></h4>
                                     </div>
                                     <div class="avatar-sm">
                                                 <span class="avatar-title bg-light text-primary rounded-3">
@@ -114,9 +132,13 @@ include('../head.php');
                             <div class="card-body">
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
-                                        <p class="text-truncate font-size-14 mb-2">Unique Visitors</p>
-                                        <h4 class="mb-2">29670</h4>
-                                        <p class="text-muted mb-0"><span class="text-success fw-bold font-size-12 me-2"><i class="ri-arrow-right-up-line me-1 align-middle"></i>11.7%</span>from previous period</p>
+                                        <?php
+                                        $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM m_surat WHERE status=4");
+                                        $query->execute([]);
+                                        $data = $query->fetch();
+                                        ?>
+                                        <p class="text-truncate font-size-14 mb-2">Total Permohonan Diterima</p>
+                                        <h4 class="mb-2"><?= $data['total_surat']; ?></h4>
                                     </div>
                                     <div class="avatar-sm">
                                                 <span class="avatar-title bg-light text-success rounded-3">
