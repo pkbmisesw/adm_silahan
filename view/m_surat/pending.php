@@ -83,7 +83,6 @@ include('../head_table.php')
                                         <th>Nama</th>
                                         <th>Berkas</th>
                                         <th>Status</th>
-                                        <th>Petugas</th>
                                         <th>Aksi</th>
                                     </tr>
                                     </thead>
@@ -129,7 +128,15 @@ include('../head_table.php')
                                         <td><?= $count; ?></td>
                                         <td><?= $data['nama'] . ' - ' . $data['des']; ?></td>
                                         <td><a href="../../images/<?= $data['berkas']; ?>">Lihat Berkas</a></td>
-                                        <td><?= $status; ?></td>
+                                        <?php if(!$data['petugas_id']){ ?>
+                                            <td><?= $status . " - " . "Menunggu Petugas Cek"; ?></td>
+                                        <?php } else {
+                                            $sql_user = $conn->prepare("SELECT nama FROM m_user WHERE id=:petugas_id");
+                                            $sql_user->execute([":petugas_id" => $data['petugas_id']]);
+                                            $data_user = $sql_user->fetch();
+                                            ?>
+                                            <td><?= $status . " - " . $data_user['nama']; ?></td>
+                                        <?php } ?>
                                         <td></td>
                                         <td>
                                             <button
@@ -140,7 +147,7 @@ include('../head_table.php')
                                             <a class="btn btn-danger" href="../../controller/<?php echo $dba;?>_controller.php?op=hapus&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?');">X</a>
                                         </td>
                                     </tr>
-                                        <?php } ?>
+                                        <?php $count++; } ?>
                                     </tbody>
                                 </table>
 

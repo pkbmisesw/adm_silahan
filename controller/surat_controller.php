@@ -77,9 +77,9 @@ if($op == "tambah"){
         echo '<script>history.back();</script>';
     }
 
-    $sql = "UPDATE `m_surat` SET `status`=1 WHERE `id`=:id";
+    $sql = "UPDATE `m_surat` SET `status`=4, `petugas_id`=:petugas_id WHERE `id`=:id";
     $query = $conn->prepare($sql);
-    $result = $query->execute([":id" => $id]);
+    $result = $query->execute([":id" => $id, ":petugas_id" => $_SESSION['user_id']]);
 
     if ($result){
         echo "<script>alert('Berhasil Approve'); history.back();</script>";
@@ -95,15 +95,15 @@ if($op == "tambah"){
         echo '<script>history.back();</script>';
     }
 
-    $sql = "UPDATE `m_surat` SET `status`=5 WHERE `id`=:id";
+    $sql = "UPDATE `m_surat` SET `status`=5, `petugas_id`=:petugas_id WHERE `id`=:id";
     $query = $conn->prepare($sql);
-    $result = $query->execute([":id" => $id]);
+    $result = $query->execute([":id" => $id, ":petugas_id" => $_SESSION['user_id']]);
 
     if ($result){
-        echo "<script>alert('Berhasil Approve'); history.back();</script>";
+        echo "<script>alert('Berhasil Deny'); history.back();</script>";
         return;
     }else{
-        echo "<script>alert('Gagal Approve'); history.back();</script>";
+        echo "<script>alert('Gagal Deny'); history.back();</script>";
         return;
     }
 }

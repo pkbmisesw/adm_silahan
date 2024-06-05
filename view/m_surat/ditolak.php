@@ -94,11 +94,11 @@ include('../head_table.php')
 
                                     $status = "";
 
-                                    $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE status=4 ORDER BY id DESC");
+                                    $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE status=5 ORDER BY id DESC");
                                     $sql->execute();
 
                                     if($_SESSION['level_id'] == 3){
-                                        $sql = $conn->prepare("SELECT m_surat.* FROM `m_surat` WHERE status=4 AND petugas_id=:petugas_id ORDER BY id DESC");
+                                        $sql = $conn->prepare("SELECT m_surat.* FROM `m_surat` WHERE status=5 AND petugas_id=:petugas_id ORDER BY id DESC");
                                         $sql->execute([":petugas_id" => $_SESSION['user_id']]);
                                     }
 
@@ -153,7 +153,7 @@ include('../head_table.php')
                                             <a class="btn btn-danger" href="../../controller/<?php echo $dba;?>_controller.php?op=hapus&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?');">X</a>
                                         </td>
                                     </tr>
-                                        <?php $count++; } ?>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
 

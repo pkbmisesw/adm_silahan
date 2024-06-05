@@ -85,7 +85,6 @@ include('../head_table.php')
                                         <th>Nama</th>
                                         <th>Berkas</th>
                                         <th>Status</th>
-                                        <th>Petugas</th>
                                         <th>Aksi</th>
                                     </tr>
                                     </thead>
@@ -96,11 +95,18 @@ include('../head_table.php')
                                     $count = 1;
 
                                     $status = "";
-                                    $sql = $conn->prepare("SELECT m_surat.* FROM `m_surat` WHERE m_surat.user_id = :user_id ORDER BY id DESC");
-                                    $sql->execute([':user_id' => $_SESSION['user_id']]);
+
+                                    $sql = $conn->prepare("SELECT m_surat.* FROM `m_surat` WHERE m_surat.status = 0 ORDER BY id DESC");
+                                    $sql->execute([]);
+
+                                    if($_SESSION['level_id'] != 3) {
+                                        $sql = $conn->prepare("SELECT m_surat.* FROM `m_surat` WHERE m_surat.user_id = :user_id AND m_surat.status = 0 ORDER BY id DESC");
+                                        $sql->execute([':user_id' => $_SESSION['user_id']]);
+                                    }
+
                                     while($data=$sql->fetch()) {
                                         if($data['status'] == 0){
-                                            $status = "Pending";
+                                            $status = "Open";
                                         }
 
                                         if($data['status'] == 1){
@@ -131,8 +137,15 @@ include('../head_table.php')
                                             <td><?= $count; ?></td>
                                             <td><?= $data['nama'] . ' - ' . $data['des']; ?></td>
                                             <td><a href="../../images/<?= $data['berkas']; ?>">Lihat Berkas</a></td>
-                                            <td><?= $status; ?></td>
-                                            <td></td>
+                                            <?php if(!$data['petugas_id']){ ?>
+                                                <td><?= $status . " - " . "Menunggu Petugas Cek"; ?></td>
+                                            <?php } else {
+                                                $sql_user = $conn->prepare("SELECT nama FROM m_user WHERE id=:petugas_id");
+                                                $sql_user->execute([":petugas_id" => $data['petugas_id']]);
+                                                $data_user = $sql_user->fetch();
+                                                ?>
+                                                <td><?= $status . " - " . $data_user['nama']; ?></td>
+                                            <?php } ?>
                                             <td>
                                                 <?php if($_SESSION['level_id'] == 3){ ?>
                                                     <a class="btn btn-success" href="../../controller/<?php echo $dba;?>_controller.php?op=approve&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin mengapprove permohonan ini?');">&#x2713;</a>
@@ -147,7 +160,7 @@ include('../head_table.php')
                                                 <?php } ?>
                                             </td>
                                         </tr>
-                                    <?php } ?>
+                                    <?php $count++; } ?>
                                     </tbody>
                                 </table>
 
