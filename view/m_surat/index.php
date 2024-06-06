@@ -138,7 +138,7 @@ include('../head_table.php')
                                             <td><?= $data['nama'] . ' - ' . $data['des']; ?></td>
                                             <td><a href="../../images/<?= $data['berkas']; ?>">Lihat Berkas</a></td>
                                             <?php if(!$data['petugas_id']){ ?>
-                                                <td><?= $status . " - " . "Menunggu Petugas Cek"; ?></td>
+                                                <td><?= $status . " - " . "Menunggu Petugas Cek" . ' - ' . $data['created_at']; ?></td>
                                             <?php } else {
                                                 $sql_user = $conn->prepare("SELECT nama FROM m_user WHERE id=:petugas_id");
                                                 $sql_user->execute([":petugas_id" => $data['petugas_id']]);
