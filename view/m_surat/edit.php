@@ -13,9 +13,16 @@ if (isset($_POST['id'])){
 
 
     $sql = "UPDATE m_surat SET nama=:nama, des=:des WHERE id=:id";
+    if($_GET['ref'] == "ditolak") {
+        $sql = "UPDATE m_surat SET nama=:nama, des=:des, status=:status WHERE id=:id";
+    }
 
     if(!$berkas['name'] == ""){
         $sql = "UPDATE m_surat SET nama=:nama, des=:des, berkas=:berkas WHERE id=:id";
+
+        if($_GET['ref'] == "ditolak") {
+            $sql = "UPDATE m_surat SET nama=:nama, des=:des, berkas=:berkas, status=:status WHERE id=:id";
+        }
 
         $pathFile = $dir . basename($berkas["name"]);
         $extFile = strtolower(pathinfo($pathFile,PATHINFO_EXTENSION));
@@ -35,6 +42,12 @@ if (isset($_POST['id'])){
     $query->bindParam(":id", $_POST['id']);
     $query->bindParam(":nama", $_POST['nama']);
     $query->bindParam(":des", $_POST['des']);
+
+    if($_GET['ref'] == "ditolak"){
+        $status = 0;
+        $query->bindParam(":status", $status);
+    }
+
     if(!$berkas['name'] == ""){
         $query->bindParam(":berkas", $berkas['name']);
     }

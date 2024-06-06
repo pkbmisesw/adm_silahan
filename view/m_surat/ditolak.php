@@ -158,6 +158,15 @@ include('../head_table.php')
                                                 <a class="btn btn-success" href="../../controller/<?php echo $dba;?>_controller.php?op=approve&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin mengapprove permohonan ini?');">&#x2713;</a>
                                         </td>
                                         <?php } ?>
+                                        <?php if($_SESSION['level_id'] == 5){ ?>
+                                            <td>
+                                                <button
+                                                        data-id="<?= $data['id'] ?>"
+                                                        data-nama="<?= $data['nama']?>"
+                                                        data-des="<?= $data['des']?>"
+                                                        type="button" class="btn btn-light btn_update" data-toggle="modal">✎</button>
+                                            </td>
+                                        <?php } ?>
                                     </tr>
                                         <?php $count++; } ?>
                                     </tbody>
@@ -300,7 +309,7 @@ include('../footer_table.php')
                 <h5 class="modal-title" id="exampleModalLabel">Edit </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="edit.php" method="POST" enctype="multipart/form-data">
+            <form action="edit.php?ref=ditolak" method="POST" enctype="multipart/form-data">
 
                 <div class="modal-body">
                     <div class="form-group">
@@ -372,7 +381,7 @@ include('../footer_table.php')
 
         $('#btn-save-update').click(function(){
             $.ajax({
-                url: "edit.php",
+                url: "edit.php?ref=ditolak",
                 type : 'post',
                 data : $('#form-edit-transaksi-masuk').serialize(),
                 success: function(data){
