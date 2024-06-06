@@ -149,16 +149,11 @@ include('../head_table.php')
                                             <td><?= $status . " - " . $data_user['nama'] . ' - ' . date_format(date_create($data['created_at']), "d/m/Y H:i:s"); ?></td>
                                         <?php } ?>
 
+                                        <?php if($_SESSION['level_id'] == 3){ ?>
                                         <td>
-                                            <?php if($_SESSION['level_id'] == 3){ ?>
-                                                <button
-                                                        data-id="<?= $data['id'] ?>"
-                                                        data-note="<?= $data['note'] ?>"
-                                                        type="button" class="btn btn-light btn_update_operator" data-toggle="modal">✎</button>
                                                 <a class="btn btn-success" href="../../controller/<?php echo $dba;?>_controller.php?op=disposisi&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin mendisposisikan permohonan ini?');">&#x2713;</a>
-                                                <a class="btn btn-danger" href="../../controller/<?php echo $dba;?>_controller.php?op=deny&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin menolak permohonan ini?');">X</a>
-                                            <?php } ?>
                                         </td>
+                                        <?php } ?>
                                     </tr>
                                         <?php $count++; } ?>
                                     </tbody>
