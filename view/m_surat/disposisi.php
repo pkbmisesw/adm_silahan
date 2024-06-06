@@ -8,7 +8,7 @@ if(isset($_SESSION['email'])== 0) {
     header('Location: ../../index.php');
 }
 
-if(!($_SESSION['level_id'] == "1" || $_SESSION['level_id'] == 3 || $_SESSION['level_id'] == 4)){
+if(!($_SESSION['level_id'] == "1" || $_SESSION['level_id'] == 3 || $_SESSION['level_id'] == 4 || $_SESSION['level_id'] == 5)){
     echo "<script>alert('Maaf! anda tidak bisa mengakses halaman ini '); document.location.href='../admin/'</script>";
 }
 
@@ -98,8 +98,13 @@ include('../head_table.php')
 
                                     $status = "";
 
-                                    $sql = $conn->prepare("SELECT m_surat.* FROM `m_surat` WHERE status=2 ORDER BY id DESC");
-                                    $sql->execute();
+                                    $sql = $conn->prepare("SELECT m_surat.* FROM `m_surat` WHERE status=2 AND user_id=:user_id ORDER BY id DESC");
+                                    $sql->execute([":user_id" => $_SESSION['user_id']]);
+
+                                    if($_SESSION['level_id'] == 4) {
+                                        $sql = $conn->prepare("SELECT m_surat.* FROM `m_surat` WHERE status=2 ORDER BY id DESC");
+                                        $sql->execute();
+                                    }
 
                                     if($_SESSION['level_id'] == 3){
                                         $sql = $conn->prepare("SELECT m_surat.* FROM `m_surat` WHERE status=2 AND petugas_id=:petugas_id ORDER BY id DESC");

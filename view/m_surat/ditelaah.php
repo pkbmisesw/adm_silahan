@@ -8,7 +8,7 @@ if(isset($_SESSION['email'])== 0) {
     header('Location: ../../index.php');
 }
 
-if(!($_SESSION['level_id'] == "1" || $_SESSION['level_id'] == 3 || $_SESSION['level_id'] == 4)){
+if(!($_SESSION['level_id'] == "1" || $_SESSION['level_id'] == 3 || $_SESSION['level_id'] == 4 || $_SESSION['level_id'] == 5)){
     echo "<script>alert('Maaf! anda tidak bisa mengakses halaman ini '); document.location.href='../admin/'</script>";
 }
 
@@ -85,7 +85,7 @@ include('../head_table.php')
                                         <th>Nama</th>
                                         <th>Berkas</th>
                                         <th>Status</th>
-                                        <?php if($_SESSION['level_id'] != 3) { ?>
+                                        <?php if($_SESSION['level_id'] == 4) { ?>
                                         <th>Aksi</th>
                                         <?php } ?>
                                     </tr>
@@ -154,7 +154,7 @@ include('../head_table.php')
                                             <td><?= $status . " - " . $data_user['nama'] . ' - ' . date_format(date_create($data['created_at']), "d/m/Y H:i:s"); ?></td>
                                         <?php } ?>
 
-                                        <?php if($_SESSION['level_id'] != 3) { ?>
+                                        <?php if($_SESSION['level_id'] == 4) { ?>
                                         <td>
                                                 <button
                                                         data-id="<?= $data['id'] ?>"
