@@ -72,11 +72,6 @@ include('../head_table.php')
                             <div class="card-body">
 
                                 <h4 class="card-title">Data <?= $master; ?> Disposisi</h4>
-                                <?php if(!($_SESSION['level_id'] == 3 || $_SESSION['level_id'] == 4)){ ?>
-                                    <button type="button" class="btn btn-primary mb-4 mt-3" data-bs-toggle="modal" data-bs-target="#tambah">
-                                        Ajukan Permohonan
-                                    </button>
-                                <?php } ?>
 
                                 <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>

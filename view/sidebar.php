@@ -148,7 +148,6 @@
                         <li><a href="../m_surat/ditolak.php">Surat Ditolak</a></li>
                         <li><a href="../m_surat/disposisi.php">Surat Disposisi</a></li>
                         <li><a href="../m_surat/ditelaah.php">Surat Ditelaah</a></li>
-                        <li><a href="../m_surat/direview.php">Surat In Review</a></li>
                         <li><a href="../m_surat/selesai.php">Surat Selesai</a></li>
                     </ul>
                 </li>
