@@ -80,9 +80,6 @@ include('../head_table.php')
                                         <th>Nama</th>
                                         <th>Berkas</th>
                                         <th>Status</th>
-                                        <?php if($_SESSION['level_id'] == 4) { ?>
-                                        <th>Aksi</th>
-                                        <?php } ?>
                                     </tr>
                                     </thead>
 
@@ -149,16 +146,6 @@ include('../head_table.php')
                                             <td><?= $status . " - " . $data_user['nama'] . ' - ' . date_format(date_create($data['created_at']), "d/m/Y H:i:s"); ?></td>
                                         <?php } ?>
 
-                                        <?php if($_SESSION['level_id'] == 4) { ?>
-                                        <td>
-                                                <button
-                                                        data-id="<?= $data['id'] ?>"
-                                                        data-nama="<?= $data['nama']?>"
-                                                        data-des="<?= $data['des']?>"
-                                                        type="button" class="btn btn-light btn_update" data-toggle="modal">✎</button>
-                                                <a class="btn btn-danger" href="../../controller/<?php echo $dba;?>_controller.php?op=hapus&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?');">X</a>
-                                        </td>
-                                        <?php } ?>
                                     </tr>
                                         <?php $count++; } ?>
                                     </tbody>
