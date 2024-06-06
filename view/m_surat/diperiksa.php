@@ -137,9 +137,9 @@ include('../head_table.php')
                                         <td><?= $count; ?></td>
                                         <td><?= $data['nama'] . ' - ' . $data['des']; ?></td>
                                         <?php if(!$data['note']){ ?>
-                                            <td><a href="../../images/<?= $data['berkas']; ?>">Lihat Berkas</a></td>
+                                            <td><a href="../../images/<?= $data['berkas']; ?>" target="_blank">Lihat Berkas</a></td>
                                         <?php } else { ?>
-                                            <td><a href="../../images/<?= $data['berkas']; ?>">Lihat Berkas</a><br><small><?= $data['note'] ?></small></td>
+                                            <td><a href="../../images/<?= $data['berkas']; ?>" target="_blank">Lihat Berkas</a><br><small><?= $data['note'] ?></small></td>
                                         <?php } ?>
 
                                         <?php if(!$data['petugas_id']){ ?>

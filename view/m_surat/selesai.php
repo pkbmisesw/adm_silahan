@@ -128,7 +128,12 @@ include('../head_table.php')
                                     <tr>
                                         <td><?= $count; ?></td>
                                         <td><?= $data['nama'] . ' - ' . $data['des']; ?></td>
-                                        <td><a href="../../images/<?= $data['berkas']; ?>">Lihat Berkas</a></td>
+                                        <?php if(!$data['note']){ ?>
+                                            <td><a href="../../images/<?= $data['berkas']; ?>" target="_blank">Lihat Berkas</a></td>
+                                        <?php } else { ?>
+                                            <td><a href="../../images/<?= $data['berkas']; ?>" target="_blank">Lihat Berkas</a><br><small><?= $data['note'] ?></small></td>
+                                        <?php } ?>
+
                                         <?php if(!$data['petugas_id']){ ?>
                                             <td><?= $status . " - " . "Menunggu Petugas Cek"; ?></td>
                                         <?php } else {
