@@ -152,12 +152,20 @@ include('../head_table.php')
                                             <td><?= $status . " - " . $data_user['nama'] . ' - ' . date_format(date_create($data['created_at']), "d/m/Y H:i:s"); ?></td>
                                         <?php } ?>
                                         <td>
+                                            <?php if($_SESSION['level_id'] == 3){ ?>
+                                                <button
+                                                        data-id="<?= $data['id'] ?>"
+                                                        data-note="<?= $data['note'] ?>"
+                                                        type="button" class="btn btn-light btn_update_operator" data-toggle="modal">✎</button>
+                                                <a class="btn btn-success" href="../../controller/<?php echo $dba;?>_controller.php?op=approve&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin mengapprove permohonan ini?');">&#x2713;</a>
+                                            <?php } else { ?>
                                             <button
                                                     data-id="<?= $data['id'] ?>"
                                                     data-nama="<?= $data['nama']?>"
                                                     data-des="<?= $data['des']?>"
                                                     type="button" class="btn btn-light btn_update" data-toggle="modal">✎</button>
                                             <a class="btn btn-danger" href="../../controller/<?php echo $dba;?>_controller.php?op=hapus&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?');">X</a>
+                                            <?php } ?>
                                         </td>
                                     </tr>
                                         <?php } ?>
@@ -250,6 +258,8 @@ include('../head_table.php')
 include('../footer_table.php')
 ?>
 
+<?php if($_SESSION['level_id'] != 3){ ?>
+
 <!-- Modal Tambah -->
 <div class="modal fade" id="tambah" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 
@@ -332,6 +342,39 @@ include('../footer_table.php')
     </div>
 </div>
 
+<?php } ?>
+
+<?php if($_SESSION['level_id'] == 3){ ?>
+    <!-- Modal Edit Operator -->
+    <div class="modal fade" id="edit_operator" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="form-edit-transaksi-masuk" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="hidden" id="id_edit" name="id" />
+
+                            <div class="form-group">
+                                <label class="control-label" >Catatan : </label>
+                                <input type="text" class="form-control" id="note_edit" name="note" placeholder="Silahkan Mengisi Catatan"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="btn-save-update-operator">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+<?php } ?>
+
 
 <script type="text/javascript">
     $(document).ready(function(){
@@ -351,12 +394,33 @@ include('../footer_table.php')
             })
         });
 
+        $('#btn-save-update-operator').click(function(){
+            $.ajax({
+                url: "edit_operator.php",
+                type : 'post',
+                data : $('#form-edit-transaksi-masuk').serialize(),
+                success: function(data){
+                    var res = JSON.parse(data);
+                    if (res.code == 200){
+                        alert('Success Update');
+                        location.reload();
+                    }
+                }
+            })
+        });
+
         $(document).on('click','.btn_update',function(){
             console.log("Masuk");
             $("#id_edit").val($(this).attr('data-id'));
             $("#nama_edit").val($(this).attr('data-nama'));
             $("#des_edit").val($(this).attr('data-des'));
             $('#edit').modal('show');
+        });
+
+        $(document).on('click','.btn_update_operator',function(){
+            $("#id_edit").val($(this).attr('data-id'));
+            $("#note_edit").val($(this).attr('data-note'));
+            $('#edit_operator').modal('show');
         });
     });
 
