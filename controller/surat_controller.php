@@ -124,4 +124,22 @@ if($op == "tambah"){
         echo "<script>alert('Gagal Disposisi'); history.back();</script>";
         return;
     }
+} else if($op == "telaah"){
+    $id = isset($_GET['id']) ? $_GET['id'] : '';
+
+    if(!$id){
+        echo '<script>history.back();</script>';
+    }
+
+    $sql = "UPDATE `m_surat` SET `status`=3, `petugas_id`=:petugas_id WHERE `id`=:id";
+    $query = $conn->prepare($sql);
+    $result = $query->execute([":id" => $id, ":petugas_id" => $_SESSION['user_id']]);
+
+    if ($result){
+        echo "<script>alert('Berhasil Ditelaah'); history.back();</script>";
+        return;
+    }else{
+        echo "<script>alert('Gagal Ditelaah'); history.back();</script>";
+        return;
+    }
 }

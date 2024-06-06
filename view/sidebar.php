@@ -127,7 +127,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="../m_surat/disposisi.php">Permohonan Didisposisi</a></li>
-                        <li><a href="../m_surat/sertifikasi.php">Permohonan Dengan Sertifikasi</a></li>
+                        <li><a href="../m_surat/ditelaah.php">Surat Ditelaah</a></li>
                     </ul>
                 </li>
 

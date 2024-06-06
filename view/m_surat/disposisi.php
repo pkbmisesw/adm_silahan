@@ -156,8 +156,7 @@ include('../head_table.php')
 
                                         <?php if($_SESSION['level_id'] == 4) { ?>
                                         <td>
-                                            <a class="btn btn-success" href="../../controller/<?php echo $dba;?>_controller.php?op=disposisi&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin mendisposisikan permohonan ini?');">&#x2713;</a>
-                                            <a class="btn btn-danger" href="../../controller/<?php echo $dba;?>_controller.php?op=deny&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin menolak permohonan ini?');">X</a>
+                                            <a class="btn btn-success" href="../../controller/<?php echo $dba;?>_controller.php?op=telaah&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin mendisposisikan permohonan ini?');">&#x2713;</a>
                                         </td>
                                         <?php } ?>
                                     </tr>
