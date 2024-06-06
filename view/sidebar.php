@@ -106,9 +106,11 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="../m_surat/">Semua Permohonan</a></li>
-                        <li><a href="../m_surat/diterima.php">Permohonan Diterima</a></li>
-                        <li><a href="../m_surat/ditolak.php">Permohonan Ditolak</a></li>
-                        <li><a href="../m_surat/selesai.php">Permohonan Selesai</a></li>
+                        <li><a href="../m_surat/diperiksa.php">Surat Diperiksa</a></li>
+                        <li><a href="../m_surat/ditolak.php">Surat Ditolak</a></li>
+                        <li><a href="../m_surat/disposisi.php">Surat Didisposisi</a></li>
+                        <li><a href="../m_surat/ditelaah.php">Surat Ditelaah</a></li>
+                        <li><a href="../m_surat/selesai.php">Surat Selesai</a></li>
                     </ul>
                 </li>
 
@@ -124,7 +126,7 @@
                         <span>Master Surat</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="../m_surat/diterima.php">Permohonan Diterima</a></li>
+                        <li><a href="../m_surat/disposisi.php">Permohonan Didisposisi</a></li>
                         <li><a href="../m_surat/sertifikasi.php">Permohonan Dengan Sertifikasi</a></li>
                     </ul>
                 </li>

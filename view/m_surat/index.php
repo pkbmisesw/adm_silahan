@@ -136,18 +136,29 @@ include('../head_table.php')
                                         <tr>
                                             <td><?= $count; ?></td>
                                             <td><?= $data['nama'] . ' - ' . $data['des']; ?></td>
-                                            <td><a href="../../images/<?= $data['berkas']; ?>">Lihat Berkas</a></td>
+                                            <?php if(!$data['note']){ ?>
+                                                <td><a href="../../images/<?= $data['berkas']; ?>">Lihat Berkas</a></td>
+                                            <?php } else { ?>
+                                                <td><a href="../../images/<?= $data['berkas']; ?>">Lihat Berkas</a><br><small><?= $data['note'] ?></small></td>
+                                            <?php } ?>
+
+
                                             <?php if(!$data['petugas_id']){ ?>
-                                                <td><?= $status . " - " . "Menunggu Petugas Cek" . ' - ' . date_format(date_create($data['created_at']), "d/m/Y"); ?></td>
+                                                <td><?= $status . " - " . "Menunggu Petugas Cek" . ' - ' . date_format(date_create($data['created_at']), "d/m/Y H:i:s"); ?></td>
                                             <?php } else {
                                                 $sql_user = $conn->prepare("SELECT nama FROM m_user WHERE id=:petugas_id");
                                                 $sql_user->execute([":petugas_id" => $data['petugas_id']]);
                                                 $data_user = $sql_user->fetch();
                                                 ?>
-                                                <td><?= $status . " - " . $data_user['nama']; ?></td>
+                                                <td><?= $status . " - " . $data_user['nama'] . ' - ' . date_format(date_create($data['created_at']), "d/m/Y H:i:s"); ?></td>
                                             <?php } ?>
+
                                             <td>
                                                 <?php if($_SESSION['level_id'] == 3){ ?>
+                                                    <button
+                                                            data-id="<?= $data['id'] ?>"
+                                                            data-note="<?= $data['note'] ?>"
+                                                            type="button" class="btn btn-light btn_update_operator" data-toggle="modal">✎</button>
                                                     <a class="btn btn-success" href="../../controller/<?php echo $dba;?>_controller.php?op=approve&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin mengapprove permohonan ini?');">&#x2713;</a>
                                                     <a class="btn btn-danger" href="../../controller/<?php echo $dba;?>_controller.php?op=deny&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin menolak permohonan ini?');">X</a>
                                                 <?php } else { ?>
@@ -339,12 +350,59 @@ include('../footer_table.php')
 
 <?php } ?>
 
+<?php if($_SESSION['level_id'] == 3){ ?>
+<!-- Modal Edit Operator -->
+<div class="modal fade" id="edit_operator" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="form-edit-transaksi-masuk" method="POST" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="hidden" id="id_edit" name="id" />
+
+                        <div class="form-group">
+                            <label class="control-label" >Catatan : </label>
+                            <input type="text" class="form-control" id="note_edit" name="note" placeholder="Silahkan Mengisi Catatan"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="btn-save-update-operator">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<?php } ?>
+
+
 <script type="text/javascript">
     $(document).ready(function(){
 
         $('#btn-save-update').click(function(){
             $.ajax({
                 url: "edit.php",
+                type : 'post',
+                data : $('#form-edit-transaksi-masuk').serialize(),
+                success: function(data){
+                    var res = JSON.parse(data);
+                    if (res.code == 200){
+                        alert('Success Update');
+                        location.reload();
+                    }
+                }
+            })
+        });
+
+        $('#btn-save-update-operator').click(function(){
+            $.ajax({
+                url: "edit_operator.php",
                 type : 'post',
                 data : $('#form-edit-transaksi-masuk').serialize(),
                 success: function(data){
@@ -400,6 +458,12 @@ include('../footer_table.php')
             $("#nama_edit").val($(this).attr('data-nama'));
             $("#des_edit").val($(this).attr('data-des'));
             $('#edit').modal('show');
+        });
+
+        $(document).on('click','.btn_update_operator',function(){
+            $("#id_edit").val($(this).attr('data-id'));
+            $("#note_edit").val($(this).attr('data-note'));
+            $('#edit_operator').modal('show');
         });
     });
 

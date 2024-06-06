@@ -66,6 +66,12 @@ include('../head.php');
                                         <?php
                                         $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM m_surat WHERE user_id=:user_id");
                                         $query->execute([":user_id" => $_SESSION['user_id']]);
+
+                                        if($_SESSION['level_id'] == 3){
+                                            $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM m_surat");
+                                            $query->execute([]);
+                                        }
+
                                         $data = $query->fetch();
                                         ?>
                                         <p class="text-truncate font-size-14 mb-2">Semua Permohonan</p>

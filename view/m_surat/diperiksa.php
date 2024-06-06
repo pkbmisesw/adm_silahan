@@ -57,7 +57,7 @@ include('../head_table.php')
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">Master <?= $master; ?></a></li>
-                                    <li class="breadcrumb-item active"><?= $master; ?> Ditolak</li>
+                                    <li class="breadcrumb-item active"><?= $master; ?> Diperiksa</li>
                                 </ol>
                             </div>
 
@@ -71,7 +71,7 @@ include('../head_table.php')
                         <div class="card">
                             <div class="card-body">
 
-                                <h4 class="card-title">Data <?= $master; ?> Ditolak</h4>
+                                <h4 class="card-title">Data <?= $master; ?> Diperiksa</h4>
                                 <?php if($_SESSION['level_id'] != 3){ ?>
                                     <button type="button" class="btn btn-primary mb-4 mt-3" data-bs-toggle="modal" data-bs-target="#tambah">
                                         Ajukan Permohonan
@@ -96,11 +96,11 @@ include('../head_table.php')
 
                                     $status = "";
 
-                                    $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE status=5 ORDER BY id DESC");
+                                    $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE status=1 ORDER BY id DESC");
                                     $sql->execute();
 
                                     if($_SESSION['level_id'] == 3){
-                                        $sql = $conn->prepare("SELECT m_surat.* FROM `m_surat` WHERE status=5 AND petugas_id=:petugas_id ORDER BY id DESC");
+                                        $sql = $conn->prepare("SELECT m_surat.* FROM `m_surat` WHERE status=1 AND petugas_id=:petugas_id ORDER BY id DESC");
                                         $sql->execute([":petugas_id" => $_SESSION['user_id']]);
                                     }
 
@@ -136,7 +136,12 @@ include('../head_table.php')
                                     <tr>
                                         <td><?= $count; ?></td>
                                         <td><?= $data['nama'] . ' - ' . $data['des']; ?></td>
-                                        <td><a href="../../images/<?= $data['berkas']; ?>">Lihat Berkas</a></td>
+                                        <?php if(!$data['note']){ ?>
+                                            <td><a href="../../images/<?= $data['berkas']; ?>">Lihat Berkas</a></td>
+                                        <?php } else { ?>
+                                            <td><a href="../../images/<?= $data['berkas']; ?>">Lihat Berkas</a><br><small><?= $data['note'] ?></small></td>
+                                        <?php } ?>
+
                                         <?php if(!$data['petugas_id']){ ?>
                                             <td><?= $status . " - " . "Menunggu Petugas Cek" . ' - ' . date_format(date_create($data['created_at']), "d/m/Y H:i:s"); ?></td>
                                         <?php } else {
@@ -146,16 +151,26 @@ include('../head_table.php')
                                             ?>
                                             <td><?= $status . " - " . $data_user['nama'] . ' - ' . date_format(date_create($data['created_at']), "d/m/Y H:i:s"); ?></td>
                                         <?php } ?>
+
                                         <td>
-                                            <button
-                                                    data-id="<?= $data['id'] ?>"
-                                                    data-nama="<?= $data['nama']?>"
-                                                    data-des="<?= $data['des']?>"
-                                                    type="button" class="btn btn-light btn_update" data-toggle="modal">✎</button>
-                                            <a class="btn btn-danger" href="../../controller/<?php echo $dba;?>_controller.php?op=hapus&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?');">X</a>
+                                            <?php if($_SESSION['level_id'] == 3){ ?>
+                                                <button
+                                                        data-id="<?= $data['id'] ?>"
+                                                        data-note="<?= $data['note'] ?>"
+                                                        type="button" class="btn btn-light btn_update_operator" data-toggle="modal">✎</button>
+                                                <a class="btn btn-success" href="../../controller/<?php echo $dba;?>_controller.php?op=disposisi&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin mendisposisikan permohonan ini?');">&#x2713;</a>
+                                                <a class="btn btn-danger" href="../../controller/<?php echo $dba;?>_controller.php?op=deny&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin menolak permohonan ini?');">X</a>
+                                            <?php } else { ?>
+                                                <button
+                                                        data-id="<?= $data['id'] ?>"
+                                                        data-nama="<?= $data['nama']?>"
+                                                        data-des="<?= $data['des']?>"
+                                                        type="button" class="btn btn-light btn_update" data-toggle="modal">✎</button>
+                                                <a class="btn btn-danger" href="../../controller/<?php echo $dba;?>_controller.php?op=hapus&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?');">X</a>
+                                            <?php } ?>
                                         </td>
                                     </tr>
-                                        <?php } ?>
+                                        <?php $count++; } ?>
                                     </tbody>
                                 </table>
 
@@ -245,87 +260,125 @@ include('../head_table.php')
 include('../footer_table.php')
 ?>
 
-<!-- Modal Tambah -->
-<div class="modal fade" id="tambah" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<?php if($_SESSION['level_id'] != 3){ ?>
+
+    <!-- Modal Tambah -->
+    <div class="modal fade" id="tambah" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 
 
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah <?php echo $master;?></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah <?php echo $master;?></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
                 <form action="../../controller/<?php echo $dba;?>_controller.php?op=tambah" method="post"  enctype="multipart/form-data">
-                    <input type="hidden" name="status" value="4" />
-
-                    <div class="form-group">
-                        <label class="control-label" >Nama : </label>
-                        <input type="text" class="form-control" name="nama" placeholder="Silahkan Mengisi Nama"/>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label" >Deskripsi : </label>
-                        <input type="text" class="form-control" name="des" placeholder="Silahkan Mengisi Deskripsi"/>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label" >Berkas : </label>
-                        <input type="file" class="form-control" name="berkas" required/>
-                        <!-- <small>Hanya dapat upload file .pdf</small> -->
-                    </div>
-
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button  type="submit" name="upload" type="button" class="btn btn-primary" >Kirim Permohonan</button>
-            </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Edit -->
-<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="edit.php" method="POST" enctype="multipart/form-data">
-
-                <div class="modal-body">
-                    <div class="form-group">
-                        <input type="hidden" id="id_edit" name="id" />
+                    <div class="modal-body">
 
                         <div class="form-group">
                             <label class="control-label" >Nama : </label>
-                            <input type="text" class="form-control" id="nama_edit" name="nama" placeholder="Silahkan Mengisi Nama"/>
+                            <input type="text" class="form-control" name="nama" placeholder="Silahkan Mengisi Nama"/>
                         </div>
 
                         <div class="form-group">
                             <label class="control-label" >Deskripsi : </label>
-                            <input type="text" class="form-control" id="des_edit" name="des" placeholder="Silahkan Mengisi Deskripsi"/>
+                            <input type="text" class="form-control" name="des" placeholder="Silahkan Mengisi Deskripsi"/>
                         </div>
 
                         <div class="form-group">
                             <label class="control-label" >Berkas : </label>
-                            <input type="file" class="form-control" name="berkas"/>
-                            <!-- <small>Hanya dapat upload file .pdf</small> -->
+                            <input type="file" class="form-control" id="berkas_tambah" name="berkas" required/>
+                            <small class="text-danger">Hanya dapat upload file .pdf dan .zip dengan size maksimal 50mb.</small>
+                            <progress id="progressBar_tambah" value="0" max="100" style="width:100%;"></progress>
+                            <small id="uploadStatus_tambah"></small>
                         </div>
 
+
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" id="btn-save-update">Save changes</button>
-                </div>
-            </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button name="upload" type="submit" class="btn btn-primary" >Kirim Permohonan</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
+
+    <!-- Modal Edit -->
+    <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="edit.php" method="POST" enctype="multipart/form-data">
+
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="hidden" id="id_edit" name="id" />
+
+                            <div class="form-group">
+                                <label class="control-label" >Nama : </label>
+                                <input type="text" class="form-control" id="nama_edit" name="nama" placeholder="Silahkan Mengisi Nama"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label" >Deskripsi : </label>
+                                <input type="text" class="form-control" id="des_edit" name="des" placeholder="Silahkan Mengisi Deskripsi"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label" >Berkas : </label>
+                                <input type="file" class="form-control" id="berkas_edit" name="berkas" required/>
+                                <small class="text-danger">Hanya dapat upload file .pdf dan .zip dengan size maksimal 50mb.</small>
+                                <progress id="progressBar_edit" value="0" max="100" style="width:100%;"></progress>
+                                <small id="uploadStatus_edit"></small>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="btn-save-update">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+<?php } ?>
+
+<?php if($_SESSION['level_id'] == 3){ ?>
+    <!-- Modal Edit Operator -->
+    <div class="modal fade" id="edit_operator" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="form-edit-transaksi-masuk" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="hidden" id="id_edit" name="id" />
+
+                            <div class="form-group">
+                                <label class="control-label" >Catatan : </label>
+                                <input type="text" class="form-control" id="note_edit" name="note" placeholder="Silahkan Mengisi Catatan"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="btn-save-update-operator">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+<?php } ?>
 
 
 <script type="text/javascript">
@@ -346,12 +399,33 @@ include('../footer_table.php')
             })
         });
 
+        $('#btn-save-update-operator').click(function(){
+            $.ajax({
+                url: "edit_operator.php",
+                type : 'post',
+                data : $('#form-edit-transaksi-masuk').serialize(),
+                success: function(data){
+                    var res = JSON.parse(data);
+                    if (res.code == 200){
+                        alert('Success Update');
+                        location.reload();
+                    }
+                }
+            })
+        });
+
         $(document).on('click','.btn_update',function(){
             console.log("Masuk");
             $("#id_edit").val($(this).attr('data-id'));
             $("#nama_edit").val($(this).attr('data-nama'));
             $("#des_edit").val($(this).attr('data-des'));
             $('#edit').modal('show');
+        });
+
+        $(document).on('click','.btn_update_operator',function(){
+            $("#id_edit").val($(this).attr('data-id'));
+            $("#note_edit").val($(this).attr('data-note'));
+            $('#edit_operator').modal('show');
         });
     });
 
