@@ -57,7 +57,7 @@ include('../head_table.php')
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">Master <?= $master; ?></a></li>
-                                    <li class="breadcrumb-item active"><?= $master; ?> Ditelaah</li>
+                                    <li class="breadcrumb-item active"><?= $master; ?> Sedang Ditelaah</li>
                                 </ol>
                             </div>
 
@@ -71,7 +71,7 @@ include('../head_table.php')
                         <div class="card">
                             <div class="card-body">
 
-                                <h4 class="card-title">Data <?= $master; ?> Ditelaah</h4>
+                                <h4 class="card-title">Data <?= $master; ?> Sedang Ditelaah</h4>
 
                                 <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
@@ -93,11 +93,11 @@ include('../head_table.php')
 
                                     $status = "";
 
-                                    $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE status=3 ORDER BY id DESC");
+                                    $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE status=6 ORDER BY id DESC");
                                     $sql->execute();
 
                                     if($_SESSION['level_id'] == 3){
-                                        $sql = $conn->prepare("SELECT m_surat.* FROM `m_surat` WHERE status=3 AND petugas_id=:petugas_id ORDER BY id DESC");
+                                        $sql = $conn->prepare("SELECT m_surat.* FROM `m_surat` WHERE status=6 AND petugas_id=:petugas_id ORDER BY id DESC");
                                         $sql->execute([":petugas_id" => $_SESSION['user_id']]);
                                     }
 
@@ -151,7 +151,7 @@ include('../head_table.php')
 
                                         <?php if($_SESSION['level_id'] == 2){ ?>
                                             <td>
-                                                <a class="btn btn-success" href="../../controller/<?php echo $dba;?>_controller.php?op=sedangtelaah&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin mendisposisikan permohonan ini?');">&#x2713;</a>
+                                                <a class="btn btn-success" href="../../controller/<?php echo $dba;?>_controller.php?op=selesaitelaah&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin mendisposisikan permohonan ini?');">&#x2713;</a>
                                             </td>
                                         <?php } ?>
                                     </tr>

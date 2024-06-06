@@ -78,7 +78,9 @@
                         <span>Master Surat</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="">Surat Disposisi</a></li>
+                        <li><a href="../m_surat/ditelaah.php">Surat Ditelaah</a></li>
+                        <li><a href="../m_surat/sedangtelaah.php">Surat Sedang Ditelaah</a></li>
+                        <li><a href="../m_surat/selesaitelaah.php">Surat Selesai Ditelaah</a></li>
                     </ul>
                 </li>
 
