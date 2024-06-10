@@ -91,7 +91,7 @@
                         <span>Master Pengguna</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="email-inbox.html">Pengaktifan User</a></li>
+                        <li><a href="../m_user/">Pengaktifan User</a></li>
                         <li><a href="email-inbox.html">Pengaktifan User Dengan Tembusan</a></li>
                         <li><a href="email-inbox.html">Nama Penelaah</a></li>
                     </ul>
