@@ -153,7 +153,7 @@
                 <li>
                     <a href="../m_surat/" class="waves-effect">
                         <i class="ri-mail-send-line"></i>
-                        <span>Semua Permohonan</span>
+                        <span>Pengajuan Permohonan</span>
                     </a>
                 </li>    
                 <li>
