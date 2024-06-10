@@ -104,25 +104,15 @@ include('../head_table.php')
                                             <?php 
                                            if($data['level_id'] == 1){ 
                                             echo "Super Admin";
-                                           }
-
-                                           if($data['level_id'] == 2){ 
+                                           }else if($data['level_id'] == 2){
                                             echo "Admin";
-                                           }
-
-                                           if($data['level_id'] == 3){ 
+                                           }elseif($data['level_id'] == 3){ 
                                             echo "Operator";
-                                           }
-
-                                           if($data['level_id'] == 4){ 
+                                           }elseif($data['level_id'] == 4){ 
                                             echo "Pimpinan";
-                                           }
-
-                                           if($data['level_id'] == 5){ 
+                                           } elseif($data['level_id'] == 5){ 
                                             echo "Pemohon";
-                                           }
-
-                                           if($data['level_id'] == 6){ 
+                                           } elseif($data['level_id'] == 6){ 
                                             echo "Penelaah";
                                            }
                                             //echo $data['level_id']; 
