@@ -113,7 +113,8 @@ if(isset($_POST['login'])) {
 
                         </div>
                     </form>
-                    <button class="btn btn-success w-100 waves-effect waves-light " data-bs-toggle="modal" data-bs-target="#exampleModal">Create an Account</button>
+                    <button class="btn btn-success w-100 waves-effect waves-light mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Create an Account</button>
+                    <button class="btn btn-success w-100 waves-effect waves-light " data-bs-toggle="modal" data-bs-target="#modalRegisterPenelaah">Create Penelaah</button>
 
                 </div>
                 <!-- end -->
@@ -128,7 +129,7 @@ if(isset($_POST['login'])) {
 </div>
 <!-- end -->
 
-<!-- Modal -->
+<!-- Modal Register -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -186,6 +187,42 @@ if(isset($_POST['login'])) {
                     <div class="form-label-group">
                         <label>Email :</label>
                         <input type="email" name="email" class="form-control" placeholder="Email address" required>
+                    </div>
+
+                    <div class="form-label-group">
+                        <label>Password :</label>
+                        <input type="password" name="password" class="form-control" placeholder="Password" required>
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary waves-effect waves-light" name="daftar">Save changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Modal Register -->
+
+<!-- Modal Register Penelaah -->
+<div class="modal fade" id="modalRegisterPenelaah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Daftar Penelaah</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="register.php?op=penelaah" method="post" class="user" enctype="multipart/form-data">
+                    <div class="form-label-group">
+                        <label>Nama Lengkap :</label>
+                        <input type="text" name="nama" class="form-control" placeholder="Nama Lengkap" required autofocus>
+                    </div>
+
+                    <div class="form-label-group">
+                        <label>Email :</label>
+                        <input type="email" name="email" class="form-control" placeholder="Email Address" required>
                     </div>
 
                     <div class="form-label-group">
