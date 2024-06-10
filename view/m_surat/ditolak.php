@@ -80,7 +80,7 @@ include('../head_table.php')
                                         <th>Nama</th>
                                         <th>Berkas</th>
                                         <th>Status</th>
-                                        <?php if($_SESSION['level_id'] == 3){ ?>
+                                        <?php if($_SESSION['level_id'] == 3 || $_SESSION['level_id'] == 5){ ?>
                                         <th>Aksi</th>
                                         <?php } ?>
                                     </tr>
