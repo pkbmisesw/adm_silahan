@@ -127,9 +127,7 @@ include('../head_table.php')
 
                                         if($data['level_id'] == 0){ 
                                             echo "Tidak Aktif";
-                                        }
-
-                                        if($data['level_id'] == 1){ 
+                                        }elseif($data['level_id'] == 1){ 
                                             echo "Aktif";
                                         }
                                         //echo $data['status_aktif']; 
