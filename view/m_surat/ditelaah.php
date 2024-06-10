@@ -151,7 +151,9 @@ include('../head_table.php')
 
                                         <?php if($_SESSION['level_id'] == 2){ ?>
                                             <td>
-                                                <a class="btn btn-success" href="../../controller/<?php echo $dba;?>_controller.php?op=sedangtelaah&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin mendisposisikan permohonan ini?');">&#x2713;</a>
+                                                <button
+                                                        data-id="<?= $data['id'] ?>"
+                                                        type="button" class="btn btn-success btn_sedangtelaah" data-toggle="modal">&#x2713;</button>
                                             </td>
                                         <?php } ?>
                                     </tr>
@@ -334,6 +336,45 @@ include('../footer_table.php')
 
 <?php } ?>
 
+<?php if($_SESSION['level_id'] == 2){ ?>
+    <!-- Modal Edit Operator -->
+    <div class="modal fade" id="telaah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Assign </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="form-edit-transaksi-masuk" action="../../controller/surat_controller.php?op=sedangtelaah" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="hidden" id="id_telaah" name="id" />
+
+                            <div class="form-group">
+                                <label class="control-label" >Penelaah : </label>
+                                <select class="form-control select2" name="penelaah_id">
+                                    <?php
+                                    $sql_user = $conn->prepare("SELECT id, nama FROM m_user");
+                                    $sql_user->execute();
+                                    while($data_user = $sql_user->fetch()){
+                                    ?>
+                                        <option value="<?= $data_user['id'] ?>"><?= $data_user['nama']; ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="btn-save-update-operator">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+<?php } ?>
+
 <?php if($_SESSION['level_id'] == 3){ ?>
     <!-- Modal Edit Operator -->
     <div class="modal fade" id="edit_operator" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -368,6 +409,9 @@ include('../footer_table.php')
 
 <script type="text/javascript">
     $(document).ready(function(){
+        $('.select2').select2({
+            dropdownParent: $('#telaah')
+        });
 
         $('#btn-save-update').click(function(){
             $.ajax({
@@ -384,27 +428,9 @@ include('../footer_table.php')
             })
         });
 
-        $('#btn-save-update-operator').click(function(){
-            $.ajax({
-                url: "edit_operator.php",
-                type : 'post',
-                data : $('#form-edit-transaksi-masuk').serialize(),
-                success: function(data){
-                    var res = JSON.parse(data);
-                    if (res.code == 200){
-                        alert('Success Update');
-                        location.reload();
-                    }
-                }
-            })
-        });
-
-        $(document).on('click','.btn_update',function(){
-            console.log("Masuk");
-            $("#id_edit").val($(this).attr('data-id'));
-            $("#nama_edit").val($(this).attr('data-nama'));
-            $("#des_edit").val($(this).attr('data-des'));
-            $('#edit').modal('show');
+        $(document).on('click','.btn_sedangtelaah',function(){
+            $("#id_telaah").val($(this).attr('data-id'));
+            $('#telaah').modal('show');
         });
 
         $(document).on('click','.btn_update_operator',function(){

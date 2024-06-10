@@ -115,7 +115,7 @@ if($op == "tambah"){
 
     $sql = "UPDATE `m_surat` SET `status`=2, `petugas_id`=:petugas_id WHERE `id`=:id";
     $query = $conn->prepare($sql);
-    $result = $query->execute([":id" => $id, ":petugas_id" => $_SESSION['user_id']]);
+    $result = $query->execute([":id" => $id]);
 
     if ($result){
         echo "<script>alert('Berhasil Disposisi'); history.back();</script>";
@@ -133,7 +133,7 @@ if($op == "tambah"){
 
     $sql = "UPDATE `m_surat` SET `status`=3, `petugas_id`=:petugas_id WHERE `id`=:id";
     $query = $conn->prepare($sql);
-    $result = $query->execute([":id" => $id, ":petugas_id" => $_SESSION['user_id']]);
+    $result = $query->execute([":id" => $id]);
 
     if ($result){
         echo "<script>alert('Berhasil Ditelaah'); history.back();</script>";
@@ -143,15 +143,21 @@ if($op == "tambah"){
         return;
     }
 } else if($op == "sedangtelaah"){
-    $id = isset($_GET['id']) ? $_GET['id'] : '';
+    $id = isset($_POST['id']) ? $_POST['id'] : '';
 
     if(!$id){
         echo '<script>history.back();</script>';
     }
 
-    $sql = "UPDATE `m_surat` SET `status`=6, `petugas_id`=:petugas_id WHERE `id`=:id";
+    $telaah_id = isset($_POST['penelaah_id']) ? $_POST['penelaah_id'] : '';
+
+    if(!$telaah_id){
+        echo '<script>history.back();</script>';
+    }
+
+    $sql = "UPDATE `m_surat` SET `status`=6, `ppkh_id`=:ppkh_id, `telaah_id`=:telaah_id WHERE `id`=:id";
     $query = $conn->prepare($sql);
-    $result = $query->execute([":id" => $id, ":petugas_id" => $_SESSION['user_id']]);
+    $result = $query->execute([":id" => $id, ":ppkh_id" => $_SESSION['user_id'], ":telaah_id" => $telaah_id]);
 
     if ($result){
         echo "<script>alert('Berhasil Ditelaah'); history.back();</script>";
@@ -167,9 +173,9 @@ if($op == "tambah"){
         echo '<script>history.back();</script>';
     }
 
-    $sql = "UPDATE `m_surat` SET `status`=7, `petugas_id`=:petugas_id WHERE `id`=:id";
+    $sql = "UPDATE `m_surat` SET `status`=7 WHERE `id`=:id";
     $query = $conn->prepare($sql);
-    $result = $query->execute([":id" => $id, ":petugas_id" => $_SESSION['user_id']]);
+    $result = $query->execute([":id" => $id]);
 
     if ($result){
         echo "<script>alert('Berhasil Ditelaah'); history.back();</script>";
