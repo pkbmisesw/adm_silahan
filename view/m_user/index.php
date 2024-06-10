@@ -126,11 +126,25 @@ include('../head_table.php')
                                             echo "Penelaah";
                                            }
                                             //echo $data['level_id']; 
-                                            
                                             ?>
                                         
                                         </td>
-                                        <td><?php echo $data['status_aktif']; ?></td>
+                                        <td>
+                                            
+                                        <?php 
+
+                                        if($data['level_id'] == 0){ 
+                                            echo "Tidak Aktif";
+                                        }
+
+                                        if($data['level_id'] == 1){ 
+                                            echo "Aktif";
+                                        }
+                                        //echo $data['status_aktif']; 
+                                        
+                                        ?>
+                                    
+                                    </td>
                                         <td>
                                             <button
                                                     data-id="<?= $data['id'] ?>"
