@@ -151,12 +151,18 @@
                 <!-- Pemohon -->
                 <?php if($_SESSION['level_id'] == 5){ ?>
                 <li>
+                    <a href="../m_surat/" class="waves-effect">
+                        <i class="ri-mail-send-line"></i><span class="badge rounded-pill bg-success float-end">3</span>
+                        <span>Semua Permohonan</span>
+                    </a>
+                </li>    
+                <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="ri-mail-send-line"></i>
                         <span>Master Surat</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="../m_surat/">Semua Permohonan</a></li>
+                        <!-- <li><a href="../m_surat/">Semua Permohonan</a></li> -->
                         <li><a href="../m_surat/diperiksa.php">Surat Diperiksa</a></li>
                         <li><a href="../m_surat/ditolak.php">Surat Ditolak</a></li>
                         <li><a href="../m_surat/disposisi.php">Surat Disposisi</a></li>
