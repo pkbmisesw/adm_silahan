@@ -145,8 +145,19 @@ include('../head_table.php')
                                             $sql_user = $conn->prepare("SELECT nama FROM m_user WHERE id=:petugas_id");
                                             $sql_user->execute([":petugas_id" => $data['petugas_id']]);
                                             $data_user = $sql_user->fetch();
+
+                                            $sql_ppkh = $conn->prepare("SELECT nama FROM m_user WHERE id=:ppkh_id");
+                                            $sql_ppkh->execute([":ppkh_id" => $data['ppkh_id']]);
+                                            $data_ppkh = $sql_ppkh->fetch();
+
+                                            $sql_telaah = $conn->prepare("SELECT nama FROM m_user WHERE id=:telaah_id");
+                                            $sql_telaah->execute([":telaah_id" => $data['telaah_id']]);
+                                            $data_telaah = $sql_telaah->fetch();
                                             ?>
-                                            <td><?= $status . " - " . $data_user['nama'] . ' - ' . date_format(date_create($data['created_at']), "d/m/Y H:i:s"); ?></td>
+                                            <td>
+                                                <?= $status . " - " . $data_user['nama'] . ' - ' . date_format(date_create($data['created_at']), "d/m/Y H:i:s"); ?><br>
+                                                <?= "PPKH : " . $data_ppkh['nama'] . " - Penelaah : " . $data_telaah['nama']; ?>
+                                            </td>
                                         <?php } ?>
 
                                         <?php if($_SESSION['level_id'] == 2){ ?>
