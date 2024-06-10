@@ -152,7 +152,7 @@
                 <?php if($_SESSION['level_id'] == 5){ ?>
                 <li>
                     <a href="../m_surat/" class="waves-effect">
-                        <i class="ri-mail-send-line"></i><span class="badge rounded-pill bg-success float-end">3</span>
+                        <i class="ri-mail-send-line"></i>
                         <span>Semua Permohonan</span>
                     </a>
                 </li>    
