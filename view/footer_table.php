@@ -28,6 +28,7 @@
 <!-- Datatable init js -->
 <script src="../../assets/js/pages/datatables.init.js"></script>
 <script src="../../assets/libs/select2/js/select2.min.js"></script>
+<script src="../../assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 
 <script src="../../assets/js/app.js"></script>
 

@@ -113,7 +113,7 @@ if($op == "tambah"){
         echo '<script>history.back();</script>';
     }
 
-    $sql = "UPDATE `m_surat` SET `status`=2, `petugas_id`=:petugas_id WHERE `id`=:id";
+    $sql = "UPDATE `m_surat` SET `status`=2 WHERE `id`=:id";
     $query = $conn->prepare($sql);
     $result = $query->execute([":id" => $id]);
 
@@ -125,15 +125,25 @@ if($op == "tambah"){
         return;
     }
 } else if($op == "telaah"){
-    $id = isset($_GET['id']) ? $_GET['id'] : '';
+    $id = isset($_POST['id']) ? $_POST['id'] : '';
 
     if(!$id){
         echo '<script>history.back();</script>';
     }
 
-    $sql = "UPDATE `m_surat` SET `status`=3, `petugas_id`=:petugas_id WHERE `id`=:id";
+    $selesai_tgl = isset($_POST['selesai_tgl']) ? $_POST['selesai_tgl'] : '';
+
+    if(!$selesai_tgl){
+        echo '<script>history.back();</script>';
+    }
+
+    $formattedMulaiTgl = date("Y-m-d");
+    $formattedSelesaiTgl = date("Y-m-d", strtotime($selesai_tgl));
+
+
+    $sql = "UPDATE `m_surat` SET `status`=3, `mulai_tgl`=:mulai_tgl, `selesai_tgl`=:selesai_tgl WHERE `id`=:id";
     $query = $conn->prepare($sql);
-    $result = $query->execute([":id" => $id]);
+    $result = $query->execute([":id" => $id, ":mulai_tgl" => $formattedMulaiTgl, ":selesai_tgl" => $formattedSelesaiTgl]);
 
     if ($result){
         echo "<script>alert('Berhasil Ditelaah'); history.back();</script>";

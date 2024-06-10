@@ -17,6 +17,7 @@
     <link href="../../assets/libs/datatables.net-select-bs4/css//select.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 
     <link href="../../assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
 
     <!-- Responsive datatable examples -->
     <link href="../../assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />

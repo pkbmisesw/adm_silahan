@@ -156,7 +156,7 @@ include('../head_table.php')
 
                                         <?php if($_SESSION['level_id'] == 4) { ?>
                                         <td>
-                                            <a class="btn btn-success" href="../../controller/<?php echo $dba;?>_controller.php?op=telaah&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin mendisposisikan permohonan ini?');">&#x2713;</a>
+                                            <button data-id="<?= $data['id'] ?>" type="button" class="btn btn-success btn_disposisi" data-toggle="modal">&#x2713;</button>
                                         </td>
                                         <?php } ?>
                                     </tr>
@@ -339,23 +339,23 @@ include('../footer_table.php')
 
 <?php } ?>
 
-<?php if($_SESSION['level_id'] == 3){ ?>
+<?php if($_SESSION['level_id'] == 4){ ?>
     <!-- Modal Edit Operator -->
-    <div class="modal fade" id="edit_operator" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="disposisiModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit </h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Assign </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form id="form-edit-transaksi-masuk" method="POST" enctype="multipart/form-data">
+                <form id="form-edit-transaksi-masuk" action="../../controller/surat_controller.php?op=telaah" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="form-group">
-                            <input type="hidden" id="id_edit" name="id" />
+                            <input type="hidden" id="id_disposisi" name="id" />
 
                             <div class="form-group">
-                                <label class="control-label" >Catatan : </label>
-                                <input type="text" class="form-control" id="note_edit" name="note" placeholder="Silahkan Mengisi Catatan"/>
+                                <label class="control-label" >Tanggal Selesai : </label>
+                                <input type="text" name="selesai_tgl" class="form-control datepicker" data-date-container="#disposisiModal" data-date-format="dd-mm-yyyy" />
                             </div>
                         </div>
                     </div>
@@ -373,57 +373,20 @@ include('../footer_table.php')
 
 <script type="text/javascript">
     $(document).ready(function(){
+        var date = new Date();
+        date.setDate(date.getDate()+1);
 
-        $('#btn-save-update').click(function(){
-            $.ajax({
-                url: "edit.php",
-                type : 'post',
-                data : $('#form-edit-transaksi-masuk').serialize(),
-                success: function(data){
-                    var res = JSON.parse(data);
-                    if (res.code == 200){
-                        alert('Success Update');
-                        location.reload();
-                    }
-                }
-            })
+        $('.datepicker').datepicker({
+            startDate: date
         });
 
-        $('#btn-save-update-operator').click(function(){
-            $.ajax({
-                url: "edit_operator.php",
-                type : 'post',
-                data : $('#form-edit-transaksi-masuk').serialize(),
-                success: function(data){
-                    var res = JSON.parse(data);
-                    if (res.code == 200){
-                        alert('Success Update');
-                        location.reload();
-                    }
-                }
-            })
-        });
-
-        $(document).on('click','.btn_update',function(){
-            console.log("Masuk");
-            $("#id_edit").val($(this).attr('data-id'));
-            $("#nama_edit").val($(this).attr('data-nama'));
-            $("#des_edit").val($(this).attr('data-des'));
-            $('#edit').modal('show');
-        });
-
-        $(document).on('click','.btn_update_operator',function(){
-            $("#id_edit").val($(this).attr('data-id'));
-            $("#note_edit").val($(this).attr('data-note'));
-            $('#edit_operator').modal('show');
+        $(document).on('click','.btn_disposisi',function(){
+            $("#id_disposisi").val($(this).attr('data-id'));
+            $('#disposisiModal').modal('show');
         });
     });
 
     $(document).ready(function() {
-        $('#tambah').on('shown.bs.modal', function() {
-            $('#myInput').trigger('focus');
-        });
-
         $('#edit').on('shown.bs.modal', function() {
             $('#nama_edit').trigger('focus');
         });
