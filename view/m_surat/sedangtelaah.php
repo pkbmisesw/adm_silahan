@@ -153,10 +153,18 @@ include('../head_table.php')
                                             $sql_telaah = $conn->prepare("SELECT nama FROM m_user WHERE id=:telaah_id");
                                             $sql_telaah->execute([":telaah_id" => $data['telaah_id']]);
                                             $data_telaah = $sql_telaah->fetch();
+
+                                            $now = date_create("now");
+                                            $selesai_tgl = date_create($data['selesai_tgl']);
+                                            $diff = date_diff($now, $selesai_tgl);
                                             ?>
                                             <td>
                                                 <?= $status . " - " . $data_user['nama'] . ' - ' . date_format(date_create($data['created_at']), "d/m/Y H:i:s"); ?><br>
-                                                <?= "PPKH : " . $data_ppkh['nama'] . " - Penelaah : " . $data_telaah['nama']; ?>
+                                                <?= "PPKH : " . $data_ppkh['nama'] . " - Penelaah : " . $data_telaah['nama']; ?><br>
+                                                <?= "Mulai : " . $data['mulai_tgl'] . " - Selesai : " . $data['selesai_tgl'] ?><br>
+                                                <?php if($now < $selesai_tgl) {?>
+                                                <b class="text-danger font-weight-bold text-uppercase"><?= $diff->d+1 . ' HARI TERSISA'; ?></b>
+                                                <?php } ?>
                                             </td>
                                         <?php } ?>
 
