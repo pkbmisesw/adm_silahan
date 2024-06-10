@@ -102,17 +102,17 @@ include('../head_table.php')
                                         <td><?php echo $data['hp']; ?></td>
                                         <td>
                                             <?php 
-                                           if($data['level_id'] == 1){ 
+                                           if($data['level_id'] == '1'){ 
                                             echo "Super Admin";
-                                           }else if($data['level_id'] == 2){
+                                           } else if($data['level_id'] == '2'){
                                             echo "Admin";
-                                           }elseif($data['level_id'] == 3){ 
+                                           } elseif($data['level_id'] == '3'){ 
                                             echo "Operator";
-                                           }elseif($data['level_id'] == 4){ 
+                                           } elseif($data['level_id'] == '4'){ 
                                             echo "Pimpinan";
-                                           } elseif($data['level_id'] == 5){ 
+                                           } elseif($data['level_id'] == '5'){ 
                                             echo "Pemohon";
-                                           } elseif($data['level_id'] == 6){ 
+                                           } elseif($data['level_id'] == '6'){ 
                                             echo "Penelaah";
                                            }
                                             //echo $data['level_id']; 
