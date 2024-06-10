@@ -114,7 +114,7 @@ if(isset($_POST['login'])) {
                         </div>
                     </form>
                     <button class="btn btn-success w-100 waves-effect waves-light mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Create an Account</button>
-                    <button class="btn btn-success w-100 waves-effect waves-light " data-bs-toggle="modal" data-bs-target="#modalRegisterPenelaah">Create Penelaah</button>
+                    <!-- <button class="btn btn-success w-100 waves-effect waves-light " data-bs-toggle="modal" data-bs-target="#modalRegisterPenelaah">Create Penelaah</button> -->
 
                 </div>
                 <!-- end -->

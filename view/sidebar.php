@@ -112,7 +112,7 @@
                         <li><a href="../m_surat/ditolak.php">Surat Ditolak</a></li>
                         <li><a href="../m_surat/disposisi.php">Surat Didisposisi</a></li>
                         <li><a href="../m_surat/ditelaah.php">Surat Ditelaah</a></li>
-                        <li><a href="../m_surat/selesai.php">Surat Selesai</a></li>
+                        <li><a href="../m_surat/selesaitelaah.php">Surat Selesai Telaah</a></li>
                     </ul>
                 </li>
 
