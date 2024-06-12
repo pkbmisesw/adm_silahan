@@ -17,6 +17,11 @@ $data = $token->fetch();
 
 $email_verif = $data['email'];
 
+if (!$email_verif) {
+    echo "<script> alert('Token invalid')</script>";
+    exit();
+}
+
 $update_user = $conn->prepare("UPDATE `m_user` SET `status_aktif`=1 WHERE email = :email");
 
 $update_user->bindParam(':email', $email_verif);

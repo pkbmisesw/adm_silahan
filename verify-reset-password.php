@@ -1,44 +1,61 @@
 <?php
-error_reporting(0);
+
 include 'config.php';
 
-if (!isset($_SESSION['email']) == 0) {
-    header('Location: view/admin/');
-}
+if (isset($_POST['reset'])) {
+    // echo "ini adalah reset";
+    $password1 = $_POST['password1'];
+    $password2 = $_POST['password2'];
 
-if (isset($_POST['login'])) {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
-    try {
-        //$sql = "SELECT * FROM users WHERE name = :name AND password = :password";
-        $sql = "SELECT * FROM m_user WHERE email = :email AND status_aktif = 1";
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':email', $email);
-        //$stmt->bindParam(':password', $password);
-        $stmt->execute();
-
-        $row = $stmt->fetch();
-        $hash_password = $row['password'];
-        if (password_verify($password, $hash_password)) {
-            $count = $stmt->rowCount();
-            if ($count == 1) {
-                $_SESSION['email'] = $email;
-                $_SESSION['nama'] = $row['nama'];
-                $_SESSION['gambar'] = $row['gambar'];
-                $_SESSION['password'] = $row['password'];
-                $_SESSION['user_id'] = $row['id'];
-                $_SESSION['level_id'] = $row['level_id'];
-                header("Location: view/admin/");
-                return;
-            } else {
-                echo "<div class='notif'>Silahkan Lengkapi Data !</div>";
-            }
-        }
-    } catch (PDOException $e) {
-        echo $e->getMessage();
+    if ($password1 !== $password2) {
+        header('Location: verify-reset-password.php?error=Password tidak sama&token=' . $_GET['token']);
+        exit();
     }
+
+    $token = $conn->prepare("SELECT * FROM verify_code WHERE token = :token AND `type` = 'reset_password' LIMIT 1");
+    $token->bindParam(':token', $_GET['token']);
+    $token->execute();
+    $my_token = $token->fetch();
+
+    if (!$my_token['email']) {
+        header('Location: verify-reset-password.php?error=Token invalid&token=' . $_GET['token']);
+        exit();
+    }
+
+    $pass = password_hash($password1, PASSWORD_BCRYPT);
+
+    $user_update = $conn->prepare("UPDATE `m_user` SET `password`= :password_new WHERE email = :email");
+    $user_update->bindParam(':password_new', $pass);
+    $user_update->bindParam(':email', $my_token['email']);
+    $user_update->execute();
+
+    $token_delete = $conn->prepare('DELETE FROM `verify_code` WHERE token = :token');
+    $token_delete->execute([
+        ':token' => $_GET['token']
+    ]);
+    header("Location: index.php?success=Reset password success");
 }
+
+if (!isset($_GET['token'])) {
+    echo "<script> alert('token is required') </script>";
+    return;
+}
+
+$token = $conn->prepare("SELECT * FROM verify_code WHERE token = :token AND `type` = 'reset_password' LIMIT 1");
+
+$token->bindParam(':token', $_GET['token']);
+
+$token->execute();
+
+$data = $token->fetch();
+
+$email_verif = $data['email'];
+
+if (!$email_verif) {
+    echo "<script> alert('Token invalid')</script>";
+    exit();
+}
+
 
 ?>
 
@@ -82,49 +99,38 @@ if (isset($_POST['login'])) {
                         </div>
                     </div>
 
-                    <h4 class="text-muted text-center font-size-18"><b>Sign In</b></h4>
+                    <h4 class="text-muted text-center font-size-18"><b>Reset Password</b></h4>
 
                     <div class="p-3">
-                        <form class="form-horizontal mt-3" action="" method="post">
+                        <form class="form-horizontal mt-3" action="" method="post" autocomplete="off">
 
-                            <?php if ($_GET['success']) { ?>
-                                <div class="alert alert-success" role="alert">
-                                    <?= $_GET['success'] ?>
+                            <?php if ($_GET['error']) { ?>
+                                <div class="alert alert-danger" role="alert">
+                                    <?= $_GET['error'] ?>
                                 </div>
                             <?php } ?>
+
                             <div class="form-group mb-3 row">
                                 <div class="col-12">
-                                    <input class="form-control" type="text" required="" placeholder="Email"
-                                        name="email">
+                                    <input class="form-control" type="password" required="" placeholder="Password"
+                                        name="password1">
                                 </div>
                             </div>
 
                             <div class="form-group mb-3 row">
                                 <div class="col-12">
-                                    <input class="form-control" type="password" required="" placeholder="Password"
-                                        name="password">
+                                    <input class="form-control" type="password" required=""
+                                        placeholder="Confirmation Password" name="password2">
                                 </div>
                             </div>
 
                             <div class="form-group mb-3 text-center row mt-3 pt-1">
                                 <div class="col-12">
-                                    <button class="btn btn-warning w-100 waves-effect waves-light" name="login"
-                                        type="submit">Log In</button>
+                                    <button class="btn btn-warning w-100 waves-effect waves-light" name="reset"
+                                        type="submit">Reset</button>
                                 </div>
-
-                            </div>
-
-                            <div class="form-group mb-0 row mt-2">
-                                <!-- <div class="col-sm-7 mt-3">
-                                <a href="auth-recoverpw.html" class="text-muted"><i class="mdi mdi-lock"></i> Forgot your password?</a>
-                            </div> -->
                             </div>
                         </form>
-                        <button class="btn btn-success w-100 waves-effect waves-light mb-3" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">Create an Account</button>
-                        <!-- <button class="btn btn-success w-100 waves-effect waves-light " data-bs-toggle="modal" data-bs-target="#modalRegisterPenelaah">Create Penelaah</button> -->
-
-                        <a href="reset-password.php">Forgot Password</a>
                     </div>
                     <!-- end -->
                     <p>Versi 1.1.0</p>

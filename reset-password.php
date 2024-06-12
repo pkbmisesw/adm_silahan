@@ -1,24 +1,57 @@
 <?php
 error_reporting(0);
 include 'config.php';
+include './helpers/uuid.php';
+include './services/mailer.php';
 
 if (!isset($_SESSION['email']) == 0) {
     header('Location: view/admin/');
 }
 
-if (isset($_POST['login'])) {
+if (isset($_POST['reset'])) {
     $email = $_POST['email'];
-    $password = $_POST['password'];
 
     try {
         //$sql = "SELECT * FROM users WHERE name = :name AND password = :password";
-        $sql = "SELECT * FROM m_user WHERE email = :email AND status_aktif = 1";
+        $sql = "SELECT * FROM m_user WHERE email = :email LIMIT 1";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':email', $email);
         //$stmt->bindParam(':password', $password);
         $stmt->execute();
 
         $row = $stmt->fetch();
+        $uuid = gen_uuid();
+
+        if ($row['email']) {
+            $myfile = fopen("./view/reset_password.template", "r") or die("Unable to open file!");
+            $html_template = fread($myfile, filesize('./view/reset_password.template'));
+            $html_template = str_replace('::link_reset::', "$url_web/verify-reset-password.php?token=$uuid", $html_template);
+            // send_email("Verify Account", $email, $name, 'ADM Silahan', $html_template);
+            send_email("Reset Password - Silahan Kawan", $email, $row['nama'], 'ADM Silahan', $html_template);
+            fclose($myfile);
+
+            $token = $conn->prepare("INSERT INTO verify_code (
+                `token`,
+                `email`,
+                `type`
+                )
+                VALUES (
+                    :token, 
+                    :email,
+                    'reset_password');");
+
+            $token->bindParam(':token', $uuid);
+            $token->bindParam(':email', $email);
+            if (!$token->execute()) {
+                echo "<script>alert('Error database');</script>";
+                return;
+            }
+            header("Location: reset-password.php?success=Link verifikasi berhasil di kirim via email");
+        } else {
+            header("Location: reset-password.php?error=Email tidak ditemukan");
+        }
+
+        die();
         $hash_password = $row['password'];
         if (password_verify($password, $hash_password)) {
             $count = $stmt->rowCount();
@@ -82,10 +115,16 @@ if (isset($_POST['login'])) {
                         </div>
                     </div>
 
-                    <h4 class="text-muted text-center font-size-18"><b>Sign In</b></h4>
+                    <h4 class="text-muted text-center font-size-18"><b>Reset Password</b></h4>
 
                     <div class="p-3">
                         <form class="form-horizontal mt-3" action="" method="post">
+
+                            <?php if ($_GET['error']) { ?>
+                                <div class="alert alert-danger" role="alert">
+                                    <?= $_GET['error'] ?>
+                                </div>
+                            <?php } ?>
 
                             <?php if ($_GET['success']) { ?>
                                 <div class="alert alert-success" role="alert">
@@ -99,17 +138,10 @@ if (isset($_POST['login'])) {
                                 </div>
                             </div>
 
-                            <div class="form-group mb-3 row">
-                                <div class="col-12">
-                                    <input class="form-control" type="password" required="" placeholder="Password"
-                                        name="password">
-                                </div>
-                            </div>
-
                             <div class="form-group mb-3 text-center row mt-3 pt-1">
                                 <div class="col-12">
-                                    <button class="btn btn-warning w-100 waves-effect waves-light" name="login"
-                                        type="submit">Log In</button>
+                                    <button class="btn btn-warning w-100 waves-effect waves-light" name="reset"
+                                        type="submit">Reset</button>
                                 </div>
 
                             </div>
@@ -118,13 +150,9 @@ if (isset($_POST['login'])) {
                                 <!-- <div class="col-sm-7 mt-3">
                                 <a href="auth-recoverpw.html" class="text-muted"><i class="mdi mdi-lock"></i> Forgot your password?</a>
                             </div> -->
+
                             </div>
                         </form>
-                        <button class="btn btn-success w-100 waves-effect waves-light mb-3" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">Create an Account</button>
-                        <!-- <button class="btn btn-success w-100 waves-effect waves-light " data-bs-toggle="modal" data-bs-target="#modalRegisterPenelaah">Create Penelaah</button> -->
-
-                        <a href="reset-password.php">Forgot Password</a>
                     </div>
                     <!-- end -->
                     <p>Versi 1.1.0</p>
@@ -137,89 +165,6 @@ if (isset($_POST['login'])) {
         <!-- end container -->
     </div>
     <!-- end -->
-
-    <!-- Modal Register -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel">Daftar Institusi</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="register.php" method="post" class="user" enctype="multipart/form-data">
-                        <div class="form-label-group">
-                            <input type="checkbox" name="checkbox" id="checkbox_pribadi">
-                            <label for="checkbox_pribadi"> Daftar Sebagai Pribadi</label><br>
-                        </div>
-
-                        <div class="form-label-group">
-                            <label>Nama Institusi :</label>
-                            <input type="text" id="nama_institusi" name="nama_institusi" class="form-control"
-                                placeholder="Nama Institusi" required autofocus>
-                        </div>
-
-                        <!-- <div class="form-label-group">
-                        <label>Deskripsi Institusi :</label> -->
-                        <input type="hidden" name="deskripsi_institusi" class="form-control"
-                            placeholder="Deskripsi Institusi" required autofocus>
-                        <!-- </div> -->
-
-                        <div class="form-label-group">
-                            <label>Alamat Institusi :</label>
-                            <input type="text" id="alamat_institusi" name="alamat_institusi" class="form-control"
-                                placeholder="Alamat Institusi" required autofocus>
-                        </div>
-
-                        <!-- <div class="form-label-group">
-                        <label>Telp Institusi :</label> -->
-                        <input type="hidden" name="telp_institusi" class="form-control" placeholder="Telp Institusi"
-                            required autofocus>
-                        <!-- </div> -->
-
-                        <div class="form-label-group">
-                            <label>Nama Narahubung :</label>
-                            <input type="text" name="nama" class="form-control" placeholder="Nama Lengkap" required
-                                autofocus>
-                        </div>
-
-                        <div class="form-label-group">
-                            <label>Nomor HP / WA Narahubung :</label>
-                            <input type="text" name="hp" class="form-control" placeholder="085200000000" required>
-                            <small style="color:red;">* isi dimulai dari 0852000000</small>
-                        </div>
-
-                        <!-- <div class="form-label-group">
-                        <label>Jenis Kelamin :</label>
-                        <select class="form-control" id="gender" name="gender" required>
-                            <option value="1">Laki-laki</option>
-                            <option value="2">Perempuan</option>
-                        </select>
-                    </div> -->
-                        <input type="hidden" name="gender" class="form-control">
-
-                        <div class="form-label-group">
-                            <label>Email :</label>
-                            <input type="email" name="email" class="form-control" placeholder="Email address" required>
-                        </div>
-
-                        <div class="form-label-group">
-                            <label>Password :</label>
-                            <input type="password" name="password" class="form-control" placeholder="Password" required>
-                        </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary waves-effect waves-light" name="daftar">Save
-                        changes</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End of Modal Register -->
 
     <!-- Modal Register Penelaah -->
     <div class="modal fade" id="modalRegisterPenelaah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
