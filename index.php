@@ -96,7 +96,7 @@ if (isset($_POST['login'])) {
 
                             <div class="form-group mb-3 row">
                                 <div class="col-12">
-                                    <input class="form-control" type="text" required="" placeholder="Password"
+                                    <input class="form-control" type="password" required="" placeholder="Password"
                                         name="password">
                                 </div>
                             </div>
