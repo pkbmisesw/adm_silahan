@@ -62,6 +62,7 @@ if($op == "tambah"){
     $dir = "../images/";
     unlink($dir . basename($dataSurat['berkas']));
 
+    $sql = "DELETE FROM m_surat WHERE id = :id";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':id', $id);
     $stmt->execute();

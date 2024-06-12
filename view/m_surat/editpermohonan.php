@@ -95,19 +95,6 @@ include('../head_table.php')
                                             <small class="text-danger">Hanya dapat upload file .pdf dan .zip dengan size maksimal 50mb.</small>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label>Status:</label>
-                                            <select class="form-control" name="status">
-                                                <option value="0" <?= $data['status'] == 0 ? 'selected' : ''; ?>>Open</option>
-                                                <option value="1" <?= $data['status'] == 1 ? 'selected' : ''; ?>>Diperiksa</option>
-                                                <option value="2" <?= $data['status'] == 2 ? 'selected' : ''; ?>>Di-disposisi</option>
-                                                <option value="3" <?= $data['status'] == 3 ? 'selected' : ''; ?>>Ditelaah</option>
-                                                <option value="4" <?= $data['status'] == 4 ? 'selected' : ''; ?>>Diterima</option>
-                                                <option value="5" <?= $data['status'] == 5 ? 'selected' : ''; ?>>Ditolak</option>
-                                                <option value="6" <?= $data['status'] == 6 ? 'selected' : ''; ?>>Selesai</option>
-                                            </select>
-                                        </div>
-
                                         <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                                         <a href="index.php" class="btn btn-secondary">Batal</a>
                                     </form>
