@@ -10,9 +10,6 @@ if ($op == "tambah") {
     $berkas = $_FILES['berkas'];
     $status = isset($_POST['status']) ? $_POST['status'] : 0;
 
-    // print_r($_POST);
-    // die();
-
     $dir = "../images/";
     $pathFile = $dir . basename($berkas["name"]);
 
@@ -47,11 +44,9 @@ if ($op == "tambah") {
         if ($stmt) {
             echo "<script>alert('Berhasil Tambah');</script>";
             header("Location: http://localhost/adm_silahan/view/m_surat/");
-        if($stmt){
-            echo "<script>alert('Berhasil Tambah'); window.location.replace('../view/m_surat/')</script>";
             exit();
-        }else {
-            echo "<script>alert('Gagal Tambah'); window.location.replace('../view/m_surat/')</script>";
+        } else {
+            echo "<script>alert('Gagal Tambah'); history.back()</script>";
         }
     } catch (PDOException $e) {
         echo $e->getMessage();
@@ -199,10 +194,10 @@ if ($op == "tambah") {
         echo "<script>alert('Gagal Ditelaah'); history.back();</script>";
         return;
     }
-} else if($op == "sertifikat"){
+} else if ($op == "sertifikat") {
     $id = isset($_GET['id']) ? $_GET['id'] : '';
 
-    if(!$id){
+    if (!$id) {
         echo '<script>history.back();</script>';
     }
 
@@ -210,14 +205,14 @@ if ($op == "tambah") {
     $query = $conn->prepare($sql);
     $result = $query->execute([":id" => $id]);
 
-    if ($result){
+    if ($result) {
         echo "<script>alert('Berhasil Disertifikat'); history.back();</script>";
         return;
-    }else{
+    } else {
         echo "<script>alert('Gagal Disertifikat'); history.back();</script>";
         return;
     }
-}else if ($op == "upload"){
+} else if ($op == "upload") {
     $file = $_FILES['berkas'];
     $target_dir = "../images/sertifikasi/";
 
