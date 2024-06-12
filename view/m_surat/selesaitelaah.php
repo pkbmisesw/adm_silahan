@@ -81,7 +81,7 @@ include('../head_table.php')
                                         <th>Nama</th>
                                         <th>Berkas</th>
                                         <th>Status</th>
-                                        <?php if($_SESSION['level_id'] == 2 || $_SESSION['level_id'] == 3){ ?>
+                                        <?php if($_SESSION['level_id'] == 2 || $_SESSION['level_id'] == 3 || $_SESSION['level_id'] == 4){ ?>
                                         <th>Aksi</th>
                                         <?php } ?>
                                     </tr>
@@ -158,7 +158,7 @@ include('../head_table.php')
                                             <td><?= $status . " - " . $data_user['nama'] . ' - ' . date_format(date_create($data['created_at']), "d/m/Y H:i:s"); ?></td>
                                         <?php } ?>
 
-                                        <?php if($_SESSION['level_id'] == 2){
+                                        <?php if($_SESSION['level_id'] == 2 || $_SESSION['level_id'] == 4){
                                             if($data['berkas_serti']){
                                             ?>
                                                 <td>
