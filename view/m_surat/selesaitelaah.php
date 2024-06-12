@@ -81,7 +81,7 @@ include('../head_table.php')
                                         <th>Nama</th>
                                         <th>Berkas</th>
                                         <th>Status</th>
-                                        <?php if($_SESSION['level_id'] == 2 || $_SESSION['level_id'] == 3){ ?>
+                                        <?php if($_SESSION['level_id'] == 2 || $_SESSION['level_id'] == 3 || $_SESSION['level_id'] == 4){ ?>
                                         <th>Aksi</th>
                                         <?php } ?>
                                     </tr>
@@ -134,6 +134,10 @@ include('../head_table.php')
                                         if($data['status'] == 7){
                                             $status = "Selesai Ditelaah";
                                         }
+
+                                        if($data['status'] == 8){
+                                            $status = "Sertifikat";
+                                        }
                                         ?>
                                     <tr>
                                         <td><?= $count; ?></td>
@@ -154,11 +158,11 @@ include('../head_table.php')
                                             <td><?= $status . " - " . $data_user['nama'] . ' - ' . date_format(date_create($data['created_at']), "d/m/Y H:i:s"); ?></td>
                                         <?php } ?>
 
-                                        <?php if($_SESSION['level_id'] == 2){
+                                        <?php if($_SESSION['level_id'] == 2 || $_SESSION['level_id'] == 4){
                                             if($data['berkas_serti']){
                                             ?>
                                                 <td>
-                                                    <a class="btn btn-success" href="../../controller/<?php echo $dba;?>_controller.php?op=ditelaah&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin mendisposisikan permohonan ini?');">&#x2713;</a>
+                                                    <a class="btn btn-success" href="../../controller/<?php echo $dba;?>_controller.php?op=sertifikat&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin mendisposisikan permohonan ini?');">&#x2713;</a>
                                                 </td>
                                             <?php } else { ?>
                                                 <td>
