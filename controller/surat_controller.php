@@ -42,8 +42,8 @@ if ($op == "tambah") {
         $stmt->bindParam(':status', $status);
         $stmt->execute();
         if ($stmt) {
-            echo "<script>alert('Berhasil Tambah');</script>";
             header("Location: $url_web/view/m_surat/");
+            echo "<script>alert('Berhasil Tambah');</script>";
             exit();
         } else {
             echo "<script>alert('Gagal Tambah'); history.back()</script>";
