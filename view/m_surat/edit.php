@@ -55,10 +55,10 @@ if (isset($_POST['id'])){
     $result = $query->execute();
 
     if ($result){
-        echo "<script>alert('Success Update'); window.location.replace('../view/m_surat/');</script>";
+        echo "<script>alert('Success Update'); window.location.replace('../m_surat/');</script>";
         return;
     }else{
-        echo "<script>alert('Failed Update'); window.location.replace('../view/m_surat/');</script>";
+        echo "<script>alert('Failed Update'); window.location.replace('../m_surat/');</script>";
         return;
     }
 }
