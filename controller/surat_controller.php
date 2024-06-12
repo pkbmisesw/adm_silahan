@@ -62,7 +62,6 @@ if($op == "tambah"){
     $dir = "../images/";
     unlink($dir . basename($dataSurat['berkas']));
 
-    $sql = "DELETE FROM m_surat WHERE id = :id";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':id', $id);
     $stmt->execute();
@@ -196,4 +195,53 @@ if($op == "tambah"){
         echo "<script>alert('Gagal Ditelaah'); history.back();</script>";
         return;
     }
+}else if ($op == "upload"){
+    $file = $_FILES['berkas'];
+    $target_dir = "../images/sertifikasi/";
+        
+    if (!is_dir($target_dir)) {
+        mkdir($target_dir, 0777, true);
+    }
+        
+    $target_file = $target_dir . basename($file["name"]);
+    $fileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        
+    if ($fileType != "pdf" && $fileType != "zip") {
+        echo "Hanya file PDF dan ZIP yang diizinkan.";
+        exit;
+    }
+    
+    if (file_exists($target_file)) {
+        echo "File sudah ada.";
+        exit;
+    }
+    
+    if ($file["size"] > 50000000) {
+        echo "Ukuran file terlalu besar.";
+        exit;
+    }
+    
+    if (move_uploaded_file($file["tmp_name"], $target_file)) {
+        // File berhasil diupload, lanjutkan dengan menyimpan informasi ke database
+    
+        // Mendapatkan informasi file yang diupload
+        $file_name = basename($file["name"]);
+        $file_location = $target_file;
+    
+    
+        // Buat kueri SQL untuk menyimpan informasi ke database
+        $sql = "INSERT INTO m_surat (berkas_serti) VALUES ('$file_location')";
+    
+        if ($conn->query($sql) === TRUE) {
+            echo "Data file berhasil disimpan ke database.";
+            // Arahkan ke halaman setelah upload dan penyimpanan berhasil
+            header("Location: http://localhost/adm_silahan/view/m_surat/selesaitelaah.php");
+            exit;
+        } else {
+            echo "Error: " . $sql . "<br>";
+        }
+    } else {
+        echo "Terjadi kesalahan saat mengupload file.";
+    }
 }
+    

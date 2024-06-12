@@ -72,7 +72,12 @@ include('../head_table.php')
                             <div class="card-body">
 
                                 <h4 class="card-title">Data <?= $master; ?> Selesai Ditelaah</h4>
-
+                                <?php if ($_SESSION['level_id'] == 3) { ?>
+                                    <br>
+                                    <a href="add_selesaitelaah.php" class="btn btn-primary btn-md">Tambah Data</a>
+                                    <br>
+                                <?php }   ?>
+                                <br>
                                 <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                     <tr>
