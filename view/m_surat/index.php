@@ -73,9 +73,11 @@ include('../head_table.php')
 
                                 <h4 class="card-title">Data <?= $master; ?> Keseluruhan</h4>
                                 <?php if($_SESSION['level_id'] != 3){ ?>
-                                <button type="button" class="btn btn-primary mb-4 mt-3" data-bs-toggle="modal" data-bs-target="#tambah">
+                                <!-- <button type="button" class="btn btn-primary mb-4 mt-3" data-bs-toggle="modal" data-bs-target="#tambah">
                                     Ajukan Permohonan
-                                </button>
+                                </button> -->
+                                <a href="kirimpermohonan.php" class="btn btn-primary mb-4 mt-3">Ajukan Permohonan</a>
+
                                 <?php } ?>
 
                                 <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -162,11 +164,12 @@ include('../head_table.php')
                                                     <a class="btn btn-success" href="../../controller/<?php echo $dba;?>_controller.php?op=approve&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin mengapprove permohonan ini?');">&#x2713;</a>
                                                     <!-- <a class="btn btn-danger" href="../../controller/<?php echo $dba;?>_controller.php?op=deny&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin menolak permohonan ini?');">X</a> -->
                                                 <?php } else { ?>
-                                                <button
+                                                <!-- <button
                                                         data-id="<?= $data['id'] ?>"
                                                         data-nama="<?= $data['nama']?>"
                                                         data-des="<?= $data['des']?>"
-                                                        type="button" class="btn btn-light btn_update" data-toggle="modal">✎</button>
+                                                        type="button" class="btn btn-light btn_update" data-toggle="modal">✎</button> -->
+                                                <a href="editpermohonan.php?id=<?= $data['id']; ?>" class="btn btn-light">✎</a>
                                                 <a class="btn btn-danger" href="../../controller/<?php echo $dba;?>_controller.php?op=hapus&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?');">X</a>
                                                 <?php } ?>
                                             </td>
@@ -265,8 +268,6 @@ include('../footer_table.php')
 
 <!-- Modal Tambah -->
 <div class="modal fade" id="tambah" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-
-
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">

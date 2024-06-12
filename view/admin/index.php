@@ -157,6 +157,8 @@ include('../head.php');
                     </div><!-- end col -->
                 </div><!-- end row -->
 
+                <?php if ($_SESSION['level_id'] == 3) { ?>
+                <!-- start operators                             -->
                 <div class="row">
                     <div class="col-xl-6">
 
@@ -263,6 +265,8 @@ include('../head.php');
                     <!-- end col -->
                 </div>
                 <!-- end row -->
+                <!-- end operator  -->
+                <?php } ?>
 
                 <div class="row">
                     <div class="col-xl-8">
