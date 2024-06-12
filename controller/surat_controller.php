@@ -194,6 +194,24 @@ if($op == "tambah"){
         echo "<script>alert('Gagal Ditelaah'); history.back();</script>";
         return;
     }
+} else if($op == "sertifikat"){
+    $id = isset($_GET['id']) ? $_GET['id'] : '';
+
+    if(!$id){
+        echo '<script>history.back();</script>';
+    }
+
+    $sql = "UPDATE `m_surat` SET `status`=8 WHERE `id`=:id";
+    $query = $conn->prepare($sql);
+    $result = $query->execute([":id" => $id]);
+
+    if ($result){
+        echo "<script>alert('Berhasil Disertifikat'); history.back();</script>";
+        return;
+    }else{
+        echo "<script>alert('Gagal Disertifikat'); history.back();</script>";
+        return;
+    }
 }else if ($op == "upload"){
     $file = $_FILES['berkas'];
     $target_dir = "../images/sertifikasi/";

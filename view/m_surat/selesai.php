@@ -124,6 +124,14 @@ include('../head_table.php')
                                         if($data['status'] == 6){
                                             $status = "Selesai";
                                         }
+
+                                        if($data['status'] == 7){
+                                            $status = "Selesai Ditelaah";
+                                        }
+
+                                        if($data['status'] == 8){
+                                            $status = "Sertifikat";
+                                        }
                                         ?>
                                     <tr>
                                         <td><?= $count; ?></td>

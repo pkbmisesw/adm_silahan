@@ -134,6 +134,10 @@ include('../head_table.php')
                                         if($data['status'] == 7){
                                             $status = "Selesai Ditelaah";
                                         }
+
+                                        if($data['status'] == 8){
+                                            $status = "Sertifikat";
+                                        }
                                         ?>
                                     <tr>
                                         <td><?= $count; ?></td>
@@ -158,7 +162,7 @@ include('../head_table.php')
                                             if($data['berkas_serti']){
                                             ?>
                                                 <td>
-                                                    <a class="btn btn-success" href="../../controller/<?php echo $dba;?>_controller.php?op=ditelaah&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin mendisposisikan permohonan ini?');">&#x2713;</a>
+                                                    <a class="btn btn-success" href="../../controller/<?php echo $dba;?>_controller.php?op=sertifikat&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin mendisposisikan permohonan ini?');">&#x2713;</a>
                                                 </td>
                                             <?php } else { ?>
                                                 <td>
