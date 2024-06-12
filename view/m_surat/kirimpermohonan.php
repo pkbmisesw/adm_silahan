@@ -2,7 +2,7 @@
 session_start();
 error_reporting(0);
 
-include('../../config.php');
+include ('../../config.php');
 
 if (isset($_SESSION['email']) == 0) {
     header('Location: ../../index.php');
@@ -19,8 +19,8 @@ $ketnama = "Silahkan mengisi nama";
 ?>
 
 <?php
-include('../head_table.php')
-?>
+include ('../head_table.php')
+    ?>
 
 <body data-topbar="dark">
 
@@ -31,11 +31,11 @@ include('../head_table.php')
 
 
         <?php
-        include('../header.php');
+        include ('../header.php');
         ?>
 
         <?php
-        include('../sidebar.php');
+        include ('../sidebar.php');
         ?>
 
 
@@ -56,7 +56,8 @@ include('../head_table.php')
 
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
-                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Master <?= $master; ?></a></li>
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Master
+                                                <?= $master; ?></a></li>
                                         <li class="breadcrumb-item active"><?= $master; ?> Keseluruhan</li>
                                     </ol>
                                 </div>
@@ -72,24 +73,30 @@ include('../head_table.php')
                                 <div class="card-body">
 
                                     <h4 class="card-title">Form <?= $master; ?> Permohonan</h4>
-                                    <form action="../../controller/<?php echo $dba; ?>_controller.php?op=tambah" method="post" enctype="multipart/form-data">
+                                    <form action="../../controller/<?php echo $dba; ?>_controller.php?op=tambah"
+                                        method="post" enctype="multipart/form-data">
                                         <div class="form-body">
 
                                             <div class="form-group">
                                                 <label class="control-label">Nama : </label>
-                                                <input type="text" class="form-control" name="nama" placeholder="Silahkan Mengisi Nama" />
+                                                <input type="text" class="form-control" name="nama"
+                                                    placeholder="Silahkan Mengisi Nama" />
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="control-label">Deskripsi : </label>
-                                                <input type="text" class="form-control" name="des" placeholder="Silahkan Mengisi Deskripsi" />
+                                                <input type="text" class="form-control" name="des"
+                                                    placeholder="Silahkan Mengisi Deskripsi" />
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="control-label">Berkas : </label>
-                                                <input type="file" class="form-control" id="berkas_tambah" name="berkas" required />
-                                                <small class="text-danger">Hanya dapat upload file .pdf dan .zip dengan size maksimal 50mb.</small>
-                                                <progress id="progressBar_tambah" value="0" max="100" style="width:100%;"></progress>
+                                                <input type="file" class="form-control" id="berkas_tambah" name="berkas"
+                                                    required />
+                                                <small class="text-danger">Hanya dapat upload file .pdf dan .zip dengan
+                                                    size maksimal 50mb.</small>
+                                                <progress id="progressBar_tambah" value="0" max="100"
+                                                    style="width:100%;"></progress>
                                                 <small id="uploadStatus_tambah"></small>
                                             </div>
 
@@ -97,8 +104,9 @@ include('../head_table.php')
                                         </div>
                                         <div class="modal-footer">
                                             <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-                                            <a href="index.php" class="btn btn-secondary" >Kembali</a>
-                                            <button name="upload" type="submit" class="btn btn-primary">Kirim Permohonan</button>
+                                            <a href="index.php" class="btn btn-secondary">Kembali</a>
+                                            <button name="upload" type="submit" class="btn btn-primary">Kirim
+                                                Permohonan</button>
                                         </div>
                                     </form>
 
@@ -164,7 +172,8 @@ include('../head_table.php')
                     <img src="assets/images/layouts/layout-2.jpg" class="img-fluid img-thumbnail" alt="layout-2">
                 </div>
                 <div class="form-check form-switch mb-3">
-                    <input class="form-check-input theme-choice" type="checkbox" id="dark-mode-switch" data-bsStyle="assets/css/bootstrap-dark.min.css" data-appStyle="assets/css/app-dark.min.css">
+                    <input class="form-check-input theme-choice" type="checkbox" id="dark-mode-switch"
+                        data-bsStyle="assets/css/bootstrap-dark.min.css" data-appStyle="assets/css/app-dark.min.css">
                     <label class="form-check-label" for="dark-mode-switch">Dark Mode</label>
                 </div>
 
@@ -172,7 +181,8 @@ include('../head_table.php')
                     <img src="assets/images/layouts/layout-3.jpg" class="img-fluid img-thumbnail" alt="layout-3">
                 </div>
                 <div class="form-check form-switch mb-5">
-                    <input class="form-check-input theme-choice" type="checkbox" id="rtl-mode-switch" data-appStyle="assets/css/app-rtl.min.css">
+                    <input class="form-check-input theme-choice" type="checkbox" id="rtl-mode-switch"
+                        data-appStyle="assets/css/app-rtl.min.css">
                     <label class="form-check-label" for="rtl-mode-switch">RTL Mode</label>
                 </div>
 
@@ -187,21 +197,21 @@ include('../head_table.php')
     <div class="rightbar-overlay"></div>
 
     <?php
-    include('../footer_table.php')
-    ?>
+    include ('../footer_table.php')
+        ?>
 
 
 
 
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function () {
 
-            $('#btn-save-update').click(function() {
+            $('#btn-save-update').click(function () {
                 $.ajax({
                     url: "edit.php",
                     type: 'post',
                     data: $('#form-edit-transaksi-masuk').serialize(),
-                    success: function(data) {
+                    success: function (data) {
                         var res = JSON.parse(data);
                         if (res.code == 200) {
                             alert('Success Update');
@@ -211,12 +221,12 @@ include('../head_table.php')
                 })
             });
 
-            $('#btn-save-update-operator').click(function() {
+            $('#btn-save-update-operator').click(function () {
                 $.ajax({
                     url: "edit_operator.php",
                     type: 'post',
                     data: $('#form-edit-transaksi-masuk').serialize(),
-                    success: function(data) {
+                    success: function (data) {
                         var res = JSON.parse(data);
                         if (res.code == 200) {
                             alert('Success Update');
@@ -226,7 +236,7 @@ include('../head_table.php')
                 })
             });
 
-            $("#berkas_edit").on('change', function({
+            $("#berkas_edit").on('change', function ({
                 target
             }) {
                 const file = target.files[0];
@@ -248,9 +258,10 @@ include('../head_table.php')
                 reader.readAsArrayBuffer(file);
             });
 
-            $("#berkas_tambah").on('change', function({
+            $("#berkas_tambah").on('change', function ({
                 target
             }) {
+                console.log('berkas tambah changed');
                 const file = target.files[0];
 
                 const formdata = new FormData();
@@ -270,26 +281,26 @@ include('../head_table.php')
                 reader.readAsArrayBuffer(file);
             });
 
-            $(document).on('click', '.btn_update', function() {
+            $(document).on('click', '.btn_update', function () {
                 $("#id_edit").val($(this).attr('data-id'));
                 $("#nama_edit").val($(this).attr('data-nama'));
                 $("#des_edit").val($(this).attr('data-des'));
                 $('#edit').modal('show');
             });
 
-            $(document).on('click', '.btn_update_operator', function() {
+            $(document).on('click', '.btn_update_operator', function () {
                 $("#id_edit").val($(this).attr('data-id'));
                 $("#note_edit").val($(this).attr('data-note'));
                 $('#edit_operator').modal('show');
             });
         });
 
-        $(document).ready(function() {
-            $('#tambah').on('shown.bs.modal', function() {
+        $(document).ready(function () {
+            $('#tambah').on('shown.bs.modal', function () {
                 $('#myInput').trigger('focus');
             });
 
-            $('#edit').on('shown.bs.modal', function() {
+            $('#edit').on('shown.bs.modal', function () {
                 $('#nama_edit').trigger('focus');
             });
 

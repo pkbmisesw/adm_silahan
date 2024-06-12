@@ -1,10 +1,13 @@
 <?php
 include 'config.php';
-
+include './helpers/uuid.php';
+include './services/mailer.php';
+// create a new object
 
 if (isset($_POST['daftar'])) {
     $op = $_GET['op'];
-    if($op == "penelaah"){
+    $uuid = gen_uuid();
+    if ($op == "penelaah") {
         $name = $_POST['nama'];
         $email = $_POST['email'];
         $role_id = 6;
@@ -43,7 +46,29 @@ if (isset($_POST['daftar'])) {
             $stmt->bindParam(':level_id', $role_id);
             $stmt->bindParam(':status_aktif', $is_active);
 
-            if ($stmt->execute()) {
+            $token = $conn->prepare("INSERT INTO verify_code (
+                token,
+                email 
+                )
+                VALUES (
+                    :token, 
+                    :email);");
+
+            $token->bindParam(':token', $uuid);
+            $token->bindParam(':email', $email);
+
+            // send_email("Verify Account", $email, $name, 'ADM Silahan', "<html> Verify account: <a href='$url_web/verify_acoount.php?token=$uuid'>$url_web/verify_acoount.php?token=$uuid</a> </html> ");
+            // $myfile = fopen("./view/verify_email.template", "r") or die("Unable to open file!");
+            // send_email("Verify Account", $email, $name, 'ADM Silahan', fread($myfile, filesize('./view/verify_email.template')));
+            $myfile = fopen("./view/verify_email.template", "r") or die("Unable to open file!");
+            $html_template = fread($myfile, filesize('./view/verify_email.template'));
+            $html_template = str_replace('::dashboard_url::', "$url_web/verify_acoount.php?token=$uuid", $html_template);
+            $html_template = str_replace('::name::', $name, $html_template);
+            $html_template = str_replace('::email::', $email, $html_template);
+            $html_template = str_replace('::password::', $_POST['password'], $html_template);
+            send_email("Verify Account", $email, $name, 'ADM Silahan', $html_template);
+            fclose($myfile);
+            if ($stmt->execute() && $token->execute()) {
                 echo '<script>alert("Berhasil Buat Akun")</script>';
                 //redirect to another page
                 echo '<script>window.location.replace("index.php")</script>';
@@ -102,7 +127,29 @@ if (isset($_POST['daftar'])) {
                 $stmt->bindParam(':level_id', $role_id);
                 $stmt->bindParam(':status_aktif', $is_active);
 
-                if ($stmt->execute()) {
+                $token = $conn->prepare("INSERT INTO verify_code (
+                    token,
+                    email 
+                    )
+                    VALUES (
+                        :token, 
+                        :email);");
+
+                $token->bindParam(':token', $uuid);
+                $token->bindParam(':email', $email);
+
+                // send_email("Verify Account", $email, $name, 'ADM Silahan', "<html> Verify account: <a href='$url_web/verify_acoount.php?token=$uuid'>$url_web/verify_acoount.php?token=$uuid</a> </html> ");
+                $myfile = fopen("./view/verify_email.template", "r") or die("Unable to open file!");
+                $html_template = fread($myfile, filesize('./view/verify_email.template'));
+                $html_template = str_replace('::dashboard_url::', "$url_web/verify_acoount.php?token=$uuid", $html_template);
+                $html_template = str_replace('::name::', $name, $html_template);
+                $html_template = str_replace('::email::', $email, $html_template);
+                $html_template = str_replace('::password::', $_POST['password'], $html_template);
+                send_email("Verify Account", $email, $name, 'ADM Silahan', $html_template);
+                fclose($myfile);
+
+
+                if ($stmt->execute() && $token->execute()) {
                     echo '<script>alert("Berhasil Buat Akun")</script>';
                     //redirect to another page
                     echo '<script>window.location.replace("index.php")</script>';
