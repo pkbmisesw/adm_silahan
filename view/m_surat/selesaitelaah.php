@@ -154,10 +154,16 @@ include('../head_table.php')
                                             <td><?= $status . " - " . $data_user['nama'] . ' - ' . date_format(date_create($data['created_at']), "d/m/Y H:i:s"); ?></td>
                                         <?php } ?>
 
-                                        <?php if($_SESSION['level_id'] == 2){ ?>
-                                            <td>
-                                                <a class="btn btn-success" href="../../controller/<?php echo $dba;?>_controller.php?op=ditelaah&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin mendisposisikan permohonan ini?');">&#x2713;</a>
-                                            </td>
+                                        <?php if($_SESSION['level_id'] == 2){
+                                            if($data['berkas_serti']){
+                                            ?>
+                                                <td>
+                                                    <a class="btn btn-success" href="../../controller/<?php echo $dba;?>_controller.php?op=ditelaah&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin mendisposisikan permohonan ini?');">&#x2713;</a>
+                                                </td>
+                                            <?php } else { ?>
+                                                <td>
+                                                </td>
+                                            <?php } ?>
                                         <?php } ?>
                                         <?php if($_SESSION['level_id'] == 3){ ?>
                                             <td>
