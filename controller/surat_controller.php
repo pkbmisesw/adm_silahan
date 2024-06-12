@@ -43,7 +43,7 @@ if($op == "tambah"){
         $stmt->execute();
         if($stmt){
             echo "<script>alert('Berhasil Tambah');</script>";
-            header("Location: http://localhost/adm_silahan/view/m_surat/");
+            header("Location: ../view/m_surat/");
             exit();
         }else {
             echo "<script>alert('Gagal Tambah'); history.back()</script>";
