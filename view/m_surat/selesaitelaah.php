@@ -359,7 +359,7 @@ include('../footer_table.php')
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"><Upload></Upload> </h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Upload </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form id="form-edit-transaksi-masuk" action="../../controller/<?php echo $dba; ?>_controller.php?op=upload_serti" method="POST" enctype="multipart/form-data">
