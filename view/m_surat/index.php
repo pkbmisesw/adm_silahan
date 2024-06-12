@@ -116,7 +116,7 @@ include('../head_table.php')
                                         }
 
                                         if($data['status'] == 2){
-                                            $status = "Di-disposisi";
+                                                $status = "Di-disposisi";
                                         }
 
                                         if($data['status'] == 3){

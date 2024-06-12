@@ -243,4 +243,52 @@ if($op == "tambah"){
     } else {
         echo "Terjadi kesalahan saat mengupload file.";
     }
+}else if ($op == "upload_serti"){
+    $file = $_FILES['berkas'];
+    $target_dir = "../images/sertifikasi/";
+
+    $id = isset($_POST['id']) ? $_POST['id'] : '';
+
+    if(!$id){
+        echo '<script>history.back();</script>';
+    }
+
+    if (!is_dir($target_dir)) {
+        mkdir($target_dir, 0777, true);
+    }
+
+    $target_file = $target_dir . basename($file["name"]);
+    $fileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+    if ($fileType != "pdf") {
+        echo "<script>alert('Hanya PDF yang di izinkan.'); history.back();</script>";
+        exit;
+    }
+
+    if (file_exists($target_file)) {
+        echo "<script>alert('File sudah ada'); history.back();</script>";
+        exit;
+    }
+
+    if ($file["size"] > 50000000) {
+        echo "<script>alert('Ukuran file terlalu besar.'); history.back();</script>";
+        exit;
+    }
+
+    if (move_uploaded_file($file["tmp_name"], $target_file)) {
+        $file_name = basename($file["name"]);
+        $file_location = $target_file;
+
+        $sql = $conn->prepare("UPDATE `m_surat` SET `berkas_serti`=:berkas WHERE `id`=:id");
+
+        if ($sql->execute([":berkas" => basename($file['name']), ":id" => $id])) {
+            echo "<script>alert('Berhasil di upload'); history.back();</script>";
+            exit;
+        } else {
+            echo "<script>alert('Gagal di upload'); history.back();</script>";
+            exit();
+        }
+    } else {
+        echo "<script>alert('Gagal di upload'); history.back();</script>";
+    }
 }

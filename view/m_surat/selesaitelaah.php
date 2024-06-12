@@ -86,7 +86,7 @@ include('../head_table.php')
                                         <th>Nama</th>
                                         <th>Berkas</th>
                                         <th>Status</th>
-                                        <?php if($_SESSION['level_id'] == 2){ ?>
+                                        <?php if($_SESSION['level_id'] == 2 || $_SESSION['level_id'] == 3){ ?>
                                         <th>Aksi</th>
                                         <?php } ?>
                                     </tr>
@@ -162,6 +162,15 @@ include('../head_table.php')
                                         <?php if($_SESSION['level_id'] == 2){ ?>
                                             <td>
                                                 <a class="btn btn-success" href="../../controller/<?php echo $dba;?>_controller.php?op=ditelaah&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin mendisposisikan permohonan ini?');">&#x2713;</a>
+                                            </td>
+                                        <?php } ?>
+                                        <?php if($_SESSION['level_id'] == 3){ ?>
+                                            <td>
+                                                <button
+                                                        data-id="<?= $data['id'] ?>"
+                                                        type="button"
+                                                        class="btn btn-success btn_operator" data-toggle="modal"><i class="fa fa-upload"></i>
+                                                </button>
                                             </td>
                                         <?php } ?>
                                     </tr>
@@ -350,17 +359,20 @@ include('../footer_table.php')
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit </h5>
+                    <h5 class="modal-title" id="exampleModalLabel"><Upload></Upload> </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form id="form-edit-transaksi-masuk" method="POST" enctype="multipart/form-data">
+                <form id="form-edit-transaksi-masuk" action="../../controller/<?php echo $dba; ?>_controller.php?op=upload_serti" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="form-group">
                             <input type="hidden" id="id_edit" name="id" />
 
                             <div class="form-group">
-                                <label class="control-label" >Catatan : </label>
-                                <input type="text" class="form-control" id="note_edit" name="note" placeholder="Silahkan Mengisi Catatan"/>
+                                <label class="control-label" >Berkas : </label>
+                                <input type="file" class="form-control" id="berkas_edit" name="berkas" required/>
+                                <small class="text-danger">Hanya dapat upload file .pdf dengan size maksimal 50mb.</small>
+                                <progress id="progressBar_edit" value="0" max="100" style="width:100%;"></progress>
+                                <small id="uploadStatus_edit"></small>
                             </div>
                         </div>
                     </div>
@@ -409,6 +421,26 @@ include('../footer_table.php')
             })
         });
 
+        $("#berkas_edit").on('change', function({target}) {
+            const file = target.files[0];
+
+            const formdata = new FormData();
+            formdata.append("berkas", file);
+
+            const reader = new FileReader();
+
+            function progressHandler(event) {
+                if (event.lengthComputable) {
+                    let percentComplete = (event.loaded / event.total) * 100;
+                    $("#progressBar_edit").val(percentComplete);
+                    $("#uploadStatus_edit").html(percentComplete + "%");
+                }
+            }
+
+            reader.onprogress = progressHandler;
+            reader.readAsArrayBuffer(file);
+        });
+
         $(document).on('click','.btn_update',function(){
             console.log("Masuk");
             $("#id_edit").val($(this).attr('data-id'));
@@ -417,7 +449,7 @@ include('../footer_table.php')
             $('#edit').modal('show');
         });
 
-        $(document).on('click','.btn_update_operator',function(){
+        $(document).on('click','.btn_operator',function(){
             $("#id_edit").val($(this).attr('data-id'));
             $("#note_edit").val($(this).attr('data-note'));
             $('#edit_operator').modal('show');
