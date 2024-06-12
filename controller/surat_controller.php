@@ -45,7 +45,7 @@ if($op == "tambah"){
             echo "<script>alert('Berhasil Tambah'); window.location.replace('../view/m_surat/')</script>";
             exit();
         }else {
-            echo "<script>alert('Gagal Tambah'); history.back()</script>";
+            echo "<script>alert('Gagal Tambah'); window.location.replace('../view/m_surat/')</script>";
         }
     }
     catch(PDOException $e) {
