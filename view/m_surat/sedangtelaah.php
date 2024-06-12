@@ -163,7 +163,7 @@ include('../head_table.php')
                                                 <?= "PPKH : " . $data_ppkh['nama'] . " - Penelaah : " . $data_telaah['nama']; ?><br>
                                                 <?= "Mulai : " . $data['mulai_tgl'] . " - Selesai : " . $data['selesai_tgl'] ?><br>
                                                 <?php if($now < $selesai_tgl) {?>
-                                                <b class="text-danger font-weight-bold text-uppercase"><?= $diff->d+1 . ' HARI TERSISA'; ?></b>
+                                                <b class="text-danger font-weight-bold text-uppercase"><?= $diff->days+1 . ' HARI TERSISA'; ?></b>
                                                 <?php } ?>
                                             </td>
                                         <?php } ?>

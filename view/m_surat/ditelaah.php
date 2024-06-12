@@ -351,6 +351,11 @@ include('../footer_table.php')
                             <input type="hidden" id="id_telaah" name="id" />
 
                             <div class="form-group">
+                                <label class="control-label" >Tanggal Selesai : </label>
+                                <input type="text" name="selesai_tgl" class="form-control datepicker" data-date-container="#telaah" data-date-format="dd-mm-yyyy" />
+                            </div>
+
+                            <div class="form-group">
                                 <label class="control-label" >Penelaah : </label>
                                 <select class="form-control select2" name="penelaah_id">
                                     <?php
@@ -409,8 +414,15 @@ include('../footer_table.php')
 
 <script type="text/javascript">
     $(document).ready(function(){
+        var date = new Date();
+        date.setDate(date.getDate()+1);
+
         $('.select2').select2({
             dropdownParent: $('#telaah')
+        });
+
+        $('.datepicker').datepicker({
+            startDate: date
         });
 
         $('#btn-save-update').click(function(){
