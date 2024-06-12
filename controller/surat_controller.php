@@ -4,23 +4,23 @@ include "../config.php";
 // session_start();
 
 $op = $_GET['op'];
-if($op == "tambah"){
+if ($op == "tambah") {
     $nama = $_POST['nama'];
     $des = $_POST['des'];
     $berkas = $_FILES['berkas'];
     $status = isset($_POST['status']) ? $_POST['status'] : 0;
-    
+
     $dir = "../images/";
     $pathFile = $dir . basename($berkas["name"]);
 
-    $extFile = strtolower(pathinfo($pathFile,PATHINFO_EXTENSION));
+    $extFile = strtolower(pathinfo($pathFile, PATHINFO_EXTENSION));
     $allowedExt = ["pdf", "zip"];
-    if(!in_array($extFile, $allowedExt)){
+    if (!in_array($extFile, $allowedExt)) {
         echo '<script>alert("Hanya boleh mengupload file pdf dan zip.");history.back();</script>';
         return;
     }
 
-    if(!move_uploaded_file($berkas["tmp_name"], $pathFile)){
+    if (!move_uploaded_file($berkas["tmp_name"], $pathFile)) {
         echo '<script>alert("Upload gagal.");history.back();</script>';
         return;
     }
@@ -41,18 +41,17 @@ if($op == "tambah"){
         $stmt->bindParam(':berkas', $berkas['name']);
         $stmt->bindParam(':status', $status);
         $stmt->execute();
-        if($stmt){
+        if ($stmt) {
             echo "<script>alert('Berhasil Tambah');</script>";
             header("Location: http://localhost/adm_silahan/view/m_surat/");
             exit();
-        }else {
+        } else {
             echo "<script>alert('Gagal Tambah'); history.back()</script>";
         }
-    }
-    catch(PDOException $e) {
+    } catch (PDOException $e) {
         echo $e->getMessage();
     }
-}else if($op == "hapus"){
+} else if ($op == "hapus") {
     $id = $_GET['id'];
 
     $querySurat = $conn->prepare("SELECT * FROM m_surat WHERE id=:id");
@@ -67,15 +66,15 @@ if($op == "tambah"){
     $stmt->bindParam(':id', $id);
     $stmt->execute();
 
-    if($stmt){
+    if ($stmt) {
         echo "<script>alert('Berhasil Menghapus'); history.back();</script>";
-    }else{
+    } else {
         echo "<script>alert('Gagal Menghapus'); history.back();</script>";
     }
-} else if($op == "approve"){
+} else if ($op == "approve") {
     $id = isset($_GET['id']) ? $_GET['id'] : '';
 
-    if(!$id){
+    if (!$id) {
         echo '<script>history.back();</script>';
     }
 
@@ -83,17 +82,17 @@ if($op == "tambah"){
     $query = $conn->prepare($sql);
     $result = $query->execute([":id" => $id, ":petugas_id" => $_SESSION['user_id']]);
 
-    if ($result){
+    if ($result) {
         echo "<script>alert('Berhasil Approve'); history.back();</script>";
         return;
-    }else{
+    } else {
         echo "<script>alert('Gagal Approve'); history.back();</script>";
         return;
     }
-} else if($op == "deny"){
+} else if ($op == "deny") {
     $id = isset($_GET['id']) ? $_GET['id'] : '';
 
-    if(!$id){
+    if (!$id) {
         echo '<script>history.back();</script>';
     }
 
@@ -101,17 +100,17 @@ if($op == "tambah"){
     $query = $conn->prepare($sql);
     $result = $query->execute([":id" => $id, ":petugas_id" => $_SESSION['user_id']]);
 
-    if ($result){
+    if ($result) {
         echo "<script>alert('Berhasil Deny'); history.back();</script>";
         return;
-    }else{
+    } else {
         echo "<script>alert('Gagal Deny'); history.back();</script>";
         return;
     }
-} else if($op == "disposisi"){
+} else if ($op == "disposisi") {
     $id = isset($_GET['id']) ? $_GET['id'] : '';
 
-    if(!$id){
+    if (!$id) {
         echo '<script>history.back();</script>';
     }
 
@@ -119,23 +118,23 @@ if($op == "tambah"){
     $query = $conn->prepare($sql);
     $result = $query->execute([":id" => $id]);
 
-    if ($result){
+    if ($result) {
         echo "<script>alert('Berhasil Disposisi'); history.back();</script>";
         return;
-    }else{
+    } else {
         echo "<script>alert('Gagal Disposisi'); history.back();</script>";
         return;
     }
-} else if($op == "telaah"){
+} else if ($op == "telaah") {
     $id = isset($_POST['id']) ? $_POST['id'] : '';
 
-    if(!$id){
+    if (!$id) {
         echo '<script>history.back();</script>';
     }
 
     $selesai_tgl = isset($_POST['selesai_tgl']) ? $_POST['selesai_tgl'] : '';
 
-    if(!$selesai_tgl){
+    if (!$selesai_tgl) {
         echo '<script>history.back();</script>';
     }
 
@@ -147,23 +146,23 @@ if($op == "tambah"){
     $query = $conn->prepare($sql);
     $result = $query->execute([":id" => $id, ":mulai_tgl" => $formattedMulaiTgl, ":selesai_tgl" => $formattedSelesaiTgl]);
 
-    if ($result){
+    if ($result) {
         echo "<script>alert('Berhasil Ditelaah'); history.back();</script>";
         return;
-    }else{
+    } else {
         echo "<script>alert('Gagal Ditelaah'); history.back();</script>";
         return;
     }
-} else if($op == "sedangtelaah"){
+} else if ($op == "sedangtelaah") {
     $id = isset($_POST['id']) ? $_POST['id'] : '';
 
-    if(!$id){
+    if (!$id) {
         echo '<script>history.back();</script>';
     }
 
     $telaah_id = isset($_POST['penelaah_id']) ? $_POST['penelaah_id'] : '';
 
-    if(!$telaah_id){
+    if (!$telaah_id) {
         echo '<script>history.back();</script>';
     }
 
@@ -171,17 +170,17 @@ if($op == "tambah"){
     $query = $conn->prepare($sql);
     $result = $query->execute([":id" => $id, ":ppkh_id" => $_SESSION['user_id'], ":telaah_id" => $telaah_id]);
 
-    if ($result){
+    if ($result) {
         echo "<script>alert('Berhasil Ditelaah'); history.back();</script>";
         return;
-    }else{
+    } else {
         echo "<script>alert('Gagal Ditelaah'); history.back();</script>";
         return;
     }
-} else if($op == "selesaitelaah"){
+} else if ($op == "selesaitelaah") {
     $id = isset($_GET['id']) ? $_GET['id'] : '';
 
-    if(!$id){
+    if (!$id) {
         echo '<script>history.back();</script>';
     }
 
@@ -189,60 +188,71 @@ if($op == "tambah"){
     $query = $conn->prepare($sql);
     $result = $query->execute([":id" => $id]);
 
-    if ($result){
+    if ($result) {
         echo "<script>alert('Berhasil Ditelaah'); history.back();</script>";
         return;
-    }else{
+    } else {
         echo "<script>alert('Gagal Ditelaah'); history.back();</script>";
         return;
     }
-}else if ($op == "upload"){
-    $file = $_FILES['berkas'];
-    $target_dir = "../images/sertifikasi/";
+} else if ($op == "upload") {
+    // Pastikan form telah dikirimkan
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // ID yang akan diperbarui
+        $id = $_POST['id_upload'];
+
+        $errors = array();
+        $file_name = $_FILES['berkas_serti']['name'];
+        $file_size = $_FILES['berkas_serti']['size'];
+        $file_tmp = $_FILES['berkas_serti']['tmp_name'];
+        $file_type = $_FILES['berkas_serti']['type'];
         
-    if (!is_dir($target_dir)) {
-        mkdir($target_dir, 0777, true);
-    }
-        
-    $target_file = $target_dir . basename($file["name"]);
-    $fileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-        
-    if ($fileType != "pdf" && $fileType != "zip") {
-        echo "Hanya file PDF dan ZIP yang diizinkan.";
-        exit;
-    }
-    
-    if (file_exists($target_file)) {
-        echo "File sudah ada.";
-        exit;
-    }
-    
-    if ($file["size"] > 50000000) {
-        echo "Ukuran file terlalu besar.";
-        exit;
-    }
-    
-    if (move_uploaded_file($file["tmp_name"], $target_file)) {
-        // File berhasil diupload, lanjutkan dengan menyimpan informasi ke database
-    
-        // Mendapatkan informasi file yang diupload
-        $file_name = basename($file["name"]);
-        $file_location = $target_file;
-    
-    
-        // Buat kueri SQL untuk menyimpan informasi ke database
-        $sql = "INSERT INTO m_surat (berkas_serti) VALUES ('$file_location')";
-    
-        if ($conn->query($sql) === TRUE) {
-            echo "Data file berhasil disimpan ke database.";
-            // Arahkan ke halaman setelah upload dan penyimpanan berhasil
-            header("Location: http://localhost/adm_silahan/view/m_surat/selesaitelaah.php");
-            exit;
-        } else {
-            echo "Error: " . $sql . "<br>";
+        $file_name_array = explode('.', $file_name);
+        $file_ext = strtolower(end($file_name_array));
+        $file_base_name = strtolower(reset($file_name_array));
+
+        $extensions = array("pdf", "rar");
+
+        if (in_array($file_ext, $extensions) === false) {
+            $errors[] = "Ekstensi file tidak diizinkan, harap pilih file PDF atau RAR.";
         }
-    } else {
-        echo "Terjadi kesalahan saat mengupload file.";
+
+        if (empty($errors)) {
+            // Direktori tempat file akan diunggah
+            $target_dir = "../images/sertifikasi/";
+            $target_file = $target_dir . $file_base_name . '.' . $file_ext;
+            
+            // Tambahkan angka jika nama file sudah ada
+            $i = 1;
+            while (file_exists($target_file)) {
+                $target_file = $target_dir . $file_base_name . $i . '.' . $file_ext;
+                $i++;
+            }
+
+            if (move_uploaded_file($file_tmp, $target_file)) {
+                echo "File berhasil diunggah ke: " . $target_file . "<br>";
+                $berkas_serti = $target_file;
+
+                $sql = "UPDATE m_surat SET berkas_serti='$berkas_serti' WHERE id=$id";
+                echo "SQL Query: " . $sql . "<br>";
+
+                try {
+                    $conn->exec($sql);
+                    echo "Database updated successfully.<br>";
+                    header("Location: http://localhost/adm_silahan/view/m_surat/selesaitelaah.php");
+                    die();
+                } catch (PDOException $e) {
+                    echo "Error updating database: " . $e->getMessage() . "<br>";
+                }
+            } else {
+                echo "Error: Tidak dapat mengunggah file.";
+            }
+        } else {
+            foreach ($errors as $error) {
+                echo $error . "<br>";
+            }
+        }
     }
 }
-    
+
+

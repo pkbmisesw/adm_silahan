@@ -38,6 +38,10 @@ include('../head_table.php')
         include('../sidebar.php');
         ?>
 
+        <?php 
+        $id_upload  = $_GET['id']
+        ?>
+
 
 
         <!-- ============================================================== -->
@@ -52,7 +56,7 @@ include('../head_table.php')
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                                <h4 class="mb-sm-0">Tambah Data <?= $master; ?></h4>
+                                <h4 class="mb-sm-0">Data <?= $master; ?></h4>
 
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
@@ -76,8 +80,9 @@ include('../head_table.php')
                                         <div class="form-body">
 
                                             <div class="form-group">
+                                                <input type="hidden" name="id_upload" value="<?= $id_upload ?>">
                                                 <label class="control-label">Berkas : </label>
-                                                <input type="file" class="form-control" id="berkas_tambah" name="berkas" required />
+                                                <input type="file" class="form-control" id="berkas_tambah" name="berkas_serti" required />
                                                 <small class="text-danger">Hanya dapat upload file .pdf dan .zip dengan size maksimal 50mb.</small>
                                                 <progress id="progressBar_tambah" value="0" max="100" style="width:100%;"></progress>
                                                 <small id="uploadStatus_tambah"></small>
