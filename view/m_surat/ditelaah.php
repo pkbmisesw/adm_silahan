@@ -360,7 +360,7 @@ include('../footer_table.php')
 
                             <div class="form-group">
                                 <label class="control-label" >Tanggal Selesai : </label>
-                                <input type="text" name="selesai_tgl" class="form-control datepicker" data-date-container="#telaah" data-date-format="dd-mm-yyyy" />
+                                <input type="text" name="selesai_tgl" class="form-control datepicker" style="border: 1px solid #d1d1d1;" data-date-container="#telaah" data-date-format="dd-mm-yyyy" />
                             </div>
 
                             <div class="form-group">
