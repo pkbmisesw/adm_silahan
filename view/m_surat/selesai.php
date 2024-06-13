@@ -96,6 +96,12 @@ include('../head_table.php')
 
                                     $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE status=6 ORDER BY id DESC");
                                     $sql->execute();
+
+                                    if ($_SESSION['level_id'] == 5) {
+                                        $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE status=6 AND user_id=:user_id ORDER BY id DESC");
+                                        $sql->execute([":user_id" => $_SESSION['user_id']]);
+                                    }
+                                    
                                     while($data=$sql->fetch()) {
                                         if($data['status'] == 0){
                                             $status = "Pending";
