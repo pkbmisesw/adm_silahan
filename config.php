@@ -2,6 +2,8 @@
 
 session_start(); // Digunakan untuk memulai session
 
+include 'bootstrap.php';
+
 date_default_timezone_set("Asia/Makassar");
 //echo date("Y/m/d h:i:a");
 

@@ -16,6 +16,26 @@ $master = "Surat";
 $dba = "surat";
 $ket = "";
 $ketnama = "Silahkan mengisi nama";
+
+use Models\Surat;
+
+// $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE status=7 ORDER BY id DESC");
+// $sql->execute();
+
+$datas = Surat::with(['tembusan.user', 'user'])->where('status', 7)->orderByDesc('id')->get()->toArray();
+
+if ($_SESSION['level_id'] == 3) {
+    // $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE status=7 AND petugas_id=:petugas_id ORDER BY id DESC");
+    // $sql->execute([":petugas_id" => $_SESSION['user_id']]);
+    $datas = Surat::with(['tembusan.user', 'user'])->where('petugas_id', $_SESSION['user_id'])->where('status', 7)->orderByDesc('id')->get()->toArray();
+}
+
+if ($_SESSION['level_id'] == 5) {
+    // $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE status=7 AND user_id=:user_id ORDER BY id DESC");
+    // $sql->execute([":user_id" => $_SESSION['user_id']]);
+    $datas = Surat::with(['tembusan.user', 'user'])->where('user_id', $_SESSION['user_id'])->where('status', 7)->orderByDesc('id')->get()->toArray();
+}
+
 ?>
 
 <?php
@@ -62,7 +82,6 @@ include ('../head_table.php')
                                         <li class="breadcrumb-item active"><?= $master; ?> Selesai Ditelaah</li>
                                     </ol>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -84,6 +103,7 @@ include ('../head_table.php')
                                                 <th>Nama</th>
                                                 <th>Berkas</th>
                                                 <th>Status</th>
+                                                <th>User Tembusan</th>
                                                 <?php if ($_SESSION['level_id'] == 2 || $_SESSION['level_id'] == 3 || $_SESSION['level_id'] == 4) { ?>
                                                     <th>Aksi</th>
                                                 <?php } ?>
@@ -97,20 +117,8 @@ include ('../head_table.php')
 
                                             $status = "";
 
-                                            $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE status=7 ORDER BY id DESC");
-                                            $sql->execute();
 
-                                            if ($_SESSION['level_id'] == 3) {
-                                                $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE status=7 AND petugas_id=:petugas_id ORDER BY id DESC");
-                                                $sql->execute([":petugas_id" => $_SESSION['user_id']]);
-                                            }
-
-                                            if ($_SESSION['level_id'] == 5) {
-                                                $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE status=7 AND user_id=:user_id ORDER BY id DESC");
-                                                $sql->execute([":user_id" => $_SESSION['user_id']]);
-                                            }
-
-                                            while ($data = $sql->fetch()) {
+                                            foreach ($datas as $data) {
                                                 if ($data['status'] == 0) {
                                                     $status = "Open";
                                                 }
@@ -148,11 +156,11 @@ include ('../head_table.php')
                                                 }
                                                 ?>
                                                 <tr>
-                                                    <td><?= $count; ?></td>
+                                                    <td><?= $count; ?> - <?= $data['id'] ?></td>
 
                                                     <td>
                                                         <?php if ($_SESSION['level_id'] != 5) { ?>
-                                                            <?= $data['nama'] . ' - ' . $data['des'] . ' - Dari : ' . $data['nama_user']; ?>
+                                                            <?= $data['nama'] . ' - ' . $data['des'] . ' - Dari : ' . $data['user']['nama']; ?>
                                                         <?php } else { ?>
                                                             <?= $data['nama'] . ' - ' . $data['des'] ?>
                                                         <?php } ?>
@@ -196,6 +204,14 @@ include ('../head_table.php')
                                                         </td>
                                                     <?php } ?>
 
+                                                    <td>
+                                                        <ol>
+                                                            <?php foreach ($data['tembusan'] as $tembusan) { ?>
+                                                                <li><?= $tembusan['user']['nama'] ?></li>
+                                                            <?php } ?>
+                                                        </ol>
+                                                    </td>
+
                                                     <?php if ($_SESSION['level_id'] == 2 || $_SESSION['level_id'] == 4) {
                                                         if ($data['berkas_serti']) {
                                                             ?>
@@ -214,6 +230,10 @@ include ('../head_table.php')
                                                             <button data-id="<?= $data['id'] ?>" type="button"
                                                                 class="btn btn-success btn_operator" data-toggle="modal"><i
                                                                     class="fa fa-upload"></i>
+                                                            </button>
+                                                            <button data-id="<?= $data['id'] ?>" type="button"
+                                                                class="btn btn-success btn_operator" data-toggle="modal"><i
+                                                                    class="fa fa-users"></i>
                                                             </button>
                                                         </td>
                                                     <?php } ?>

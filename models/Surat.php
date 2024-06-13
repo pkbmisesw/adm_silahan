@@ -25,4 +25,8 @@ class Surat extends Eloquent
         return $this->hasMany(Tembusan::class, 'surat_id', 'id');
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

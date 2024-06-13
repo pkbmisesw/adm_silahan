@@ -34,6 +34,10 @@ class ComposerStaticInitac06b0f35f4adc2670ec6ec8721fa178
             'Psr\\Clock\\' => 10,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
+        'M' => 
+        array (
+            'Models\\' => 7,
+        ),
         'I' => 
         array (
             'InstagramScraper\\Tests\\' => 23,
@@ -95,6 +99,10 @@ class ComposerStaticInitac06b0f35f4adc2670ec6ec8721fa178
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
+        'Models\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/models',
+        ),
         'InstagramScraper\\Tests\\' => 
         array (
             0 => __DIR__ . '/../..' . '/tests',
@@ -105,9 +113,9 @@ class ComposerStaticInitac06b0f35f4adc2670ec6ec8721fa178
         ),
         'Illuminate\\Support\\' => 
         array (
-            0 => __DIR__ . '/..' . '/illuminate/macroable',
+            0 => __DIR__ . '/..' . '/illuminate/collections',
             1 => __DIR__ . '/..' . '/illuminate/conditionable',
-            2 => __DIR__ . '/..' . '/illuminate/collections',
+            2 => __DIR__ . '/..' . '/illuminate/macroable',
             3 => __DIR__ . '/..' . '/illuminate/support',
         ),
         'Illuminate\\Database\\' => 

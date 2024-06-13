@@ -9,4 +9,9 @@ class Tembusan extends Eloquent
 {
     protected $guarded = ['id'];
     protected $table = 'm_tembusan';
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }
