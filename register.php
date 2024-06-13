@@ -69,12 +69,12 @@ if (isset($_POST['daftar'])) {
             send_email("Verify Account", $email, $name, 'ADM Silahan', $html_template);
             fclose($myfile);
             if ($stmt->execute() && $token->execute()) {
-                echo '<script>alert("Berhasil Buat Akun")</script>';
+                echo '<script>alert("Berhasil Buat Akun. Silahkan cek email untuk verifikasi akun")</script>';
                 //redirect to another page
                 echo '<script>window.location.replace("index.php")</script>';
                 return;
             } else {
-                echo '<script>alert("Berhasil Buat Akun")</script>';
+                echo '<script>alert("Gagal buat akun")</script>';
                 echo '<script>window.location.replace("index.php")</script>';
                 return;
             }
@@ -148,14 +148,13 @@ if (isset($_POST['daftar'])) {
                 send_email("Verify Account", $email, $name, 'ADM Silahan', $html_template);
                 fclose($myfile);
 
-
                 if ($stmt->execute() && $token->execute()) {
-                    echo '<script>alert("Berhasil Buat Akun")</script>';
+                    echo '<script>alert("Berhasil Buat Akun. Silahkan cek email untuk verifikasi akun")</script>';
                     //redirect to another page
                     echo '<script>window.location.replace("index.php")</script>';
                     return;
                 } else {
-                    echo '<script>alert("Berhasil Buat Akun")</script>';
+                    echo '<script>alert("Gagal buat Akun")</script>';
                     echo '<script>window.location.replace("index.php")</script>';
                     return;
                 }
@@ -203,6 +202,29 @@ if (isset($_POST['daftar'])) {
                 $stmt->bindParam(':level_id', $role_id);
                 $stmt->bindParam(':status_aktif', $is_active);
 
+                $token = $conn->prepare("INSERT INTO verify_code (
+                    token,
+                    email 
+                    )
+                    VALUES (
+                        :token, 
+                        :email);");
+
+                $token->bindParam(':token', $uuid);
+                $token->bindParam(':email', $email);
+
+                // send_email("Verify Account", $email, $name, 'ADM Silahan', "<html> Verify account: <a href='$url_web/verify_acoount.php?token=$uuid'>$url_web/verify_acoount.php?token=$uuid</a> </html> ");
+                $myfile = fopen("./view/verify_email.template", "r") or die("Unable to open file!");
+                $html_template = fread($myfile, filesize('./view/verify_email.template'));
+                $html_template = str_replace('::dashboard_url::', "$url_web/verify_acoount.php?token=$uuid", $html_template);
+                $html_template = str_replace('::name::', $name, $html_template);
+                $html_template = str_replace('::email::', $email, $html_template);
+                $html_template = str_replace('::password::', $_POST['password'], $html_template);
+                send_email("Verify Account", $email, $name, 'ADM Silahan', $html_template);
+                fclose($myfile);
+
+                $token->execute();
+
                 if ($stmt->execute()) {
                     $userId = $conn->lastInsertId();
 
@@ -212,7 +234,7 @@ if (isset($_POST['daftar'])) {
                     $queryPerusahaan->bindParam(":alamat", $alamat_institusi);
 
                     if ($queryPerusahaan->execute()) {
-                        echo '<script>alert("Berhasil Buat Akun")</script>';
+                        echo '<script>alert("Berhasil Buat Akun. Silahkan cek email untuk verifikasi akun")</script>';
                         //redirect to another page
                         echo '<script>window.location.replace("index.php")</script>';
                         return;
