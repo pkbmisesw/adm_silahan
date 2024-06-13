@@ -19,6 +19,7 @@ $ketnama = "Silahkan mengisi nama";
 ?>
 
 <?php
+$title = "Silahan Kawan | Admin";include('../head_table.php');
 include ('../head_table.php')
     ?>
 
