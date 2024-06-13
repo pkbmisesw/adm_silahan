@@ -151,9 +151,17 @@ include('../head_table.php')
                                         </td>
 
                                         <?php if(!$data['note']){ ?>
-                                            <td><a href="../../images/<?= $data['berkas']; ?>" target="_blank">Lihat Berkas</a></td>
+                                            <?php if(!$data['berkas_serti']){ ?>
+                                                <td><a href="../../images/<?= $data['berkas']; ?>" target="_blank">Lihat Berkas</a></td>
+                                            <?php } else { ?>
+                                                <td><a href="../../images/<?= $data['berkas']; ?>" target="_blank">Lihat Berkas</a> - <a href="../../images/sertifikasi/<?= $data['berkas_serti']; ?>" target="_blank">Berkas Sertifikat</a></td>
+                                            <?php } ?>
                                         <?php } else { ?>
-                                            <td><a href="../../images/<?= $data['berkas']; ?>" target="_blank">Lihat Berkas</a><br><small><?= $data['note'] ?></small></td>
+                                            <?php if(!$data['berkas_serti']){ ?>
+                                                <td><a href="../../images/<?= $data['berkas']; ?>" target="_blank">Lihat Berkas</a><br><small><?= $data['note'] ?></small></td>
+                                            <?php } else { ?>
+                                                <td><a href="../../images/<?= $data['berkas']; ?>" target="_blank">Lihat Berkas</a> - <a href="../../images/sertifikasi/<?= $data['berkas_serti']; ?>" target="_blank">Berkas Sertifikat</a><br><small><?= $data['note'] ?></small></td>
+                                            <?php } ?>
                                         <?php } ?>
 
                                         <?php if(!$data['petugas_id']){ ?>
