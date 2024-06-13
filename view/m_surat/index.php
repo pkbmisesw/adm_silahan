@@ -98,10 +98,10 @@ include('../head_table.php')
 
                                     $status = "";
 
-                                    $sql = $conn->prepare("SELECT m_surat.* FROM `m_surat` WHERE m_surat.status = 0 ORDER BY id DESC");
+                                    $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE m_surat.status = 0 ORDER BY id DESC");
                                     $sql->execute([]);
 
-                                    if($_SESSION['level_id'] != 3) {
+                                    if($_SESSION['level_id'] == 5) {
                                         $sql = $conn->prepare("SELECT m_surat.* FROM `m_surat` WHERE m_surat.user_id = :user_id AND m_surat.status = 0 ORDER BY id DESC");
                                         $sql->execute([':user_id' => $_SESSION['user_id']]);
                                     }
@@ -145,7 +145,15 @@ include('../head_table.php')
                                         ?>
                                         <tr>
                                             <td><?= $count; ?></td>
-                                            <td><?= $data['nama'] . ' - ' . $data['des']; ?></td>
+
+                                            <td>
+                                                <?php if($_SESSION['level_id'] != 5){ ?>
+                                                    <?= $data['nama'] . ' - ' . $data['des'] . ' - Dari : ' . $data['nama_user']; ?>
+                                                <?php } else { ?>
+                                                    <?= $data['nama'] . ' - ' . $data['des'] ?>
+                                                <?php } ?>
+                                            </td>
+
                                             <?php if(!$data['note']){ ?>
                                                 <td><a href="../../images/<?= $data['berkas']; ?>" target="_blank">Lihat Berkas</a></td>
                                             <?php } else { ?>
