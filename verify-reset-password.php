@@ -34,6 +34,7 @@ if (isset($_POST['reset'])) {
         ':token' => $_GET['token']
     ]);
     header("Location: index.php?success=Reset password success");
+    return;
 }
 
 if (!isset($_GET['token'])) {

@@ -32,8 +32,8 @@ $delete_token = $conn->prepare('DELETE FROM verify_code WHERE token = :token');
 $delete_token->bindParam(':token', $_GET['token']);
 $delete_token->execute();
 
-echo "<script> alert('verif success') </script>";
-header('Location: index.php');
+// echo "<script> alert('verif success') </script>";
+header('Location: index.php?success=Akun berhasil diverifikasi');
 return;
 // print_r($data['email']);
 // return;
