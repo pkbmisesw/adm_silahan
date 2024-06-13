@@ -19,7 +19,7 @@ $ketnama = "Silahkan mengisi nama";
 ?>
 
 <?php
-$title = "Silahan Kawan | Surat Selesai Ditelaah";
+$title = "Silahan Kawan | Surat Download";
 include ('../head_table.php')
     ?>
 
@@ -59,7 +59,7 @@ include ('../head_table.php')
                                     <ol class="breadcrumb m-0">
                                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master
                                                 <?= $master; ?></a></li>
-                                        <li class="breadcrumb-item active"><?= $master; ?> Selesai Ditelaah</li>
+                                        <li class="breadcrumb-item active"><?= $master; ?> Download</li>
                                     </ol>
                                 </div>
 
@@ -73,7 +73,7 @@ include ('../head_table.php')
                             <div class="card">
                                 <div class="card-body">
 
-                                    <h4 class="card-title">Data <?= $master; ?> Selesai Ditelaah</h4>
+                                    <h4 class="card-title">Data <?= $master; ?> Download</h4>
                                     <br>
 
                                     <table id="datatable" class="table table-bordered dt-responsive nowrap"
@@ -85,7 +85,7 @@ include ('../head_table.php')
                                                 <th>Berkas</th>
                                                 <th>Status</th>
                                                 <?php if ($_SESSION['level_id'] == 2 || $_SESSION['level_id'] == 3 || $_SESSION['level_id'] == 4) { ?>
-                                                    <th>Aksi</th>
+                                                    <!-- <th>Aksi</th> -->
                                                 <?php } ?>
                                             </tr>
                                         </thead>
@@ -97,16 +97,16 @@ include ('../head_table.php')
 
                                             $status = "";
 
-                                            $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE status=7 ORDER BY id DESC");
+                                            $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE status=8 ORDER BY id DESC");
                                             $sql->execute();
 
                                             if ($_SESSION['level_id'] == 3) {
-                                                $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE status=7 AND petugas_id=:petugas_id ORDER BY id DESC");
+                                                $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE status=8 AND petugas_id=:petugas_id ORDER BY id DESC");
                                                 $sql->execute([":petugas_id" => $_SESSION['user_id']]);
                                             }
 
                                             if ($_SESSION['level_id'] == 5) {
-                                                $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE status=7 AND user_id=:user_id ORDER BY id DESC");
+                                                $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE status=8 AND user_id=:user_id ORDER BY id DESC");
                                                 $sql->execute([":user_id" => $_SESSION['user_id']]);
                                             }
 
@@ -164,10 +164,9 @@ include ('../head_table.php')
                                                                     Berkas</a></td>
                                                         <?php } else { ?>
                                                             <td><a href="../../images/<?= $data['berkas']; ?>" target="_blank">Lihat
-                                                                    Berkas</a>
-                                                                <?php if ($_SESSION['level_id'] == 3 || $_SESSION['level_id'] == 2 || $_SESSION['level_id'] == 4) { ?>
-                                                                    - <a href="../../images/sertifikasi/<?= $data['berkas_serti']; ?>"
-                                                                        target="_blank">Berkas Sertifikat</a> <?php } ?></td>
+                                                                    Berkas</a> - <a
+                                                                    href="../../images/sertifikasi/<?= $data['berkas_serti']; ?>"
+                                                                    target="_blank">Berkas Sertifikat</a> </td>
                                                         <?php } ?>
                                                     <?php } else { ?>
                                                         <?php if (!$data['berkas_serti']) { ?>
@@ -176,10 +175,10 @@ include ('../head_table.php')
                                                         <?php } else { ?>
                                                             <td><a href="../../images/<?= $data['berkas']; ?>" target="_blank">Lihat
                                                                     Berkas</a>
-                                                                <?php if ($_SESSION['level_id'] == 3 || $_SESSION['level_id'] == 2 || $_SESSION['level_id'] == 4) { ?>
-                                                                    - <a href="../../images/sertifikasi/<?= $data['berkas_serti']; ?>"
-                                                                        target="_blank">Berkas
-                                                                        Sertifikat</a><br><small><?= $data['note'] ?></small> <?php } ?>
+
+                                                                - <a href="../../images/sertifikasi/<?= $data['berkas_serti']; ?>"
+                                                                    target="_blank">Berkas
+                                                                    Sertifikat</a><br><small><?= $data['note'] ?></small>
                                                             </td>
                                                         <?php } ?>
                                                     <?php } ?>
@@ -199,23 +198,23 @@ include ('../head_table.php')
                                                     <?php if ($_SESSION['level_id'] == 2 || $_SESSION['level_id'] == 4) {
                                                         if ($data['berkas_serti']) {
                                                             ?>
-                                                            <td>
+                                                            <!-- <td>
                                                                 <a class="btn btn-success"
                                                                     href="../../controller/<?php echo $dba; ?>_controller.php?op=sertifikat&id=<?php echo $data['id'] ?>"
                                                                     onclick="return confirm('Apakah anda yakin ingin menyelesaikan telaah permohonan ini?');">&#x2713;</a>
-                                                            </td>
+                                                            </td> -->
                                                         <?php } else { ?>
-                                                            <td>
-                                                            </td>
+                                                            <!-- <td>
+                                                            </td> -->
                                                         <?php } ?>
                                                     <?php } ?>
                                                     <?php if ($_SESSION['level_id'] == 3) { ?>
-                                                        <td>
+                                                        <!-- <td>
                                                             <button data-id="<?= $data['id'] ?>" type="button"
                                                                 class="btn btn-success btn_operator" data-toggle="modal"><i
                                                                     class="fa fa-upload"></i>
                                                             </button>
-                                                        </td>
+                                                        </td> -->
                                                     <?php } ?>
                                                 </tr>
                                                 <?php $count++;

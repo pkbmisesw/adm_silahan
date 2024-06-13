@@ -91,6 +91,7 @@
                             <li><a href="../m_surat/ditelaah.php">Surat Ditelaah</a></li>
                             <li><a href="../m_surat/sedangtelaah.php">Surat Sedang Ditelaah</a></li>
                             <li><a href="../m_surat/selesaitelaah.php">Surat Selesai Ditelaah</a></li>
+                            <li><a href="../m_surat/surat_download.php">Surat Download</a></li>
                         </ul>
                     </li>
 
@@ -123,6 +124,7 @@
                             <li><a href="../m_surat/disposisi.php">Surat Didisposisi</a></li>
                             <li><a href="../m_surat/ditelaah.php">Surat Ditelaah</a></li>
                             <li><a href="../m_surat/selesaitelaah.php">Surat Selesai Telaah</a></li>
+                            <li><a href="../m_surat/surat_download.php">Surat Download</a></li>
                         </ul>
                     </li>
 
@@ -153,6 +155,7 @@
                             <li><a href="../m_surat/disposisi.php">Permohonan Didisposisi</a></li>
                             <li><a href="../m_surat/ditelaah.php">Surat Ditelaah</a></li>
                             <li><a href="../m_surat/selesaitelaah.php">Surat Selesai Ditelaah</a></li>
+                            <li><a href="../m_surat/surat_download.php">Surat Download</a></li>
                         </ul>
                     </li>
 
@@ -181,6 +184,7 @@
                             <li><a href="../m_surat/ditelaah.php">Surat Ditelaah</a></li>
                             <li><a href="../m_surat/sedangtelaah.php">Surat Sedang Ditelaah</a></li>
                             <li><a href="../m_surat/selesaitelaah.php">Surat Selesai Ditelaah</a></li>
+                            <li><a href="../m_surat/surat_download.php">Surat Download</a></li>
                             <li><a href="../m_surat/selesai.php">Surat Selesai</a></li>
                         </ul>
                     </li>
