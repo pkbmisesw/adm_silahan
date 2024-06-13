@@ -25,7 +25,7 @@ $ketnama = "Silahkan mengisi nama";
 ?>
 
 <?php
-include('../head_table.php')
+$title = "Silahan Kawan | Edit Permohonan";include('../head_table.php');
 ?>
 
 <body data-topbar="dark">

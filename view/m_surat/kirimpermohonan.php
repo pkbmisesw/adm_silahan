@@ -19,7 +19,7 @@ $ketnama = "Silahkan mengisi nama";
 ?>
 
 <?php
-include('../head_table.php')
+$title = "Silahan Kawan | Kirim Permohonan";include('../head_table.php');
 ?>
 
 <body data-topbar="dark">

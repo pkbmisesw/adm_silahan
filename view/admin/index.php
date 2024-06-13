@@ -10,6 +10,7 @@ if(isset($_SESSION['email'])== 0) {
 ?>
 
 <?php
+$title = "Silahan Kawan | Dashboard";
 include('../head.php');
 ?>
 

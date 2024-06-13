@@ -19,6 +19,7 @@ $ketnama = "Silahkan mengisi nama";
 ?>
 
 <?php
+$title = "Silahan Kawan | Surat Selesai Ditelaah";
 include ('../head_table.php')
     ?>
 
@@ -163,8 +164,9 @@ include ('../head_table.php')
                                                                     Berkas</a></td>
                                                         <?php } else { ?>
                                                             <td><a href="../../images/<?= $data['berkas']; ?>" target="_blank">Lihat
-                                                                    Berkas</a> <?php if ($_SESSION['level_id'] == 3 || $_SESSION['level_id'] == 2 || $_SESSION['level_id'] == 4 ) { ?> - <a
-                                                                        href="../../images/sertifikasi/<?= $data['berkas_serti']; ?>"
+                                                                    Berkas</a>
+                                                                <?php if ($_SESSION['level_id'] == 3 || $_SESSION['level_id'] == 2 || $_SESSION['level_id'] == 4) { ?>
+                                                                    - <a href="../../images/sertifikasi/<?= $data['berkas_serti']; ?>"
                                                                         target="_blank">Berkas Sertifikat</a> <?php } ?></td>
                                                         <?php } ?>
                                                     <?php } else { ?>
@@ -173,8 +175,9 @@ include ('../head_table.php')
                                                                     Berkas</a><br><small><?= $data['note'] ?></small></td>
                                                         <?php } else { ?>
                                                             <td><a href="../../images/<?= $data['berkas']; ?>" target="_blank">Lihat
-                                                                    Berkas</a> <?php if ($_SESSION['level_id'] == 3 || $_SESSION['level_id'] == 2 || $_SESSION['level_id'] == 4) { ?> - <a
-                                                                        href="../../images/sertifikasi/<?= $data['berkas_serti']; ?>"
+                                                                    Berkas</a>
+                                                                <?php if ($_SESSION['level_id'] == 3 || $_SESSION['level_id'] == 2 || $_SESSION['level_id'] == 4) { ?>
+                                                                    - <a href="../../images/sertifikasi/<?= $data['berkas_serti']; ?>"
                                                                         target="_blank">Berkas
                                                                         Sertifikat</a><br><small><?= $data['note'] ?></small> <?php } ?>
                                                             </td>
