@@ -34,7 +34,7 @@ if ($_SESSION['level_id'] != 5) {
 
 // \Models\Tembusan::with([''])->where('user_id', $_SESSION['user_id'])->get();
 $datas = Surat::with(['tembusan.user', 'user'])
-    ->where('status', 7)
+    ->where('status', 8)
     ->whereHas('tembusan', function ($q) {
         return $q->where('user_id', $_SESSION['user_id']);
     })

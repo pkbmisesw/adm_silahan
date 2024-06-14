@@ -185,7 +185,7 @@
                             <li><a href="../m_surat/sedangtelaah.php">Surat Sedang Ditelaah</a></li>
                             <li><a href="../m_surat/selesaitelaah.php">Surat Selesai Ditelaah</a></li>
                             <li><a href="../m_surat/surat_download.php">Surat Download</a></li>
-                            <li><a href="../m_surat/selesai.php">Surat Selesai</a></li>
+                            <!-- <li><a href="../m_surat/selesai.php">Surat Selesai</a></li> -->
                             <li><a href="../m_surat/surat_tembusan.php">Surat Tembusan</a></li>
                         </ul>
                     </li>
