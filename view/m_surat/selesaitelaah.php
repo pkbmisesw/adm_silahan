@@ -103,7 +103,7 @@ include ('../head_table.php')
                                                 <th>Nama</th>
                                                 <th>Berkas</th>
                                                 <th>Status</th>
-                                                <?php if ($_SESSION['level_id'] == 3) { ?>
+                                                <?php if ($_SESSION['level_id'] == 2 || $_SESSION['level_id'] == 3 || $_SESSION['level_id'] == 4) { ?>
                                                     <th>User Tembusan</th>
                                                 <?php } ?>
                                                 <?php if ($_SESSION['level_id'] == 2 || $_SESSION['level_id'] == 3 || $_SESSION['level_id'] == 4) { ?>
@@ -206,7 +206,7 @@ include ('../head_table.php')
                                                         </td>
                                                     <?php } ?>
 
-                                                    <?php if ($_SESSION['level_id'] == 3) { ?>
+                                                    <?php if ($_SESSION['level_id'] == 2 || $_SESSION['level_id'] == 3 || $_SESSION['level_id'] == 4) { ?>
                                                         <td>
                                                             <?php if (count($data['tembusan'])) { ?>
                                                                 <ol>

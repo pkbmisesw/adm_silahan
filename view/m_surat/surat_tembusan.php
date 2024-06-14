@@ -186,10 +186,9 @@ include ('../head_table.php')
                                                                     Berkas</a></td>
                                                         <?php } else { ?>
                                                             <td><a href="../../images/<?= $data['berkas']; ?>" target="_blank">Lihat
-                                                                    Berkas</a>
-                                                                <?php if ($_SESSION['level_id'] == 3 || $_SESSION['level_id'] == 2 || $_SESSION['level_id'] == 4) { ?>
-                                                                    - <a href="../../images/sertifikasi/<?= $data['berkas_serti']; ?>"
-                                                                        target="_blank">Berkas Sertifikat</a> <?php } ?></td>
+                                                                    Berkas</a> - <a
+                                                                    href="../../images/sertifikasi/<?= $data['berkas_serti']; ?>"
+                                                                    target="_blank">Berkas Sertifikat</a></td>
                                                         <?php } ?>
                                                     <?php } else { ?>
                                                         <?php if (!$data['berkas_serti']) { ?>
