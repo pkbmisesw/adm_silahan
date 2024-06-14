@@ -1,16 +1,17 @@
 <?php
 // require "vendor/autoload.php";
 require_once 'vendor/autoload.php';
+include 'db/koneksi.php';
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 $capsule = new Capsule;
 $capsule->addConnection([
     "driver" => "mysql",
-    "host" => "127.0.0.1",
-    "database" => "buatweb",
-    "username" => "root",
-    "password" => ""
+    "host" => $host,
+    "database" => $db,
+    "username" => $user,
+    "password" => $pass
 ]);
 $capsule->setAsGlobal();
 $capsule->bootEloquent();

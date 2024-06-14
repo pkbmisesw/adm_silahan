@@ -308,4 +308,30 @@ if ($op == "tambah") {
     } else {
         echo "<script>alert('Gagal di upload'); history.back();</script>";
     }
+} else if ($op == "add_user_tembusan") {
+    try {
+        $surat_id = $_POST['id'];
+
+        $cari_user_sebelumnya = \Models\Tembusan::where('surat_id', $surat_id)->where('user_id', $_SESSION['user_id'])->first();
+
+        if ($cari_user_sebelumnya) {
+            echo "<script>alert('User tembusan sudah ada sebelumnya!'); history.back();</script>";
+            return;
+        }
+
+        $create = \Models\Tembusan::create([
+            'surat_id' => $surat_id,
+            'user_id' => $_SESSION['user_id']
+        ]);
+
+        if ($create) {
+            echo "<script>alert('Berhasil menambahkan user tembusan'); history.back();</script>";
+            return;
+        } else {
+            echo "<script>alert('Gagal ketika memasukan data'); history.back();</script>";
+            return;
+        }
+    } catch (Exception $e) {
+        echo "<script>alert('Internal server error')</script>";
+    }
 }

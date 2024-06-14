@@ -156,7 +156,7 @@ include ('../head_table.php')
                                                 }
                                                 ?>
                                                 <tr>
-                                                    <td><?= $count; ?> - <?= $data['id'] ?></td>
+                                                    <td><?= $count; ?></td>
 
                                                     <td>
                                                         <?php if ($_SESSION['level_id'] != 5) { ?>
@@ -231,10 +231,13 @@ include ('../head_table.php')
                                                                 class="btn btn-success btn_operator" data-toggle="modal"><i
                                                                     class="fa fa-upload"></i>
                                                             </button>
-                                                            <button data-id="<?= $data['id'] ?>" type="button"
-                                                                class="btn btn-success btn_operator" data-toggle="modal"><i
-                                                                    class="fa fa-users"></i>
-                                                            </button>
+                                                            <?php if ($data['berkas_serti']) { ?>
+                                                                <button data-id="<?= $data['id'] ?>" type="button"
+                                                                    class="btn btn-success btn_add_tembusan"
+                                                                    data-target="#modal_add_user_tembusan" data-toggle="modal"><i
+                                                                        class="fa fa-users"></i>
+                                                                </button>
+                                                            <?php } ?>
                                                         </td>
                                                     <?php } ?>
                                                 </tr>
@@ -336,7 +339,6 @@ include ('../head_table.php')
         <!-- Modal Tambah -->
         <div class="modal fade" id="tambah" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
             aria-labelledby="staticBackdropLabel" aria-hidden="true">
-
 
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -465,11 +467,56 @@ include ('../head_table.php')
             </div>
         </div>
 
+        <!-- Modal add user tembusan -->
+        <div class="modal fade" id="modal_add_user_tembusan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Tambah User Tembusan </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form id="form-edit-transaksi-masuk"
+                        action="../../controller/<?php echo $dba; ?>_controller.php?op=add_user_tembusan" method="POST"
+                        enctype="multipart/form-data">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input type="hidden" id="id_surat_tembusan" name="id" />
+
+                                <div class="form-group">
+                                    <label class="control-label">User Tembusan : </label>
+                                    <select class="form-control select2" id="all_role" name="role_id">
+                                        <?php
+                                        $user_tembusan = \Models\User::where('status_tembusan', 1)->where('level_id', 5)->get()->toArray();
+
+                                        foreach ($user_tembusan as $user_tb) {
+                                            ?>
+                                            <option value="<?= $user_tb['id'] ?>"><?= $user_tb['nama'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" id="btn-save-update-operator">Save
+                                changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- End modal add user tembusan -->
+
     <?php } ?>
 
 
     <script type="text/javascript">
         $(document).ready(function () {
+
+            $('.select2').select2({
+                dropdownParent: $('#modal_add_user_tembusan')
+            });
 
             $('#btn-save-update').click(function () {
                 $.ajax({
@@ -533,6 +580,14 @@ include ('../head_table.php')
                 $("#id_edit").val($(this).attr('data-id'));
                 $("#note_edit").val($(this).attr('data-note'));
                 $('#edit_operator').modal('show');
+            });
+
+            $(document).on('click', '.btn_add_tembusan', function () {
+                // $("#id_edit").val($(this).attr('data-id'));
+                // $("#note_edit").val($(this).attr('data-note'));
+                $("#id_surat_tembusan").val($(this).attr('data-id'));
+                $('#modal_add_user_tembusan').modal('show');
+
             });
         });
 

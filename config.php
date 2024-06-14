@@ -3,17 +3,13 @@
 session_start(); // Digunakan untuk memulai session
 
 include 'bootstrap.php';
+include 'db/koneksi.php';
 
 date_default_timezone_set("Asia/Makassar");
 //echo date("Y/m/d h:i:a");
 
 // 
 $url_web = 'http://localhost/adm_silahan';
-
-$host = "localhost"; // nama host anda
-$user = "root"; // usernames dari host anda
-$pass = ""; //password dari host anda
-$db   = "buatweb"; // nama database yang anda miliki
 
 // SMTP Server
 $mail_host = 'smtp.gmail.com';

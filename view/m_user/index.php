@@ -306,16 +306,16 @@ include ('../head_table.php');
                             <div class="form-group">
                                 <label class="control-label">Status Aktif : </label>
                                 <select class="form-control select2" id="is_active" name="is_active">
-                                    <option value="1" id="role-1">Aktif</option>
-                                    <option value="0" id="role-2">Tidak Aktif</option>
+                                    <option value="1">Aktif</option>
+                                    <option value="0">Tidak Aktif</option>
                                 </select>
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label">Status Tembusan : </label>
                                 <select class="form-control select2" id="status_tembusan" name="status_tembusan">
-                                    <option value="1" id="role-1">Aktif</option>
-                                    <option value="0" id="role-2">Tidak Aktif</option>
+                                    <option value="1">Aktif</option>
+                                    <option value="0">Tidak Aktif</option>
                                 </select>
                             </div>
 
@@ -365,18 +365,22 @@ include ('../head_table.php');
                 $("#role_id_edit").val($(this).attr('data-role_id'));
                 $("#all_role").select2({
                     dropdownParent: $('#edit')
+
                 }).val($(this).attr('data-role_id')).trigger("change");
 
+                // status_tembusan
+                // $("#is_active_edit").val($(this).attr('data-is_active'));
                 $("#is_active").select2({
                     dropdownParent: $('#edit')
                 }).val($(this).attr('data-is_active')).trigger("change");
+                // .val($(this).attr('data-is_active')).trigger("change");
 
                 $("#status_tembusan").select2({
                     dropdownParent: $('#edit')
                 }).val($(this).attr('data-status_tembusan')).trigger("change");
-                // status_tembusan
-                // $("#is_active_edit").val($(this).attr('data-is_active'));
+
                 $('#edit').modal('show');
+
             });
         });
 
