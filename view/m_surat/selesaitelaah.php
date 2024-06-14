@@ -177,7 +177,7 @@ include ('../head_table.php')
                                                                     Berkas</a>
                                                                 <?php if ($_SESSION['level_id'] == 3 || $_SESSION['level_id'] == 2 || $_SESSION['level_id'] == 4) { ?>
                                                                     - <a href="../../images/sertifikasi/<?= $data['berkas_serti']; ?>"
-                                                                        target="_blank">Berkas Sertifikat</a> <?php } ?></td>
+                                                                        target="_blank">Hasil Telaah</a> <?php } ?></td>
                                                         <?php } ?>
                                                     <?php } else { ?>
                                                         <?php if (!$data['berkas_serti']) { ?>

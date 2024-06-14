@@ -188,7 +188,7 @@ include ('../head_table.php')
                                                             <td><a href="../../images/<?= $data['berkas']; ?>" target="_blank">Lihat
                                                                     Berkas</a> - <a
                                                                     href="../../images/sertifikasi/<?= $data['berkas_serti']; ?>"
-                                                                    target="_blank">Berkas Sertifikat</a></td>
+                                                                    target="_blank">Hasil Telaah</a></td>
                                                         <?php } ?>
                                                     <?php } else { ?>
                                                         <?php if (!$data['berkas_serti']) { ?>
