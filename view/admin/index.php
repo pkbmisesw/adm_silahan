@@ -160,7 +160,7 @@ include ('../head.php');
 
                     <?php if ($_SESSION['level_id'] == 3) { ?>
                         <!-- start operators                             -->
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-xl-6">
 
                                 <div class="card">
@@ -191,7 +191,7 @@ include ('../head.php');
                                                         </div>
                                                     </div>
                                                     <p class="text-muted text-truncate mb-0">Marketplace</p>
-                                                </div><!-- end col -->
+                                                </div>
                                                 <div class="col-sm-4 mb-3 mb-sm-0">
                                                     <div class="d-inline-flex">
                                                         <h5 class="me-2">$34,856</h5>
@@ -200,7 +200,7 @@ include ('../head.php');
                                                         </div>
                                                     </div>
                                                     <p class="text-muted text-truncate mb-0">Last Week</p>
-                                                </div><!-- end col -->
+                                                </div>
                                                 <div class="col-sm-4">
                                                     <div class="d-inline-flex">
                                                         <h5 class="me-2">$18,225</h5>
@@ -209,16 +209,15 @@ include ('../head.php');
                                                         </div>
                                                     </div>
                                                     <p class="text-muted text-truncate mb-0">Last Month</p>
-                                                </div><!-- end col -->
-                                            </div><!-- end row -->
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="card-body py-0 px-2">
                                         <div id="area_chart" class="apex-charts" dir="ltr"></div>
                                     </div>
-                                </div><!-- end card -->
+                                </div>
                             </div>
-                            <!-- end col -->
                             <div class="col-xl-6">
                                 <div class="card">
                                     <div class="card-body pb-0">
@@ -246,29 +245,28 @@ include ('../head.php');
                                                         <h5>17,493</h5>
                                                         <p class="text-muted text-truncate mb-0">Marketplace</p>
                                                     </div>
-                                                </div><!-- end col -->
+                                                </div>
                                                 <div class="col-sm-4 mb-3 mb-sm-0">
                                                     <div>
                                                         <h5>$44,960</h5>
                                                         <p class="text-muted text-truncate mb-0">Last Week</p>
                                                     </div>
-                                                </div><!-- end col -->
+                                                </div>
                                                 <div class="col-sm-4">
                                                     <div>
                                                         <h5>$29,142</h5>
                                                         <p class="text-muted text-truncate mb-0">Last Month</p>
                                                     </div>
-                                                </div><!-- end col -->
-                                            </div><!-- end row -->
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="card-body py-0 px-2">
                                         <div id="column_line_chart" class="apex-charts" dir="ltr"></div>
                                     </div>
-                                </div><!-- end card -->
+                                </div>
                             </div>
-                            <!-- end col -->
-                        </div>
+                        </div> -->
                         <!-- end row -->
                         <!-- end operator  -->
                     <?php } ?>
