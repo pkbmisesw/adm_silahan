@@ -312,7 +312,9 @@ if ($op == "tambah") {
     try {
         $surat_id = $_POST['id'];
 
-        $cari_user_sebelumnya = \Models\Tembusan::where('surat_id', $surat_id)->where('user_id', $_SESSION['user_id'])->first();
+        $user_tembusan_id = $_POST['role_id'];
+
+        $cari_user_sebelumnya = \Models\Tembusan::where('surat_id', $surat_id)->where('user_id', $user_tembusan_id)->first();
 
         if ($cari_user_sebelumnya) {
             echo "<script>alert('User tembusan sudah ada sebelumnya!'); history.back();</script>";
@@ -321,7 +323,7 @@ if ($op == "tambah") {
 
         $create = \Models\Tembusan::create([
             'surat_id' => $surat_id,
-            'user_id' => $_SESSION['user_id']
+            'user_id' => $user_tembusan_id
         ]);
 
         if ($create) {
