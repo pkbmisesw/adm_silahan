@@ -59,7 +59,7 @@ include ('../head.php');
                     <!-- end page title -->
 
                     <div class="row">
-                        
+
                         <div class="col-xl-3 col-md-6">
                             <div class="card">
                                 <div class="card-body">
@@ -274,7 +274,7 @@ include ('../head.php');
                         <!-- end operator  -->
                     <?php } ?>
 
-                    <!-- <div class="row">
+                    <div class="row">
                         <div class="col-xl-8">
                             <div class="card">
                                 <div class="card-body">
@@ -479,7 +479,7 @@ include ('../head.php');
                                 </div>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                     <!-- end row -->
                 </div>
 
