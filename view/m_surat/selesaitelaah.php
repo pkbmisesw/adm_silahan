@@ -103,7 +103,9 @@ include ('../head_table.php')
                                                 <th>Nama</th>
                                                 <th>Berkas</th>
                                                 <th>Status</th>
-                                                <th>User Tembusan</th>
+                                                <?php if ($_SESSION['level_id'] == 3) { ?>
+                                                    <th>User Tembusan</th>
+                                                <?php } ?>
                                                 <?php if ($_SESSION['level_id'] == 2 || $_SESSION['level_id'] == 3 || $_SESSION['level_id'] == 4) { ?>
                                                     <th>Aksi</th>
                                                 <?php } ?>
@@ -204,20 +206,22 @@ include ('../head_table.php')
                                                         </td>
                                                     <?php } ?>
 
-                                                    <td>
-                                                        <?php if (count($data['tembusan'])) { ?>
-                                                            <ol>
-                                                                <?php foreach ($data['tembusan'] as $tembusan) { ?>
-                                                                    <li><?= $tembusan['user']['nama'] ?> <a
-                                                                            href="../../controller/<?php echo $dba; ?>_controller.php?op=hapus_surat_selesai&id=<?php echo $data['id'] ?>&id_user=<?= $tembusan['user']['id'] ?>"
-                                                                            onclick="return confirm('Apakah anda yakin ingin menghapus data ini?');">(x)</a>
-                                                                    </li>
-                                                                <?php } ?>
-                                                            </ol>
-                                                        <?php } else { ?>
-                                                            -
-                                                        <?php } ?>
-                                                    </td>
+                                                    <?php if ($_SESSION['level_id'] == 3) { ?>
+                                                        <td>
+                                                            <?php if (count($data['tembusan'])) { ?>
+                                                                <ol>
+                                                                    <?php foreach ($data['tembusan'] as $tembusan) { ?>
+                                                                        <li><?= $tembusan['user']['nama'] ?> <a
+                                                                                href="../../controller/<?php echo $dba; ?>_controller.php?op=hapus_surat_selesai&id=<?php echo $data['id'] ?>&id_user=<?= $tembusan['user']['id'] ?>"
+                                                                                onclick="return confirm('Apakah anda yakin ingin menghapus data ini?');">(x)</a>
+                                                                        </li>
+                                                                    <?php } ?>
+                                                                </ol>
+                                                            <?php } else { ?>
+                                                                -
+                                                            <?php } ?>
+                                                        </td>
+                                                    <?php } ?>
 
                                                     <?php if ($_SESSION['level_id'] == 2 || $_SESSION['level_id'] == 4) {
                                                         if ($data['berkas_serti']) {
@@ -239,11 +243,14 @@ include ('../head_table.php')
                                                                     class="fa fa-upload"></i>
                                                             </button>
                                                             <?php if ($data['berkas_serti']) { ?>
-                                                                <button data-id="<?= $data['id'] ?>" type="button"
-                                                                    class="btn btn-success btn_add_tembusan"
-                                                                    data-target="#modal_add_user_tembusan" data-toggle="modal"><i
-                                                                        class="fa fa-users"></i>
-                                                                </button>
+                                                                <?php if ($_SESSION['level_id'] == 3) { ?>
+
+                                                                    <button data-id="<?= $data['id'] ?>" type="button"
+                                                                        class="btn btn-success btn_add_tembusan"
+                                                                        data-target="#modal_add_user_tembusan" data-toggle="modal"><i
+                                                                            class="fa fa-users"></i>
+                                                                    </button>
+                                                                <?php } ?>
                                                             <?php } ?>
                                                         </td>
                                                     <?php } ?>
