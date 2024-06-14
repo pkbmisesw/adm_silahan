@@ -211,9 +211,11 @@ include ('../head_table.php')
                                                             <?php if (count($data['tembusan'])) { ?>
                                                                 <ol>
                                                                     <?php foreach ($data['tembusan'] as $tembusan) { ?>
-                                                                        <li><?= $tembusan['user']['nama'] ?> <a
-                                                                                href="../../controller/<?php echo $dba; ?>_controller.php?op=hapus_surat_selesai&id=<?php echo $data['id'] ?>&id_user=<?= $tembusan['user']['id'] ?>"
-                                                                                onclick="return confirm('Apakah anda yakin ingin menghapus data ini?');">(x)</a>
+                                                                        <li><?= $tembusan['user']['nama'] ?>
+                                                                            <?php if ($_SESSION['level_id'] == 3) { ?> <a
+                                                                                    href="../../controller/<?php echo $dba; ?>_controller.php?op=hapus_surat_selesai&id=<?php echo $data['id'] ?>&id_user=<?= $tembusan['user']['id'] ?>"
+                                                                                    onclick="return confirm('Apakah anda yakin ingin menghapus data ini?');">(x)</a>
+                                                                            <?php } ?>
                                                                         </li>
                                                                     <?php } ?>
                                                                 </ol>
