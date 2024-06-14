@@ -1,6 +1,10 @@
 <?php
 session_start();
-error_reporting(0);
+// error_reporting(0);
+
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
 
 include ('../../config.php');
 
@@ -22,24 +26,35 @@ use Models\Surat;
 // $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE status=7 ORDER BY id DESC");
 // $sql->execute();
 
-$datas = Surat::with(['tembusan.user', 'user'])->where('status', 7)->orderByDesc('id')->get()->toArray();
 
-if ($_SESSION['level_id'] == 3) {
-    // $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE status=7 AND petugas_id=:petugas_id ORDER BY id DESC");
-    // $sql->execute([":petugas_id" => $_SESSION['user_id']]);
-    $datas = Surat::with(['tembusan.user', 'user'])->where('petugas_id', $_SESSION['user_id'])->where('status', 7)->orderByDesc('id')->get()->toArray();
+if ($_SESSION['level_id'] != 5) {
+    echo "<script> alert('anda tidak bisa memasuki halaman ini'); </script>";
+    die();
 }
 
-if ($_SESSION['level_id'] == 5) {
-    // $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE status=7 AND user_id=:user_id ORDER BY id DESC");
-    // $sql->execute([":user_id" => $_SESSION['user_id']]);
-    $datas = Surat::with(['tembusan.user', 'user'])->where('user_id', $_SESSION['user_id'])->where('status', 7)->orderByDesc('id')->get()->toArray();
-}
+// \Models\Tembusan::with([''])->where('user_id', $_SESSION['user_id'])->get();
+$datas = Surat::with(['tembusan.user', 'user'])
+    ->where('status', 7)
+    ->whereHas('tembusan', function ($q) {
+        return $q->where('user_id', $_SESSION['user_id']);
+    })
+    ->orderByDesc('id')->get()->toArray();
+// if ($_SESSION['level_id'] == 3) {
+// $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE status=7 AND petugas_id=:petugas_id ORDER BY id DESC");
+// $sql->execute([":petugas_id" => $_SESSION['user_id']]);
+// $datas = Surat::with(['tembusan.user', 'user'])->where('petugas_id', $_SESSION['user_id'])->where('status', 7)->orderByDesc('id')->get()->toArray();
+// }
+
+// if ($_SESSION['level_id'] == 5) {
+// $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE status=7 AND user_id=:user_id ORDER BY id DESC");
+// $sql->execute([":user_id" => $_SESSION['user_id']]);
+// $datas = Surat::with(['tembusan.user', 'user'])->where('user_id', $_SESSION['user_id'])->where('status', 7)->orderByDesc('id')->get()->toArray();
+// }
 
 ?>
 
 <?php
-$title = "Silahan Kawan | Surat Selesai Ditelaah";
+$title = "Silahan Kawan | Surat Tembusan";
 include ('../head_table.php')
     ?>
 
@@ -79,7 +94,7 @@ include ('../head_table.php')
                                     <ol class="breadcrumb m-0">
                                         <li class="breadcrumb-item"><a href="javascript: void(0);">Master
                                                 <?= $master; ?></a></li>
-                                        <li class="breadcrumb-item active"><?= $master; ?> Selesai Ditelaah</li>
+                                        <li class="breadcrumb-item active"><?= $master; ?> Tembusan</li>
                                     </ol>
                                 </div>
                             </div>
@@ -92,7 +107,7 @@ include ('../head_table.php')
                             <div class="card">
                                 <div class="card-body">
 
-                                    <h4 class="card-title">Data <?= $master; ?> Selesai Ditelaah</h4>
+                                    <h4 class="card-title">Data <?= $master; ?> Tembusan</h4>
                                     <br>
 
                                     <table id="datatable" class="table table-bordered dt-responsive nowrap"
@@ -103,7 +118,6 @@ include ('../head_table.php')
                                                 <th>Nama</th>
                                                 <th>Berkas</th>
                                                 <th>Status</th>
-                                                <th>User Tembusan</th>
                                                 <?php if ($_SESSION['level_id'] == 2 || $_SESSION['level_id'] == 3 || $_SESSION['level_id'] == 4) { ?>
                                                     <th>Aksi</th>
                                                 <?php } ?>
@@ -203,21 +217,6 @@ include ('../head_table.php')
                                                         <td><?= $status . " - " . $data_user['nama'] . ' - ' . date_format(date_create($data['created_at']), "d/m/Y H:i:s"); ?>
                                                         </td>
                                                     <?php } ?>
-
-                                                    <td>
-                                                        <?php if (count($data['tembusan'])) { ?>
-                                                            <ol>
-                                                                <?php foreach ($data['tembusan'] as $tembusan) { ?>
-                                                                    <li><?= $tembusan['user']['nama'] ?> <a
-                                                                            href="../../controller/<?php echo $dba; ?>_controller.php?op=hapus_surat_selesai&id=<?php echo $data['id'] ?>&id_user=<?= $tembusan['user']['id'] ?>"
-                                                                            onclick="return confirm('Apakah anda yakin ingin menghapus data ini?');">(x)</a>
-                                                                    </li>
-                                                                <?php } ?>
-                                                            </ol>
-                                                        <?php } else { ?>
-                                                            -
-                                                        <?php } ?>
-                                                    </td>
 
                                                     <?php if ($_SESSION['level_id'] == 2 || $_SESSION['level_id'] == 4) {
                                                         if ($data['berkas_serti']) {

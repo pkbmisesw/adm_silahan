@@ -14,4 +14,8 @@ class Tembusan extends Eloquent
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    // public function surat() {
+    //     return $this->
+    // }
 }

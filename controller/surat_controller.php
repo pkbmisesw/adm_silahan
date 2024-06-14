@@ -336,4 +336,25 @@ if ($op == "tambah") {
     } catch (Exception $e) {
         echo "<script>alert('Internal server error')</script>";
     }
+} else if ($op == 'hapus_surat_selesai') {
+    ini_set('display_errors', '1');
+    ini_set('display_startup_errors', '1');
+    error_reporting(E_ALL);
+    try {
+        $id_surat = $_GET['id'];
+        $id_user = $_GET['id_user'];
+
+        $data = \Models\Tembusan::where('surat_id', $id_surat)->where('user_id', $id_user);
+
+        if ($data->delete()) {
+            echo "<script>alert('Berhasil hapus user tembusan'); history.back();</script>";
+            return;
+        } else {
+            echo "<script>alert('Gagal ketika hapus user tembusan'); history.back();</script>";
+        }
+    } catch (\Exception $e) {
+        echo "<script>alert('Internal server error'); history.back();</script>";
+        return;
+    }
+    // die();
 }
