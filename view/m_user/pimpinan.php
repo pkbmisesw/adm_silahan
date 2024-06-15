@@ -8,8 +8,13 @@ if (isset($_SESSION['email']) == 0) {
     header('Location: ../../index.php');
 }
 
-if (!($_SESSION['level_id'] == "1" || $_SESSION['level_id'] == 2 || $_SESSION['level_id'] == 3 || $_SESSION['level_id'] == 5)) {
-    echo "<script>alert('Maaf! anda tidak bisa mengakses halaman ini '); document.location.href='../admin/'</script>";
+// if (!($_SESSION['level_id'] == "1" || $_SESSION['level_id'] == 2 || $_SESSION['level_id'] == 3 || $_SESSION['level_id'] == 5)) {
+//     echo "<script>alert('Maaf! anda tidak bisa mengakses halaman ini '); document.location.href='../admin/'</script>";
+// }
+
+if ($_SESSION['level_id'] != 1) {
+    echo "<script>alert('Maaf! anda tidak bisa mengakses halaman ini '); document.location.href='$url_web/index.php'</script>";
+    die();
 }
 
 $master = "Pengguna";
