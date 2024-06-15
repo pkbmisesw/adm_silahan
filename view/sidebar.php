@@ -186,7 +186,9 @@
                             <li><a href="../m_surat/selesaitelaah.php">Surat Selesai Ditelaah</a></li> -->
                             <li><a href="../m_surat/surat_download.php">Surat Hasil Telaah</a></li>
                             <!-- <li><a href="../m_surat/selesai.php">Surat Selesai</a></li> -->
+                            <?php if ($_SESSION['status_tembusan'] == 1) { ?>
                             <li><a href="../m_surat/surat_tembusan.php">Surat Tembusan</a></li>
+                            <?php } ?>
                         </ul>
                     </li>
 

@@ -29,6 +29,7 @@ if (isset($_POST['login'])) {
                 $_SESSION['password'] = $row['password'];
                 $_SESSION['user_id'] = $row['id'];
                 $_SESSION['level_id'] = $row['level_id'];
+                $_SESSION['status_tembusan'] = $row['status_tembusan'];
                 header("Location: view/admin/");
                 return;
             } else {
