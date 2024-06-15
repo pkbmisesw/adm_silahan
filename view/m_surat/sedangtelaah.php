@@ -187,7 +187,7 @@ include ('../head_table.php');
 
                                                         // $now = date_create("now");
                                                         $now = date('Y-m-d');
-                                                        $selesai_tgl = $data['selesai_tgl'] ? date_create($data['selesai_tgl']) : date('Y-m-d');
+                                                        $selesai_tgl = $data['selesai_tgl'] ? date_format(date_create($data['selesai_tgl']), 'Y-m-d') : date('Y-m-d');
                                                         $diff = selisih_hari($now, $selesai_tgl);
                                                         echo $diff;
                                                         ?>
