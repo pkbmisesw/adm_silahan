@@ -121,7 +121,7 @@
                             <li><a href="../m_surat/">Semua Permohonan</a></li>
                             <li><a href="../m_surat/diperiksa.php">Surat Diperiksa</a></li>
                             <li><a href="../m_surat/ditolak.php">Surat Ditolak</a></li>
-                            <li><a href="../m_surat/disposisi.php">Surat Didisposisi</a></li>
+                            <li><a href="../m_surat/disposisi.php">Pengajuan Disposisi</a></li>
                             <li><a href="../m_surat/ditelaah.php">Surat Ditelaah</a></li>
                             <li><a href="../m_surat/selesaitelaah.php">Surat Selesai Telaah</a></li>
                             <li><a href="../m_surat/surat_download.php">Surat Hasil Telaah</a></li>
