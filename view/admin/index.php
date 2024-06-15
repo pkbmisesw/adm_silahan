@@ -3,10 +3,27 @@ session_start();
 error_reporting(0);
 
 include ('../../config.php');
+include ('../../helpers/dates.php');
 
 if (isset($_SESSION['email']) == 0) {
     header('Location: ../../index.php');
 }
+
+function bar_chart()
+{ // surat
+    $surat_pending = \Models\Surat::whereYear('created_at', date('Y'))->where('status', 0)->count();
+    $surat_ditolak = \Models\Surat::whereYear('created_at', date('Y'))->where('status', 5)->count();
+    $surat_diproses = \Models\Surat::whereYear('created_at', date('Y'))->whereIn('status', [2, 3, 6])->count();
+
+    
+}
+
+// jika bukan pemohon
+if ($_SESSION['level_id'] != 5) {
+
+}
+
+$bukan_pemohon = $_SESSION['level_id'] != 5;
 ?>
 
 <?php
@@ -67,13 +84,21 @@ include ('../head.php');
                                         <div class="flex-grow-1">
                                             <?php
                                             $dateFirst = date("Y-m-1 00:00:00");
-                                            $dateNow = date("Y-m-d 23:59:59");
+                                            $jumlah_hari_bulan_ini = jumlah_hari_bulan_ini();
+                                            $dateNow = date("Y-m-$jumlah_hari_bulan_ini 23:59:59");
 
-                                            $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM `m_surat` WHERE (`created_at` BETWEEN :dateFirst AND :dateLast) AND user_id=:user_id ORDER BY `created_at` DESC");
-                                            $query->execute([":dateFirst" => $dateFirst, ":dateLast" => $dateNow, ":user_id" => $_SESSION['user_id']]);
-                                            $data = $query->fetch();
+                                            if ($bukan_pemohon) {
+                                                $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM `m_surat` WHERE (`created_at` BETWEEN :dateFirst AND :dateLast) AND status=:status_surat ORDER BY `created_at` DESC");
+                                                $query->execute([":dateFirst" => $dateFirst, ":dateLast" => $dateNow, ':status_surat' => 0]);
+                                                $data = $query->fetch();
+                                            } else {
+                                                $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM `m_surat` WHERE (`created_at` BETWEEN :dateFirst AND :dateLast) AND user_id=:user_id AND status=:status_surat ORDER BY `created_at` DESC");
+                                                $query->execute([":dateFirst" => $dateFirst, ":dateLast" => $dateNow, ":user_id" => $_SESSION['user_id'], ':status_surat' => 0]);
+                                                $data = $query->fetch();
+                                            }
+
                                             ?>
-                                            <p class="text-truncate font-size-14 mb-2">Permohonan Bulan Ini</p>
+                                            <p class="text-truncate font-size-14 mb-2">Total Permohonan Masuk</p>
                                             <h4 class="mb-2"><?= $data['total_surat']; ?></h4>
                                         </div>
                                         <div class="avatar-sm">
@@ -91,11 +116,17 @@ include ('../head.php');
                                     <div class="d-flex">
                                         <div class="flex-grow-1">
                                             <?php
-                                            $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM m_surat WHERE status=0 AND user_id=:user_id");
-                                            $query->execute([":user_id" => $_SESSION['user_id']]);
-                                            $data = $query->fetch();
+                                            if ($bukan_pemohon) {
+                                                $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM m_surat WHERE status=1");
+                                                $query->execute([]);
+                                                $data = $query->fetch();
+                                            } else {
+                                                $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM m_surat WHERE status=1 AND user_id=:user_id");
+                                                $query->execute([":user_id" => $_SESSION['user_id']]);
+                                                $data = $query->fetch();
+                                            }
                                             ?>
-                                            <p class="text-truncate font-size-14 mb-2">Total Permohonan Pending</p>
+                                            <p class="text-truncate font-size-14 mb-2">Total Surat Diperiksa</p>
                                             <h4 class="mb-2"><?= $data['total_surat']; ?></h4>
                                         </div>
                                         <div class="avatar-sm">
@@ -113,11 +144,18 @@ include ('../head.php');
                                     <div class="d-flex">
                                         <div class="flex-grow-1">
                                             <?php
-                                            $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM m_surat WHERE status=4 AND user_id=:user_id");
-                                            $query->execute([":user_id" => $_SESSION['user_id']]);
-                                            $data = $query->fetch();
+                                            if ($bukan_pemohon) {
+                                                // disposisi, ditelaah, sedang ditelaah
+                                                $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM m_surat WHERE status=2 OR status=3 OR status=6");
+                                                $query->execute([]);
+                                                $data = $query->fetch();
+                                            } else {
+                                                $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM m_surat WHERE status=2 OR status=3 OR status=6 AND user_id=:user_id");
+                                                $query->execute([":user_id" => $_SESSION['user_id']]);
+                                                $data = $query->fetch();
+                                            }
                                             ?>
-                                            <p class="text-truncate font-size-14 mb-2">Total Permohonan Diterima</p>
+                                            <p class="text-truncate font-size-14 mb-2">Total Permohonan Diproses</p>
                                             <h4 class="mb-2"><?= $data['total_surat']; ?></h4>
                                         </div>
                                         <div class="avatar-sm">
@@ -135,13 +173,19 @@ include ('../head.php');
                                     <div class="d-flex">
                                         <div class="flex-grow-1">
                                             <?php
-                                            if ($_SESSION['level_id'] == 5) {
-                                                $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM m_surat WHERE user_id=:user_id");
-                                                $query->execute([":user_id" => $_SESSION['user_id']]);
+                                            // if ($_SESSION['level_id'] == 5) {
+                                            //     $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM m_surat WHERE user_id=:user_id");
+                                            //     $query->execute([":user_id" => $_SESSION['user_id']]);
+                                            // }
+                                            if ($bukan_pemohon) {
+                                                $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM m_surat WHERE status=7");
+                                                $query->execute([]);
+                                            } else {
+                                                $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM m_surat WHERE status=7 AND user_id=:user_id");
+                                                $query->execute([':user_id' => $_SESSION['user_id']]);
                                             }
-
-                                            $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM m_surat");
-                                            $query->execute([]);
+                                            // $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM m_surat");
+                                            // $query->execute([]);
                                             // if ($_SESSION['level_id'] == 3) {
                                             // }
                                             
@@ -276,7 +320,7 @@ include ('../head.php');
 
                     <div class="row">
                         <div class="col-xl-8">
-                            <div class="card">
+                            <!-- <div class="card">
                                 <div class="card-body">
                                     <div class="dropdown float-end">
                                         <a href="#" class="dropdown-toggle arrow-none card-drop"
@@ -437,6 +481,63 @@ include ('../head.php');
                                         </table>
                                     </div>
                                 </div>
+                            </div> -->
+
+                            <div class="card">
+                                <div class="card-body pb-0">
+                                    <div class="float-end d-none d-md-inline-block">
+                                        <div class="dropdown">
+                                            <a class="text-reset" href="#" data-bs-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">
+                                                <span class="text-muted">This Years<i
+                                                        class="mdi mdi-chevron-down ms-1"></i></span>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a class="dropdown-item" href="#">Today</a>
+                                                <a class="dropdown-item" href="#">Last Week</a>
+                                                <a class="dropdown-item" href="#">Last Month</a>
+                                                <a class="dropdown-item" href="#">This Year</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h4 class="card-title mb-4">Revenue</h4>
+
+                                    <div class="text-center pt-3">
+                                        <div class="row">
+                                            <div class="col-sm-4 mb-3 mb-sm-0">
+                                                <div>
+                                                    <h5>17,493</h5>
+                                                    <p class="text-muted text-truncate mb-0">
+                                                        Marketplace
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <!-- end col -->
+                                            <div class="col-sm-4 mb-3 mb-sm-0">
+                                                <div>
+                                                    <h5>$44,960</h5>
+                                                    <p class="text-muted text-truncate mb-0">
+                                                        Last Week
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <!-- end col -->
+                                            <div class="col-sm-4">
+                                                <div>
+                                                    <h5>$29,142</h5>
+                                                    <p class="text-muted text-truncate mb-0">
+                                                        Last Month
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <!-- end col -->
+                                        </div>
+                                        <!-- end row -->
+                                    </div>
+                                </div>
+                                <div class="card-body py-0 px-2">
+                                    <div id="column_line_chart-data-tahunan" class="apex-charts" dir="ltr"></div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-xl-4">
@@ -474,7 +575,7 @@ include ('../head.php');
                                     </div>
 
                                     <div class="mt-4">
-                                        <div id="donut-chart" class="apex-charts"></div>
+                                        <div id="donut-chart-proses-surat" class="apex-charts"></div>
                                     </div>
                                 </div>
                             </div>
@@ -558,6 +659,10 @@ include ('../head.php');
         </div> <!-- end slimscroll-menu-->
     </div>
     <!-- /Right-bar -->
+
+    <script src="../../assets/libs/jquery/jquery.min.js"></script>
+
+    <script src="../../assets/js/dashboard.js"></script>
 
     <?php
     include ('../footer.php');

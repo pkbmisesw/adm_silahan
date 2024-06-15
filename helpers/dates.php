@@ -27,3 +27,16 @@ function selisih_hari($start_date, $end_date)
 
     return $total_hari;
 }
+
+function jumlah_hari_bulan_ini()
+{
+    $bulan = date('n'); // Bulan saat ini (1-12)
+    $tahun = date('Y'); // Tahun saat ini (4 digit)
+
+    // Menghitung jumlah hari dalam bulan ini
+    $jumlahHari = cal_days_in_month(CAL_GREGORIAN, $bulan, $tahun);
+
+    // Menampilkan hasil
+    return $jumlahHari;
+
+}
