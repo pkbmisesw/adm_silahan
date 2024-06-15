@@ -148,9 +148,9 @@ include ('../head_table.php');
                                                             data-role_id="<?= $data['level_id'] ?>"
                                                             data-is_active="<?= $data['status_aktif'] ?>" type="button"
                                                             class="btn btn-light btn_update" data-toggle="modal">✎</button>
-                                                        <a class="btn btn-danger"
-                                                            href="../../controller/<?php echo $dba; ?>_controller.php?op=hapus&id=<?php echo $data['id'] ?>"
                                                             <?php if ($_SESSION['level_id'] == 1) { ?>
+                                                            <a class="btn btn-danger"
+                                                            href="../../controller/<?php echo $dba; ?>_controller.php?op=hapus&id=<?php echo $data['id'] ?>"
                                                             onclick="return confirm('Apakah anda yakin ingin menghapus data ini?');">X</a>
                                                             <?php } ?>
                                                     </td>
