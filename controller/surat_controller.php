@@ -120,7 +120,8 @@ if ($op == "tambah") {
     $result = $query->execute([":id" => $id]);
 
     if ($result) {
-        echo "<script>alert('Berhasil Pengajuan Disposisi'); history.back();</script>";
+        // echo "<script>alert('Berhasil Pengajuan Disposisi'); history.back();</script>";
+        echo "<script>alert('Berhasil Pengajuan Disposisi'); document.location.href=('../view/m_surat/diperiksa.php')</script>";
         return;
     } else {
         echo "<script>alert('Gagal Disposisi'); history.back();</script>";
