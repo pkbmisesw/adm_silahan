@@ -73,9 +73,9 @@ $title = "Silahan Kawan | Surat";include('../head_table.php');
 
                                 <h4 class="card-title">Data <?= $master; ?> Keseluruhan</h4>
                                 <?php if($_SESSION['level_id'] != 3){ ?>
-                                <!-- <button type="button" class="btn btn-primary mb-4 mt-3" data-bs-toggle="modal" data-bs-target="#tambah">
-                                    Ajukan Permohonan
-                                </button> -->
+                                <!--<button type="button" class="btn btn-primary mb-4 mt-3" data-bs-toggle="modal" data-bs-target="#tambah">-->
+                                <!--    Ajukan Permohonan-->
+                                <!--</button>-->
                                 <a href="kirimpermohonan.php" class="btn btn-primary mb-4 mt-3">Ajukan Permohonan</a>
 
                                 <?php } ?>
@@ -177,7 +177,7 @@ $title = "Silahan Kawan | Surat";include('../head_table.php');
                                                             data-id="<?= $data['id'] ?>"
                                                             data-note="<?= $data['note'] ?>"
                                                             type="button" class="btn btn-light btn_update_operator" data-toggle="modal">✎</button>
-                                                    <a class="btn btn-success" href="../../controller/<?php echo $dba;?>_controller.php?op=approve&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin mengapprove permohonan ini?');">&#x2713;</a>
+                                                    <a class="btn btn-success" href="../../controller/<?php echo $dba;?>_controller.php?op=approve&id=<?php echo $data['id'] ?>" onclick="return confirm('Anda yakin ingin menangani permohonan ini?');">&#x2713;</a>
                                                     <!-- <a class="btn btn-danger" href="../../controller/<?php echo $dba;?>_controller.php?op=deny&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin menolak permohonan ini?');">X</a> -->
                                                 <?php } else { ?>
                                                 <!-- <button
