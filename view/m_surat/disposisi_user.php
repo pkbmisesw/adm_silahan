@@ -110,7 +110,7 @@ include ('../head_table.php');
                                             }
 
                                             if ($_SESSION['level_id'] == 5) {
-                                                $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE status=2 AND user_id=:user_id ORDER BY id DESC");
+                                                $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE IN (2,3,4) AND user_id=:user_id ORDER BY id DESC");
                                                 $sql->execute([":user_id" => $_SESSION['user_id']]);
                                             }
 
