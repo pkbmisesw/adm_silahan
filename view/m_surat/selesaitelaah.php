@@ -154,7 +154,7 @@ include ('../head_table.php')
                                                 }
 
                                                 if ($data['status'] == 8) {
-                                                    $status = "Sertifikat";
+                                                    $status = "Hasil Telaah";
                                                 }
                                                 ?>
                                                 <tr>
@@ -189,7 +189,7 @@ include ('../head_table.php')
                                                                 <?php if ($_SESSION['level_id'] == 3 || $_SESSION['level_id'] == 2 || $_SESSION['level_id'] == 4) { ?>
                                                                     - <a href="../../images/sertifikasi/<?= $data['berkas_serti']; ?>"
                                                                         target="_blank">Berkas
-                                                                        Sertifikat</a><br><small><?= $data['note'] ?></small> <?php } ?>
+                                                                        Hasil Telaah</a><br><small><?= $data['note'] ?></small> <?php } ?>
                                                             </td>
                                                         <?php } ?>
                                                     <?php } ?>

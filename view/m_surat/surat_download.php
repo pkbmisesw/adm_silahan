@@ -144,7 +144,7 @@ include ('../head_table.php')
                                                 }
 
                                                 if ($data['status'] == 8) {
-                                                    $status = "Sertifikat";
+                                                    $status = "Hasil Telaah";
                                                 }
                                                 ?>
                                                 <tr>
@@ -178,7 +178,7 @@ include ('../head_table.php')
 
                                                                 - <a href="../../images/sertifikasi/<?= $data['berkas_serti']; ?>"
                                                                     target="_blank">Berkas
-                                                                    Sertifikat</a><br><small><?= $data['note'] ?></small>
+                                                                    Hasil Telaah</a><br><small><?= $data['note'] ?></small>
                                                             </td>
                                                         <?php } ?>
                                                     <?php } ?>

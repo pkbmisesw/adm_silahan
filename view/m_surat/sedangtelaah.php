@@ -147,7 +147,7 @@ include ('../head_table.php');
                                                 }
 
                                                 if ($data['status'] == 8) {
-                                                    $status = "Sertifikat";
+                                                    $status = "Hasil Telaah";
                                                 }
                                                 ?>
                                                 <tr>
