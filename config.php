@@ -13,8 +13,8 @@ $url_web = 'http://localhost/adm_silahan';
 
 // SMTP Server
 $mail_host = 'smtp.gmail.com';
-$mail_username = 'rezavanessa.accggl@gmail.com';
-$mail_password = 'pcumxzbhklenfuxs';
+$mail_username = 'silahankawan@gmail.com';
+$mail_password = 'bibgjiqwdastitpi';
 $mail_port = 587;
 
 try {

@@ -27,7 +27,7 @@ if (isset($_POST['reset'])) {
             $html_template = fread($myfile, filesize('./view/reset_password.template'));
             $html_template = str_replace('::link_reset::', "$url_web/verify-reset-password.php?token=$uuid", $html_template);
             // send_email("Verify Account", $email, $name, 'ADM Silahan', $html_template);
-            send_email("Reset Password - Silahan Kawan", $email, $row['nama'], 'ADM Silahan', $html_template);
+            send_email("Reset Password - Silahan Kawan", $email, $row['nama'], 'Silahan Kawan', $html_template);
             fclose($myfile);
 
             $token = $conn->prepare("INSERT INTO verify_code (

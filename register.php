@@ -66,7 +66,7 @@ if (isset($_POST['daftar'])) {
             $html_template = str_replace('::name::', $name, $html_template);
             $html_template = str_replace('::email::', $email, $html_template);
             $html_template = str_replace('::password::', $_POST['password'], $html_template);
-            send_email("Verify Account", $email, $name, 'ADM Silahan', $html_template);
+            send_email("Verify Account", $email, $name, 'Silahan Kawan', $html_template);
             fclose($myfile);
             if ($stmt->execute() && $token->execute()) {
                 echo '<script>alert("Berhasil Buat Akun. Silahkan cek email untuk verifikasi akun")</script>';
@@ -145,7 +145,7 @@ if (isset($_POST['daftar'])) {
                 $html_template = str_replace('::name::', $name, $html_template);
                 $html_template = str_replace('::email::', $email, $html_template);
                 $html_template = str_replace('::password::', $_POST['password'], $html_template);
-                send_email("Verify Account", $email, $name, 'ADM Silahan', $html_template);
+                send_email("Verify Account", $email, $name, 'Silahan Kawan', $html_template);
                 fclose($myfile);
 
                 if ($stmt->execute() && $token->execute()) {
@@ -220,7 +220,7 @@ if (isset($_POST['daftar'])) {
                 $html_template = str_replace('::name::', $name, $html_template);
                 $html_template = str_replace('::email::', $email, $html_template);
                 $html_template = str_replace('::password::', $_POST['password'], $html_template);
-                send_email("Verify Account", $email, $name, 'ADM Silahan', $html_template);
+                send_email("Verify Account", $email, $name, 'Silahan Kawan', $html_template);
                 fclose($myfile);
 
                 $token->execute();

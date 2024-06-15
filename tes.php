@@ -23,10 +23,22 @@ $data = Surat::whereYear('created_at', date('Y'))->where('status', 0)->get()->gr
     return $item->created_at->format('m');
 });
 
-$bulan = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
+$data_bulan = [];
 
-$bulan_sekarang = date('m');
+$bulan_sekarang = date('n');
 
-echo (int) $bulan_sekarang;
+for ($i = 1; $i <= (int) $bulan_sekarang; $i++) {
+    array_push($data_bulan, $i);
+}
+
+
+foreach ($data as $bulan => $datas) {
+    $bulan = (int) $bulan;
+
+    $index_bulan = array_search($bulan, $data_bulan);
+
+    // echo "ini index : " . array_search($bulan, $data_bulan);
+}
+// echo (int) $bulan_sekarang;
 
 // echo json_encode($data, JSON_PRETTY_PRINT);
