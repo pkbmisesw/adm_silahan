@@ -155,7 +155,9 @@ include ('../head_table.php');
                                                             data-status_tembusan="<?= $data['status_tembusan'] ?>"
                                                             type="button" class="btn btn-light btn_update"
                                                             data-toggle="modal">✎</button>
-                                                        <!-- <a class="btn btn-danger" href="../../controller/<?php echo $dba; ?>_controller.php?op=hapus&id=<?php echo $data['id'] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?');">X</a> -->
+                                                        <a class="btn btn-danger"
+                                                            href="../../controller/<?php echo $dba; ?>_controller.php?op=hapus&id=<?php echo $data['id'] ?>"
+                                                            onclick="return confirm('Apakah anda yakin ingin menghapus data ini?');">X</a>
                                                     </td>
                                                 </tr>
                                                 <?php $count++;
