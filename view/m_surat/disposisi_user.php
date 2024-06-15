@@ -140,7 +140,7 @@ include ('../head_table.php');
                                                 }
 
                                                 if ($data['status'] == 6) {
-                                                    $status = "Selesai";
+                                                    $status = "Sedang di Telaah";
                                                 }
 
                                                 if ($data['status'] == 7) {
