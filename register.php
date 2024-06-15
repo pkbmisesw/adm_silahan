@@ -26,6 +26,7 @@ if (isset($_POST['daftar'])) {
             echo "<script>alert('Email Sudah ada'); window.document.location.href='index';</script>";
         } else {
             $stmt = $conn->prepare("INSERT INTO m_user (
+                    codx,
                     nama,
                     hp,
                     email, 
@@ -34,6 +35,7 @@ if (isset($_POST['daftar'])) {
                     status_aktif
                     )
                     VALUES (
+                        :codx,
                         :name, 
                         :hp
                         :email, 
@@ -48,6 +50,7 @@ if (isset($_POST['daftar'])) {
             $stmt->bindParam(':password', $pass);
             $stmt->bindParam(':level_id', $role_id);
             $stmt->bindParam(':status_aktif', $is_active);
+            $stmt->bindParam(':codx', $uuid);
 
             $token = $conn->prepare("INSERT INTO verify_code (
                 token,
@@ -107,6 +110,7 @@ if (isset($_POST['daftar'])) {
                 echo "<script>alert('Email Sudah ada'); window.document.location.href='index';</script>";
             } else {
                 $stmt = $conn->prepare("INSERT INTO m_user (
+                    codx,
                     nama, 
                     hp, 
                     email, 
@@ -115,6 +119,7 @@ if (isset($_POST['daftar'])) {
                     status_aktif
                     )
                     VALUES (
+                        :codx,
                         :name, 
                         :hp,
                         :email, 
@@ -129,6 +134,7 @@ if (isset($_POST['daftar'])) {
                 $stmt->bindParam(':password', $pass);
                 $stmt->bindParam(':level_id', $role_id);
                 $stmt->bindParam(':status_aktif', $is_active);
+                $stmt->bindParam(':codx', $uuid);
 
                 $token = $conn->prepare("INSERT INTO verify_code (
                     token,
@@ -182,6 +188,7 @@ if (isset($_POST['daftar'])) {
                 echo "<script>alert('Email Sudah ada'); window.document.location.href='index';</script>";
             } else {
                 $stmt = $conn->prepare("INSERT INTO m_user (
+                    codx,
                     nama, 
                     hp, 
                     email, 
@@ -190,6 +197,7 @@ if (isset($_POST['daftar'])) {
                     status_aktif
                     )
                     VALUES (
+                        :codx,
                         :name, 
                         :hp,
                         :email, 
@@ -198,6 +206,7 @@ if (isset($_POST['daftar'])) {
                         :status_aktif
                         );");
 
+                $stmt->bindParam(':codx', $uuid);
                 $stmt->bindParam(':name', $name);
                 $stmt->bindParam(':hp', $hp);
                 $stmt->bindParam(':email', $email);
