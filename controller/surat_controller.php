@@ -84,7 +84,7 @@ if ($op == "tambah") {
 
     if ($result) {
         // echo "<script>alert('Berhasil Approve'); history.back();</script>";
-        echo "<script>alert('Berhasil Ambil Surat Tersebut'); document.location.href=('../m_surat/index.php')</script>";
+        echo "<script>alert('Berhasil Ambil Surat Tersebut'); document.location.href=('../view/m_surat/index.php')</script>";
         return;
     } else {
         echo "<script>alert('Gagal Approve'); history.back();</script>";
