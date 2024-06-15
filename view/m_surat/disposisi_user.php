@@ -95,24 +95,10 @@ include ('../head_table.php');
                                             $count = 1;
 
                                             $status = "";
-
-                                            $sql = $conn->prepare("SELECT m_surat.* FROM `m_surat` WHERE status IN (2,3,4) AND user_id=:user_id ORDER BY id DESC");
+                                            
+                                            $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE status IN (2,3,4,6) AND user_id=:user_id ORDER BY id DESC");
                                             $sql->execute([":user_id" => $_SESSION['user_id']]);
-
-                                            if ($_SESSION['level_id'] == 4) {
-                                                $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE status=2 ORDER BY id DESC");
-                                                $sql->execute();
-                                            }
-
-                                            if ($_SESSION['level_id'] == 3) {
-                                                $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE status=2 AND petugas_id=:petugas_id ORDER BY id DESC");
-                                                $sql->execute([":petugas_id" => $_SESSION['user_id']]);
-                                            }
-
-                                            if ($_SESSION['level_id'] == 5) {
-                                                $sql = $conn->prepare("SELECT m_surat.*, m_user.nama as nama_user FROM `m_surat` INNER JOIN `m_user` ON m_surat.user_id = m_user.id WHERE status IN (2,3,4,6) AND user_id=:user_id ORDER BY id DESC");
-                                                $sql->execute([":user_id" => $_SESSION['user_id']]);
-                                            }
+                                            
 
                                             while ($data = $sql->fetch()) {
                                                 if ($data['status'] == 0) {
@@ -148,7 +134,7 @@ include ('../head_table.php');
                                                 }
 
                                                 if ($data['status'] == 8) {
-                                                    $status = "Sertifikat";
+                                                    $status = "Hasil Telaah";
                                                 }
                                                 ?>
                                                 <tr>
