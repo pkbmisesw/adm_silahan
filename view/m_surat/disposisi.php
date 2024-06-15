@@ -19,7 +19,7 @@ $ketnama = "Silahkan mengisi nama";
 ?>
 
 <?php
-$title = "Silahan Kawan | Surat Disposisi";
+$title = "Silahan Kawan | Pengajuan Disposisi";
 include ('../head_table.php');
 ?>
 
