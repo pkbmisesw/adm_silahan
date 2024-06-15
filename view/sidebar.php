@@ -180,10 +180,10 @@
                             <!-- <li><a href="../m_surat/">Semua Permohonan</a></li> -->
                             <li><a href="../m_surat/diperiksa.php">Surat Diperiksa</a></li>
                             <li><a href="../m_surat/ditolak.php">Surat Ditolak</a></li>
-                            <li><a href="../m_surat/disposisi.php">Pengajuan Disposisi</a></li>
-                            <li><a href="../m_surat/ditelaah.php">Surat Ditelaah</a></li>
+                            <li><a href="../m_surat/disposisi_user.php">Pengajuan Disposisi</a></li>
+                            <!-- <li><a href="../m_surat/ditelaah.php">Surat Ditelaah</a></li>
                             <li><a href="../m_surat/sedangtelaah.php">Surat Sedang Ditelaah</a></li>
-                            <li><a href="../m_surat/selesaitelaah.php">Surat Selesai Ditelaah</a></li>
+                            <li><a href="../m_surat/selesaitelaah.php">Surat Selesai Ditelaah</a></li> -->
                             <li><a href="../m_surat/surat_download.php">Surat Hasil Telaah</a></li>
                             <!-- <li><a href="../m_surat/selesai.php">Surat Selesai</a></li> -->
                             <li><a href="../m_surat/surat_tembusan.php">Surat Tembusan</a></li>
