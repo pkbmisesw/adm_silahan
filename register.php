@@ -26,7 +26,8 @@ if (isset($_POST['daftar'])) {
             echo "<script>alert('Email Sudah ada'); window.document.location.href='index';</script>";
         } else {
             $stmt = $conn->prepare("INSERT INTO m_user (
-                    nama, 
+                    nama,
+                    hp,
                     email, 
                     password, 
                     level_id, 
@@ -34,6 +35,7 @@ if (isset($_POST['daftar'])) {
                     )
                     VALUES (
                         :name, 
+                        :hp
                         :email, 
                         :password,
                         :level_id, 
@@ -41,6 +43,7 @@ if (isset($_POST['daftar'])) {
                         );");
 
             $stmt->bindParam(':name', $name);
+            $stmt->bindParam(':hp', $_POST['hp']);
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':password', $pass);
             $stmt->bindParam(':level_id', $role_id);
