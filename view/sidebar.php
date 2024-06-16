@@ -57,13 +57,10 @@
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
                             <li><a href="../m_surat/semua.php">Semua Permohonan</a></li>
-                            <li><a href="../m_surat/diperiksa.php">Surat Diperiksa</a></li>
-                            <li><a href="../m_surat/ditolak.php">Surat Ditolak</a></li>
-                            <li><a href="../m_surat/disposisi_user.php">Pengajuan Disposisi</a></li>
-                            <li><a href="../m_surat/surat_download.php">Surat Hasil Telaah</a></li>
-                            <?php if ($_SESSION['status_tembusan'] == 1) { ?>
-                            <li><a href="../m_surat/surat_tembusan.php">Surat Tembusan</a></li>
-                            <?php } ?>
+                            <li><a href="../m_surat/semua_diperiksa.php">Surat Diperiksa</a></li>
+                            <li><a href="../m_surat/semua_ditolak.php">Surat Ditolak</a></li>
+                            <li><a href="../m_surat/semua_disposisi.php">Surat Disposisi</a></li>
+                            <li><a href="../m_surat/semua_hasil.php">Surat Hasil</a></li>
                         </ul>
                     </li>
 
