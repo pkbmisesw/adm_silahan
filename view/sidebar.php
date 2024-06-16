@@ -49,7 +49,7 @@
                 <!-- Superadmin -->
                 <?php if ($_SESSION['level_id'] == 1) { ?>
                     <li>
-                        <a href="../m_surat/" class="waves-effect">
+                        <a href="../m_surat/semua.php" class="waves-effect">
                             <i class="ri-mail-send-line"></i>
                             <span>Semua Permohonan</span>
                         </a>
