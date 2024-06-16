@@ -83,8 +83,8 @@ if ($op == "tambah") {
     $result = $query->execute([":id" => $id, ":petugas_id" => $_SESSION['user_id']]);
 
     if ($result) {
-        // echo "<script>alert('Berhasil Approve'); history.back();</script>";
-        echo "<script>alert('Berhasil Ambil Surat Tersebut'); document.location.href=('../view/m_surat/index.php')</script>";
+        // echo "<script>alert('Berhasil Menyetujui'); history.back();</script>";
+        echo "<script>alert('Berhasil Mengambil Alih Surat Tersebut'); document.location.href=('../view/m_surat/index.php')</script>";
         return;
     } else {
         echo "<script>alert('Gagal Approve'); history.back();</script>";
@@ -102,10 +102,10 @@ if ($op == "tambah") {
     $result = $query->execute([":id" => $id, ":petugas_id" => $_SESSION['user_id']]);
 
     if ($result) {
-        echo "<script>alert('Berhasil Deny'); history.back();</script>";
+        echo "<script>alert('Berhasil Ditolak'); history.back();</script>";
         return;
     } else {
-        echo "<script>alert('Gagal Deny'); history.back();</script>";
+        echo "<script>alert('Gagal Ditolak'); history.back();</script>";
         return;
     }
 } else if ($op == "disposisi") {
@@ -139,10 +139,10 @@ if ($op == "tambah") {
     $result = $query->execute([":id" => $id]);
 
     if ($result) {
-        echo "<script>alert('Berhasil Ditelaah'); history.back();</script>";
+        echo "<script>alert('Berhasil Didisposisi'); history.back();</script>";
         return;
     } else {
-        echo "<script>alert('Gagal Ditelaah'); history.back();</script>";
+        echo "<script>alert('Gagal Didisposisi'); history.back();</script>";
         return;
     }
 } else if ($op == "sedangtelaah") {
@@ -190,10 +190,10 @@ if ($op == "tambah") {
     $result = $query->execute([":id" => $id]);
 
     if ($result) {
-        echo "<script>alert('Berhasil Ditelaah'); history.back();</script>";
+        echo "<script>alert('Berhasil Diproses Lanjut'); history.back();</script>";
         return;
     } else {
-        echo "<script>alert('Gagal Ditelaah'); history.back();</script>";
+        echo "<script>alert('Gagal Diproses Lanjut'); history.back();</script>";
         return;
     }
 } else if ($op == "sertifikat") {
@@ -208,10 +208,28 @@ if ($op == "tambah") {
     $result = $query->execute([":id" => $id]);
 
     if ($result) {
-        echo "<script>alert('Berhasil Disertifikat'); history.back();</script>";
+        echo "<script>alert('Berhasil Diproses'); history.back();</script>";
         return;
     } else {
-        echo "<script>alert('Gagal Disertifikat'); history.back();</script>";
+        echo "<script>alert('Gagal Diproses'); history.back();</script>";
+        return;
+    }
+} else if ($op == "tembusan") {
+    $id = isset($_GET['id']) ? $_GET['id'] : '';
+
+    if (!$id) {
+        echo '<script>history.back();</script>';
+    }
+
+    $sql = "UPDATE `m_surat` SET `status`=8 WHERE `id`=:id";
+    $query = $conn->prepare($sql);
+    $result = $query->execute([":id" => $id]);
+
+    if ($result) {
+        echo "<script>alert('Berhasil Diproses'); history.back();</script>";
+        return;
+    } else {
+        echo "<script>alert('Gagal Diproses'); history.back();</script>";
         return;
     }
 } else if ($op == "upload") {
