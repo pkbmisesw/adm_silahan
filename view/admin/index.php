@@ -58,6 +58,9 @@ include ('../head.php');
                     </div>
                     <!-- end page title -->
 
+
+                    <?php if ($_SESSION['level_id'] == 2) { ?>
+
                     <div class="row">
                         <div class="col-xl-3 col-md-6">
                             <div class="card">
@@ -68,11 +71,12 @@ include ('../head.php');
                                             $dateFirst = date("Y-m-1 00:00:00");
                                             $dateNow = date("Y-m-d 23:59:59");
 
-                                            $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM `m_surat` WHERE (`created_at` BETWEEN :dateFirst AND :dateLast) AND user_id=:user_id ORDER BY `created_at` DESC");
-                                            $query->execute([":dateFirst" => $dateFirst, ":dateLast" => $dateNow, ":user_id" => $_SESSION['user_id']]);
-                                            $data = $query->fetch();
+                                            $sql = $conn->prepare("SELECT count(*) as total_surat FROM log_saya WHERE kat_id = 41 AND status = 1");
+                                            $sql->execute();
+                                            $data = $sql->fetch();
+
                                             ?>
-                                            <p class="text-truncate font-size-14 mb-2">Permohonan Bulan Ini</p>
+                                            <p class="text-truncate font-size-14 mb-2">Semua Disposisi Atasan</p>
                                             <h4 class="mb-2"><?= $data['total_surat']; ?></h4>
                                         </div>
                                         <div class="avatar-sm">
@@ -85,7 +89,7 @@ include ('../head.php');
                             </div><!-- end card -->
                         </div><!-- end col -->
 
-                        
+
                         <div class="col-xl-3 col-md-6">
                             <div class="card">
                                 <div class="card-body">
@@ -160,7 +164,9 @@ include ('../head.php');
                                 </div><!-- end cardbody -->
                             </div><!-- end card -->
                         </div><!-- end col -->
-                    </div><!-- end row -->
+                    </div>
+
+                    <?php } ?>
 
                     <?php if ($_SESSION['level_id'] == 3) { ?>
                         <!-- start operators                             -->
