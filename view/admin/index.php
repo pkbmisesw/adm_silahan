@@ -164,7 +164,7 @@ include ('../head.php');
                     </div>
                     <?php } ?>
 
-                    <?php if ($_SESSION['level_id'] == 5 ){ ?>
+                    <?php if ($_SESSION['level_id'] == 5) { ?>
                     <div class="row">
                         <div class="col-xl-3 col-md-6">
                             <div class="card">
@@ -173,12 +173,12 @@ include ('../head.php');
                                         <div class="flex-grow-1">
                                             <?php
 
-                                            $sql = $conn->prepare("SELECT count(*) as total_surat FROM m_surat WHERE status = 0 AND user_id = '".$_SESSION['user_id']."'");
+                                            $sql = $conn->prepare("SELECT count(*) as total_surat FROM m_surat WHERE status = 3");
                                             $sql->execute();
                                             $data = $sql->fetch();
 
                                             ?>
-                                            <p class="text-truncate font-size-14 mb-2">Proses Pengajuan</p>
+                                            <p class="text-truncate font-size-14 mb-2">Semua Disposisi Atasan</p>
                                             <h4 class="mb-2"><?= $data['total_surat']; ?></h4>
                                         </div>
                                         <div class="avatar-sm">
@@ -268,7 +268,6 @@ include ('../head.php');
 
                     </div>
                     <?php } ?>
-
 
                    
 
