@@ -48,16 +48,15 @@
 
                 <!-- Superadmin -->
                 <?php if ($_SESSION['level_id'] == 1) { ?>
+                    
                     <li>
-                        <a href="../m_surat/semua.php" class="waves-effect">
-                            <i class="ri-mail-send-line"></i>
-                            <span>Semua Permohonana</span>
-                        </a>
+                        
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class="ri-mail-send-line"></i>
                             <span>Data Surat</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="../m_surat/semua.php">Semua Permohonan</a></li>
                             <li><a href="../m_surat/diperiksa.php">Surat Diperiksa</a></li>
                             <li><a href="../m_surat/ditolak.php">Surat Ditolak</a></li>
                             <li><a href="../m_surat/disposisi_user.php">Pengajuan Disposisi</a></li>
