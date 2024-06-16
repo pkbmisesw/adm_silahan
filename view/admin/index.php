@@ -59,7 +59,7 @@ include ('../head.php');
                     <!-- end page title -->
 
 
-                    <?php if ($_SESSION['level_id'] == 1 || $_SESSION['level_id'] == 2) { ?>
+                    <?php if ($_SESSION['level_id'] == 2) { ?>
 
                     <div class="row">
                         <div class="col-xl-3 col-md-6">
