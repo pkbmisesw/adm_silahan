@@ -1,12 +1,8 @@
 <?php
 session_start();
 // error_reporting(0);
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
 
 include ('../../config.php');
-include '../../helpers/dates.php';
 
 if (isset($_SESSION['email']) == 0) {
     header('Location: ../../index.php');
@@ -186,18 +182,16 @@ include ('../head_table.php');
                                                         $data_telaah = $sql_telaah->fetch();
 
                                                         // $now = date_create("now");
-                                                        $now = date('Y-m-d');
-                                                        $selesai_tgl = $data['selesai_tgl'] ? date_format(date_create($data['selesai_tgl']), 'Y-m-d') : date('Y-m-d');
-                                                        $diff = selisih_hari($now, $selesai_tgl);
-                                                        echo $diff;
+                                                        $now = date_create("now");
+                                                        $selesai_tgl = date_create($data['selesai_tgl']);
+                                                        $diff = date_diff($now, $selesai_tgl);
                                                         ?>
                                                         <td>
                                                             <?= $status . " - " . $data_user['nama'] . ' - ' . date_format(date_create($data['created_at']), "d/m/Y H:i:s"); ?><br>
                                                             <?= "PPKH : " . $data_ppkh['nama'] . " - Penelaah : " . $data_telaah['nama']; ?><br>
                                                             <?= "Mulai : " . $data['mulai_tgl'] . " - Selesai : " . $data['selesai_tgl'] ?><br>
                                                             <?php if ($now <= $selesai_tgl) { ?>
-                                                                <b
-                                                                    class="text-danger font-weight-bold text-uppercase"><?= $diff . ' HARI TERSISA'; ?></b>
+                                                                <b class="text-danger font-weight-bold text-uppercase"><?= $diff->days+1 . ' HARI TERSISA'; ?></b>
                                                             <?php } ?>
                                                         </td>
                                                     <?php } ?>
