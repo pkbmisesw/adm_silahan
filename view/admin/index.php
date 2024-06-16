@@ -71,7 +71,7 @@ include ('../head.php');
                                             $dateFirst = date("Y-m-1 00:00:00");
                                             $dateNow = date("Y-m-d 23:59:59");
 
-                                            $sql = $conn->prepare("SELECT count(*) as total_surat FROM log_saya WHERE kat_id = 41 AND status = 1");
+                                            $sql = $conn->prepare("SELECT count(*) as total_surat FROM m_surat WHERE status = 2");
                                             $sql->execute();
                                             $data = $sql->fetch();
 
