@@ -118,12 +118,12 @@ include ('../head.php');
                                         <div class="flex-grow-1">
                                             <?php
 
-                                            $sql = $conn->prepare("SELECT count(*) as total_surat FROM m_surat WHERE status = 0 AND user_id = '".$_SESSION['user_id']."'");
+                                            $sql = $conn->prepare("SELECT count(*) as total_surat FROM m_surat WHERE status = 7");
                                             $sql->execute();
                                             $data = $sql->fetch();
 
                                             ?>
-                                            <p class="text-truncate font-size-14 mb-2">Pengajuan Permohonan</p>
+                                            <p class="text-truncate font-size-14 mb-2">Surat Selesai Ditelaah</p>
                                             <h4 class="mb-2"><?= $data['total_surat']; ?></h4>
                                         </div>
                                         <div class="avatar-sm">
@@ -173,12 +173,12 @@ include ('../head.php');
                                         <div class="flex-grow-1">
                                             <?php
 
-                                            $sql = $conn->prepare("SELECT count(*) as total_surat FROM m_surat WHERE status = 3");
+                                            $sql = $conn->prepare("SELECT count(*) as total_surat FROM m_surat WHERE status = 0 AND user_id = '".$_SESSION['user_id']."'");
                                             $sql->execute();
                                             $data = $sql->fetch();
 
                                             ?>
-                                            <p class="text-truncate font-size-14 mb-2">Semua Disposisi Atasan</p>
+                                            <p class="text-truncate font-size-14 mb-2">Proses Pengajuan</p>
                                             <h4 class="mb-2"><?= $data['total_surat']; ?></h4>
                                         </div>
                                         <div class="avatar-sm">
