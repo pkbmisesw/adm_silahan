@@ -49,14 +49,24 @@
                 <!-- Superadmin -->
                 <?php if ($_SESSION['level_id'] == 1) { ?>
                     <li>
+                        <a href="../m_surat/" class="waves-effect">
+                            <i class="ri-mail-send-line"></i>
+                            <span>Semua Permohonan</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class="ri-mail-send-line"></i>
-                            <span>Master Surat</span>
+                            <span>Data Surat</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="email-inbox.html">Surat Disposisi</a></li>
-                            <li><a href="../m_surat/diterima.php">Permohonan Diterima</a></li>
-                            <li><a href="../m_surat/sertifikasi.php">Permohonan Dengan Sertifikasi</a></li>
+                            <li><a href="../m_surat/diperiksa.php">Surat Diperiksa</a></li>
+                            <li><a href="../m_surat/ditolak.php">Surat Ditolak</a></li>
+                            <li><a href="../m_surat/disposisi_user.php">Pengajuan Disposisi</a></li>
+                            <li><a href="../m_surat/surat_download.php">Surat Hasil Telaah</a></li>
+                            <?php if ($_SESSION['status_tembusan'] == 1) { ?>
+                            <li><a href="../m_surat/surat_tembusan.php">Surat Tembusan</a></li>
+                            <?php } ?>
                         </ul>
                     </li>
 
