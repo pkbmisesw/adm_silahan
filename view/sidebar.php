@@ -53,8 +53,6 @@
                             <i class="ri-mail-send-line"></i>
                             <span>Semua Permohonan</span>
                         </a>
-                    </li>
-                    <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class="ri-mail-send-line"></i>
                             <span>Data Surat</span>
