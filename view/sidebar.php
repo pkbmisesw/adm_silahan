@@ -57,10 +57,10 @@
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
                             <li><a href="../m_surat/semua.php">Semua Permohonan</a></li>
-                            <li><a href="../m_surat/semua_diperiksa.php">Surat Diperiksa</a></li>
-                            <li><a href="../m_surat/semua_ditolak.php">Surat Ditolak</a></li>
-                            <li><a href="../m_surat/semua_disposisi.php">Surat Disposisi</a></li>
-                            <li><a href="../m_surat/semua_hasil.php">Surat Hasil</a></li>
+                            <li><a href="../m_surat/semua_diperiksa.php">Semua Surat Diperiksa</a></li>
+                            <li><a href="../m_surat/semua_ditolak.php">Semua Surat Ditolak</a></li>
+                            <li><a href="../m_surat/semua_disposisi.php">Semua Surat Disposisi</a></li>
+                            <li><a href="../m_surat/semua_hasil.php">Semua Surat Hasil</a></li>
                         </ul>
                     </li>
 
