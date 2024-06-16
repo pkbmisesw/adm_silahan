@@ -164,6 +164,111 @@ include ('../head.php');
                     </div>
                     <?php } ?>
 
+                    <?php if ($_SESSION['level_id'] == 5 ){ ?>
+                    <div class="row">
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1">
+                                            <?php
+
+                                            $sql = $conn->prepare("SELECT count(*) as total_surat FROM m_surat WHERE status = 3");
+                                            $sql->execute();
+                                            $data = $sql->fetch();
+
+                                            ?>
+                                            <p class="text-truncate font-size-14 mb-2">Semua Disposisi Atasan</p>
+                                            <h4 class="mb-2"><?= $data['total_surat']; ?></h4>
+                                        </div>
+                                        <div class="avatar-sm">
+                                            <span class="avatar-title bg-light text-success rounded-3">
+                                                <i class="mdi mdi-currency-usd font-size-24"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1">
+                                            <?php
+
+                                            $sql = $conn->prepare("SELECT count(*) as total_surat FROM m_surat WHERE status = 6");
+                                            $sql->execute();
+                                            $data = $sql->fetch();
+
+                                            ?>
+                                            <p class="text-truncate font-size-14 mb-2">Surat Sedang Ditelaah</p>
+                                            <h4 class="mb-2"><?= $data['total_surat']; ?></h4>
+                                        </div>
+                                        <div class="avatar-sm">
+                                            <span class="avatar-title bg-light text-success rounded-3">
+                                                <i class="mdi mdi-currency-usd font-size-24"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1">
+                                            <?php
+
+                                            $sql = $conn->prepare("SELECT count(*) as total_surat FROM m_surat WHERE status = 7");
+                                            $sql->execute();
+                                            $data = $sql->fetch();
+
+                                            ?>
+                                            <p class="text-truncate font-size-14 mb-2">Surat Selesai Ditelaah</p>
+                                            <h4 class="mb-2"><?= $data['total_surat']; ?></h4>
+                                        </div>
+                                        <div class="avatar-sm">
+                                            <span class="avatar-title bg-light text-success rounded-3">
+                                                <i class="mdi mdi-currency-usd font-size-24"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1">
+                                            <?php
+
+                                            $sql = $conn->prepare("SELECT count(*) as total_surat FROM m_surat WHERE status = 8");
+                                            $sql->execute();
+                                            $data = $sql->fetch();
+
+                                            ?>
+                                            <p class="text-truncate font-size-14 mb-2">Surat Hasil Telaah</p>
+                                            <h4 class="mb-2"><?= $data['total_surat']; ?></h4>
+                                        </div>
+                                        <div class="avatar-sm">
+                                            <span class="avatar-title bg-light text-success rounded-3">
+                                                <i class="mdi mdi-currency-usd font-size-24"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <?php } ?>
+
 
                    
 
