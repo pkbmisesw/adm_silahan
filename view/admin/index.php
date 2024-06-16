@@ -87,30 +87,6 @@ include ('../head.php');
                             </div>
                         </div>
 
-                        <div class="col-xl-3 col-md-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="d-flex">
-                                        <div class="flex-grow-1">
-                                            <?php
-
-                                            $sql = $conn->prepare("SELECT count(*) as total_surat FROM m_surat WHERE status = 6");
-                                            $sql->execute();
-                                            $data = $sql->fetch();
-
-                                            ?>
-                                            <p class="text-truncate font-size-14 mb-2">Surat Sedang Ditelaah</p>
-                                            <h4 class="mb-2"><?= $data['total_surat']; ?></h4>
-                                        </div>
-                                        <div class="avatar-sm">
-                                            <span class="avatar-title bg-light text-success rounded-3">
-                                                <i class="mdi mdi-currency-usd font-size-24"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                         <div class="col-xl-3 col-md-6">
                             <div class="card">
@@ -118,50 +94,74 @@ include ('../head.php');
                                     <div class="d-flex">
                                         <div class="flex-grow-1">
                                             <?php
-
-                                            $sql = $conn->prepare("SELECT count(*) as total_surat FROM m_surat WHERE status = 7");
-                                            $sql->execute();
-                                            $data = $sql->fetch();
-
+                                            $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM m_surat WHERE status=0 AND user_id=:user_id");
+                                            $query->execute([":user_id" => $_SESSION['user_id']]);
+                                            $data = $query->fetch();
                                             ?>
-                                            <p class="text-truncate font-size-14 mb-2">Surat Selesai Ditelaah</p>
+                                            <p class="text-truncate font-size-14 mb-2">Total Permohonan Pending</p>
                                             <h4 class="mb-2"><?= $data['total_surat']; ?></h4>
                                         </div>
                                         <div class="avatar-sm">
-                                            <span class="avatar-title bg-light text-success rounded-3">
-                                                <i class="mdi mdi-currency-usd font-size-24"></i>
+                                            <span class="avatar-title bg-light text-primary rounded-3">
+                                                <i class="ri-user-3-line font-size-24"></i>
                                             </span>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-
+                                </div><!-- end cardbody -->
+                            </div><!-- end card -->
+                        </div><!-- end col -->
                         <div class="col-xl-3 col-md-6">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="d-flex">
                                         <div class="flex-grow-1">
                                             <?php
-
-                                            $sql = $conn->prepare("SELECT count(*) as total_surat FROM m_surat WHERE status = 8");
-                                            $sql->execute();
-                                            $data = $sql->fetch();
-
+                                            $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM m_surat WHERE status=4 AND user_id=:user_id");
+                                            $query->execute([":user_id" => $_SESSION['user_id']]);
+                                            $data = $query->fetch();
                                             ?>
-                                            <p class="text-truncate font-size-14 mb-2">Surat Hasil Telaah</p>
+                                            <p class="text-truncate font-size-14 mb-2">Total Permohonan Diterima</p>
                                             <h4 class="mb-2"><?= $data['total_surat']; ?></h4>
                                         </div>
                                         <div class="avatar-sm">
                                             <span class="avatar-title bg-light text-success rounded-3">
-                                                <i class="mdi mdi-currency-usd font-size-24"></i>
+                                                <i class="mdi mdi-currency-btc font-size-24"></i>
                                             </span>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
+                                </div><!-- end cardbody -->
+                            </div><!-- end card -->
+                        </div><!-- end col -->
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1">
+                                            <?php
+                                            if ($_SESSION['level_id'] == 5) {
+                                                $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM m_surat WHERE user_id=:user_id");
+                                                $query->execute([":user_id" => $_SESSION['user_id']]);
+                                            }
 
+                                            $query = $conn->prepare("SELECT COUNT(*) as total_surat FROM m_surat");
+                                            $query->execute([]);
+                                            // if ($_SESSION['level_id'] == 3) {
+                                            // }
+                                            
+                                            $data = $query->fetch();
+                                            ?>
+                                            <p class="text-truncate font-size-14 mb-2">Permohonan Selesai Ditelaah</p>
+                                            <h4 class="mb-2"><?= $data['total_surat']; ?></h4>
+                                        </div>
+                                        <div class="avatar-sm">
+                                            <span class="avatar-title bg-light text-primary rounded-3">
+                                                <i class="ri-shopping-cart-2-line font-size-24"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div><!-- end cardbody -->
+                            </div><!-- end card -->
+                        </div><!-- end col -->
                     </div>
 
                     <?php } ?>
