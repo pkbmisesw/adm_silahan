@@ -59,8 +59,7 @@ include ('../head.php');
                     <!-- end page title -->
 
 
-                    <?php if ($_SESSION['level_id'] == 2) { ?>
-
+                    <?php if ($_SESSION['level_id'] == 1 || $_SESSION['level_id'] == 2) { ?>
                     <div class="row">
                         <div class="col-xl-3 col-md-6">
                             <div class="card">
@@ -163,121 +162,114 @@ include ('../head.php');
                         </div>
 
                     </div>
-
                     <?php } ?>
 
-                    <?php if ($_SESSION['level_id'] == 3) { ?>
-                        <!-- start operators                             -->
-                        <!-- <div class="row">
-                            <div class="col-xl-6">
+                    <?php if ($_SESSION['level_id'] == 5) { ?>
+                    <div class="row">
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1">
+                                            <?php
 
-                                <div class="card">
-                                    <div class="card-body pb-0">
-                                        <div class="float-end d-none d-md-inline-block">
-                                            <div class="dropdown card-header-dropdown">
-                                                <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown"
-                                                    aria-haspopup="true" aria-expanded="false">
-                                                    <span class="text-muted">Report<i
-                                                            class="mdi mdi-chevron-down ms-1"></i></span>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="#">Export</a>
-                                                    <a class="dropdown-item" href="#">Import</a>
-                                                    <a class="dropdown-item" href="#">Download Report</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <h4 class="card-title mb-4">Email Sent</h4>
+                                            $sql = $conn->prepare("SELECT count(*) as total_surat FROM m_surat WHERE status = 3");
+                                            $sql->execute();
+                                            $data = $sql->fetch();
 
-                                        <div class="text-center pt-3">
-                                            <div class="row">
-                                                <div class="col-sm-4 mb-3 mb-sm-0">
-                                                    <div class="d-inline-flex">
-                                                        <h5 class="me-2">25,117</h5>
-                                                        <div class="text-success font-size-12">
-                                                            <i class="mdi mdi-menu-up font-size-14"> </i>2.2 %
-                                                        </div>
-                                                    </div>
-                                                    <p class="text-muted text-truncate mb-0">Marketplace</p>
-                                                </div>
-                                                <div class="col-sm-4 mb-3 mb-sm-0">
-                                                    <div class="d-inline-flex">
-                                                        <h5 class="me-2">$34,856</h5>
-                                                        <div class="text-success font-size-12">
-                                                            <i class="mdi mdi-menu-up font-size-14"> </i>1.2 %
-                                                        </div>
-                                                    </div>
-                                                    <p class="text-muted text-truncate mb-0">Last Week</p>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <div class="d-inline-flex">
-                                                        <h5 class="me-2">$18,225</h5>
-                                                        <div class="text-success font-size-12">
-                                                            <i class="mdi mdi-menu-up font-size-14"> </i>1.7 %
-                                                        </div>
-                                                    </div>
-                                                    <p class="text-muted text-truncate mb-0">Last Month</p>
-                                                </div>
-                                            </div>
+                                            ?>
+                                            <p class="text-truncate font-size-14 mb-2">Semua Disposisi Atasan</p>
+                                            <h4 class="mb-2"><?= $data['total_surat']; ?></h4>
                                         </div>
-                                    </div>
-                                    <div class="card-body py-0 px-2">
-                                        <div id="area_chart" class="apex-charts" dir="ltr"></div>
+                                        <div class="avatar-sm">
+                                            <span class="avatar-title bg-light text-success rounded-3">
+                                                <i class="mdi mdi-currency-usd font-size-24"></i>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-6">
-                                <div class="card">
-                                    <div class="card-body pb-0">
-                                        <div class="float-end d-none d-md-inline-block">
-                                            <div class="dropdown">
-                                                <a class="text-reset" href="#" data-bs-toggle="dropdown"
-                                                    aria-haspopup="true" aria-expanded="false">
-                                                    <span class="text-muted">This Years<i
-                                                            class="mdi mdi-chevron-down ms-1"></i></span>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="#">Today</a>
-                                                    <a class="dropdown-item" href="#">Last Week</a>
-                                                    <a class="dropdown-item" href="#">Last Month</a>
-                                                    <a class="dropdown-item" href="#">This Year</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <h4 class="card-title mb-4">Revenue</h4>
+                        </div>
 
-                                        <div class="text-center pt-3">
-                                            <div class="row">
-                                                <div class="col-sm-4 mb-3 mb-sm-0">
-                                                    <div>
-                                                        <h5>17,493</h5>
-                                                        <p class="text-muted text-truncate mb-0">Marketplace</p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-4 mb-3 mb-sm-0">
-                                                    <div>
-                                                        <h5>$44,960</h5>
-                                                        <p class="text-muted text-truncate mb-0">Last Week</p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <div>
-                                                        <h5>$29,142</h5>
-                                                        <p class="text-muted text-truncate mb-0">Last Month</p>
-                                                    </div>
-                                                </div>
-                                            </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1">
+                                            <?php
+
+                                            $sql = $conn->prepare("SELECT count(*) as total_surat FROM m_surat WHERE status = 6");
+                                            $sql->execute();
+                                            $data = $sql->fetch();
+
+                                            ?>
+                                            <p class="text-truncate font-size-14 mb-2">Surat Sedang Ditelaah</p>
+                                            <h4 class="mb-2"><?= $data['total_surat']; ?></h4>
                                         </div>
-                                    </div>
-                                    <div class="card-body py-0 px-2">
-                                        <div id="column_line_chart" class="apex-charts" dir="ltr"></div>
+                                        <div class="avatar-sm">
+                                            <span class="avatar-title bg-light text-success rounded-3">
+                                                <i class="mdi mdi-currency-usd font-size-24"></i>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div> -->
-                        <!-- end row -->
-                        <!-- end operator  -->
+                        </div>
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1">
+                                            <?php
+
+                                            $sql = $conn->prepare("SELECT count(*) as total_surat FROM m_surat WHERE status = 7");
+                                            $sql->execute();
+                                            $data = $sql->fetch();
+
+                                            ?>
+                                            <p class="text-truncate font-size-14 mb-2">Surat Selesai Ditelaah</p>
+                                            <h4 class="mb-2"><?= $data['total_surat']; ?></h4>
+                                        </div>
+                                        <div class="avatar-sm">
+                                            <span class="avatar-title bg-light text-success rounded-3">
+                                                <i class="mdi mdi-currency-usd font-size-24"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1">
+                                            <?php
+
+                                            $sql = $conn->prepare("SELECT count(*) as total_surat FROM m_surat WHERE status = 8");
+                                            $sql->execute();
+                                            $data = $sql->fetch();
+
+                                            ?>
+                                            <p class="text-truncate font-size-14 mb-2">Surat Hasil Telaah</p>
+                                            <h4 class="mb-2"><?= $data['total_surat']; ?></h4>
+                                        </div>
+                                        <div class="avatar-sm">
+                                            <span class="avatar-title bg-light text-success rounded-3">
+                                                <i class="mdi mdi-currency-usd font-size-24"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                     <?php } ?>
+
+                   
 
                     <!--<div class="row">-->
                     <!--    <div class="col-xl-8">-->
