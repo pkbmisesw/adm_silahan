@@ -151,7 +151,7 @@ include ('../head_table.php');
 
                                                     <td>
                                                         <?php if ($_SESSION['level_id'] != 5) { ?>
-                                                            <?= $data['nama'] . ' - ' . $data['des'] . ' - Dari : ' . $data['nama_user']; ?>
+                                                            <?= $data['des'] . ' - Dari : ' . $data['nama_user']; ?>
                                                         <?php } else { ?>
                                                             <?= $data['nama'] . ' - ' . $data['des'] ?>
                                                         <?php } ?>
