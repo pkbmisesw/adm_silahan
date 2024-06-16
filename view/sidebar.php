@@ -53,7 +53,7 @@
                         
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class="ri-mail-send-line"></i>
-                            <span>Data Surat</span>
+                            <span>Data Surata</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
                             <li><a href="../m_surat/semua.php">Semua Permohonan</a></li>
