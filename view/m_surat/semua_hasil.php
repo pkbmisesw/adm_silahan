@@ -132,7 +132,7 @@ $title = "Silahan Kawan | Hasil ";include('../head_table.php');
                                         ?>
                                         <tr>
                                             <td><?= $count; ?></td>
-                                            <td>aa<?= $data['nama'] . ' - ' . $data['des'] . ' - Dari : ' . $data['nama_user']; ?></td>
+                                            <td><?= $data['nama'] . ' - ' . $data['des'] . ' - Dari : ' . $data['nama_user']; ?></td>
                                                 <?php if(!$data['note']){ ?>
                                             <td><a href="../../images/<?= $data['berkas']; ?>" target="_blank">Lihat Berkas</a></td>
                                                 <?php } else { ?>

@@ -76,13 +76,13 @@ $title = "Silahan Kawan | Kirim Permohonan";include('../head_table.php');
                                         <div class="form-body">
 
                                             <div class="form-group">
-                                                <label class="control-label">Nama : </label>
-                                                <input type="text" class="form-control" name="nama" placeholder="Silahkan Mengisi Nama" />
+                                                <label class="control-label">Title Surat : </label>
+                                                <input type="text" class="form-control" name="nama" placeholder="Silahkan Mengisi Title Surat" />
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label">Deskripsi : </label>
-                                                <input type="text" class="form-control" name="des" placeholder="Silahkan Mengisi Deskripsi" />
+                                                <label class="control-label">Deskripsi Berkas : </label>
+                                                <input type="text" class="form-control" name="des" placeholder="Silahkan Mengisi Deskripsi Berkas" />
                                             </div>
 
                                             <div class="form-group">
