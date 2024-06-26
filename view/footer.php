@@ -9,6 +9,8 @@
 <script src="../../assets/libs/node-waves/waves.min.js"></script>
 
 
+
+
 <!-- apexcharts -->
 <script src="../../assets/libs/apexcharts/apexcharts.min.js"></script>
 
@@ -23,6 +25,10 @@
 <!-- Responsive examples -->
 <script src="../../assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
 <script src="../../assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
+<!-- apexcharts -->
+<script src="../../assets/libs/apexcharts/apexcharts.min.js"></script>
+
 
 <script src="../../assets/js/pages/dashboard.init.js"></script>
 

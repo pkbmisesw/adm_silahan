@@ -59,7 +59,7 @@ tes
                     <!-- end page title -->
 
 
-                    <?php if ($_SESSION['level_id'] == 1 || $_SESSION['level_id'] == 2) { ?>
+                    <?php if ($_SESSION['level_id'] == 1 || $_SESSION['level_id'] == 2 || $_SESSION['level_id'] == 3 || $_SESSION['level_id'] == 4) { ?>
                     <div class="row">
                         <div class="col-xl-3 col-md-6">
                             <div class="card">
@@ -71,10 +71,11 @@ tes
                                             $sql = $conn->prepare("SELECT count(*) as total_surat FROM m_surat WHERE status = 3");
                                             $sql->execute();
                                             $data = $sql->fetch();
+                                            $surat_disposisi = $data['total_surat'];
 
                                             ?>
                                             <p class="text-truncate font-size-14 mb-2">Semua Disposisi Atasan</p>
-                                            <h4 class="mb-2"><?= $data['total_surat']; ?></h4>
+                                            <h4 class="mb-2"><?= $surat_disposisi; ?></h4>
                                         </div>
                                         <div class="avatar-sm">
                                             <span class="avatar-title bg-light text-success rounded-3">
@@ -96,10 +97,11 @@ tes
                                             $sql = $conn->prepare("SELECT count(*) as total_surat FROM m_surat WHERE status = 6");
                                             $sql->execute();
                                             $data = $sql->fetch();
+                                            $surat_sedang_ditelaah = $data['total_surat'];
 
                                             ?>
                                             <p class="text-truncate font-size-14 mb-2">Surat Sedang Ditelaah</p>
-                                            <h4 class="mb-2"><?= $data['total_surat']; ?></h4>
+                                            <h4 class="mb-2"><?= $surat_sedang_ditelaah; ?></h4>
                                         </div>
                                         <div class="avatar-sm">
                                             <span class="avatar-title bg-light text-success rounded-3">
@@ -121,10 +123,11 @@ tes
                                             $sql = $conn->prepare("SELECT count(*) as total_surat FROM m_surat WHERE status = 7");
                                             $sql->execute();
                                             $data = $sql->fetch();
+                                            $surat_selesai_ditelaah = $data['total_surat'];
 
                                             ?>
                                             <p class="text-truncate font-size-14 mb-2">Surat Selesai Ditelaah</p>
-                                            <h4 class="mb-2"><?= $data['total_surat']; ?></h4>
+                                            <h4 class="mb-2"><?= $surat_selesai_ditelaah; ?></h4>
                                         </div>
                                         <div class="avatar-sm">
                                             <span class="avatar-title bg-light text-success rounded-3">
@@ -146,10 +149,11 @@ tes
                                             $sql = $conn->prepare("SELECT count(*) as total_surat FROM m_surat WHERE status = 8");
                                             $sql->execute();
                                             $data = $sql->fetch();
+                                            $surat_hasil_telaah = $data['total_surat'];
 
                                             ?>
                                             <p class="text-truncate font-size-14 mb-2">Surat Hasil Telaah</p>
-                                            <h4 class="mb-2"><?= $data['total_surat']; ?></h4>
+                                            <h4 class="mb-2"><?= $surat_hasil_telaah; ?></h4>
                                         </div>
                                         <div class="avatar-sm">
                                             <span class="avatar-title bg-light text-success rounded-3">
@@ -176,10 +180,11 @@ tes
                                             $sql = $conn->prepare("SELECT count(*) as total_surat FROM m_surat WHERE status = 3");
                                             $sql->execute();
                                             $data = $sql->fetch();
+                                            $surat_disposisi = $data['total_surat'];
 
                                             ?>
                                             <p class="text-truncate font-size-14 mb-2">Semua Disposisi Atasan</p>
-                                            <h4 class="mb-2"><?= $data['total_surat']; ?></h4>
+                                            <h4 class="mb-2"><?= $surat_disposisi; ?></h4>
                                         </div>
                                         <div class="avatar-sm">
                                             <span class="avatar-title bg-light text-success rounded-3">
@@ -201,10 +206,11 @@ tes
                                             $sql = $conn->prepare("SELECT count(*) as total_surat FROM m_surat WHERE status = 6");
                                             $sql->execute();
                                             $data = $sql->fetch();
+                                            $surat_sedang_ditelaah = $data['total_surat'];
 
                                             ?>
                                             <p class="text-truncate font-size-14 mb-2">Surat Sedang Ditelaah</p>
-                                            <h4 class="mb-2"><?= $data['total_surat']; ?></h4>
+                                            <h4 class="mb-2"><?= $surat_sedang_ditelaah; ?></h4>
                                         </div>
                                         <div class="avatar-sm">
                                             <span class="avatar-title bg-light text-success rounded-3">
@@ -226,10 +232,11 @@ tes
                                             $sql = $conn->prepare("SELECT count(*) as total_surat FROM m_surat WHERE status = 7");
                                             $sql->execute();
                                             $data = $sql->fetch();
+                                            $surat_selesai_ditelaah = $data['total_surat'];
 
                                             ?>
                                             <p class="text-truncate font-size-14 mb-2">Surat Selesai Ditelaah</p>
-                                            <h4 class="mb-2"><?= $data['total_surat']; ?></h4>
+                                            <h4 class="mb-2"><?= $surat_selesai_ditelaah; ?></h4>
                                         </div>
                                         <div class="avatar-sm">
                                             <span class="avatar-title bg-light text-success rounded-3">
@@ -251,10 +258,11 @@ tes
                                             $sql = $conn->prepare("SELECT count(*) as total_surat FROM m_surat WHERE status = 8");
                                             $sql->execute();
                                             $data = $sql->fetch();
+                                            $surat_hasil_telaah = $data['total_surat'];
 
                                             ?>
                                             <p class="text-truncate font-size-14 mb-2">Surat Hasil Telaah</p>
-                                            <h4 class="mb-2"><?= $data['total_surat']; ?></h4>
+                                            <h4 class="mb-2"><?= $surat_hasil_telaah; ?></h4>
                                         </div>
                                         <div class="avatar-sm">
                                             <span class="avatar-title bg-light text-success rounded-3">
@@ -477,6 +485,43 @@ tes
                     <!--        </div>-->
                     <!--    </div>-->
                     <!--</div>-->
+
+                    <!-- Chart -->
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4">Bar Chart Surat Permohonan</h4>
+
+                                    <div
+                                            id="column_chart_datalabel"
+                                            class="apex-charts"
+                                            dir="ltr"
+                                    ></div>
+                                </div>
+                            </div>
+                            <!--end card-->
+                        </div>
+                    <!-- end row -->
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4">Pie Chart Surat Permohonan</h4>
+
+                                    <div
+                                            id="pie_chart"
+                                            class="apex-charts"
+                                            dir="ltr"
+                                    ></div>
+                                </div>
+                            </div>
+                            <!--end card-->
+                        </div>
+                        <!-- end row -->
+                    </div>
+                    <!-- end Chart -->
                     
                 </div>
 
@@ -559,3 +604,105 @@ tes
     <?php
     include ('../footer.php');
     ?>
+
+
+        <script>
+            options = {
+                chart: {
+                    height: 350,
+                    type: "bar",
+                    toolbar: {
+                        show: !1
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: !1,
+                        columnWidth: "10%",
+                        endingShape: "rounded"
+                    }
+                },
+                dataLabels: {
+                    enabled: !1
+                },
+                stroke: {
+                    show: !0,
+                    width: 2,
+                    colors: ["transparent"]
+                },
+                series: [{
+                    name: "Semua Disposisi Atasan",
+                    data: [<?= $surat_disposisi; ?>]
+                }, {
+                    name: "Surat Sedang Ditelaah",
+                    data: [<?= $surat_sedang_ditelaah; ?>]
+                }, {
+                    name: "Surat Selesai Ditelaah",
+                    data: [<?= $surat_selesai_ditelaah; ?>]
+                }, {
+                    name: "Surat Hasil Telaah",
+                    data: [<?= $surat_hasil_telaah; ?>]
+                }],
+                colors: ["#1cbb8c", "#0f9cf3", "#fcb92c", "#4aa3ff"],
+                xaxis: {
+                    categories: [""]
+                },
+                yaxis: {
+                    title: {
+                        text: "Jumlah (angka)"
+                    }
+                },
+                grid: {
+                    borderColor: "#f1f1f1",
+                    padding: {
+                        bottom: 10
+                    }
+                },
+                fill: {
+                    opacity: 1
+                },
+                tooltip: {
+                    y: {
+                        formatter: function(e) {
+                            return e
+                        }
+                    }
+                },
+                legend: {
+                    offsetY: 7
+                }
+            };
+            (chart = new ApexCharts(document.querySelector("#column_chart_datalabel"), options)).render();
+
+            options = {
+                chart: {
+                    height: 320,
+                    type: "pie"
+                },
+                series: [<?= $surat_disposisi; ?>, <?= $surat_sedang_ditelaah; ?>, <?= $surat_selesai_ditelaah; ?>,  <?= $surat_hasil_telaah; ?>],
+                labels: ["Surat Disposisi Atasan", "Surat Sedang Ditelaah", "Surat Selesai Ditelaah", "Surat Hasil Telaah"],
+                colors: ["#1cbb8c", "#0f9cf3", "#fcb92c", "#4aa3ff"],
+                legend: {
+                    show: !0,
+                    position: "bottom",
+                    horizontalAlign: "center",
+                    verticalAlign: "middle",
+                    floating: !1,
+                    fontSize: "14px",
+                    offsetX: 0,
+                    offsetY: 5
+                },
+                responsive: [{
+                    breakpoint: 600,
+                    options: {
+                        chart: {
+                            height: 240
+                        },
+                        legend: {
+                            show: !1
+                        }
+                    }
+                }]
+            };
+            (chart = new ApexCharts(document.querySelector("#pie_chart"), options)).render();
+        </script>
