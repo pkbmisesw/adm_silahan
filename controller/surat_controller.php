@@ -42,6 +42,24 @@ if ($op == "tambah") {
         $stmt->bindParam(':status', $status);
         $stmt->execute();
         if ($stmt) {
+			
+			$sql = "SELECT * FROM m_surat ORDER BY id DESC LIMIT 1";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $row = $stmt->fetch();
+            $id_surat = $row['id'];
+            $des2 = $_SESSION['nama']." - Baru Saja Mengajukan Permohonan ".$nama.", dan Isi = ".$des." dengan file ".$berkas['name'];
+            $sql = "INSERT INTO m_log SET
+                surat_id = :id_surat,
+                user_id = :id_user,
+                des = :des2";
+
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':id_surat', $id_surat);
+            $stmt->bindParam(':id_user', $_SESSION['user_id']);
+            $stmt->bindParam(':des2', $des2);
+            $stmt->execute();
+			
             header("Location: $url_web/view/m_surat/");
             echo "<script>alert('Berhasil Tambah');</script>";
             exit();
@@ -67,6 +85,17 @@ if ($op == "tambah") {
     $stmt->execute();
 
     if ($stmt) {
+		$des2 = $_SESSION['nama']." - Baru Saja Menghapus Permohonan dengan ID ".$id;
+        $sql = "INSERT INTO m_log SET
+        surat_id = :id_surat,
+        user_id = :id_user,
+        des = :des2";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':id_surat', $id);
+    $stmt->bindParam(':id_user', $_SESSION['user_id']);
+    $stmt->bindParam(':des2', $des2);
+    $stmt->execute();
         echo "<script>alert('Berhasil Menghapus'); history.back();</script>";
     } else {
         echo "<script>alert('Gagal Menghapus'); history.back();</script>";

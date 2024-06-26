@@ -63,6 +63,16 @@
                             <li><a href="../m_surat/semua_hasil.php">Semua Surat Hasil</a></li>
                         </ul>
                     </li>
+					<li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="ri-book-fill"></i>
+                            <span>Laporan</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="../laporan/">Laporan Surat</a></li>
+							<li><a href="../laporan/log.php">Laporan Log</a></li>
+                        </ul>
+                    </li>
 
                     <li class="menu-title">Other</li>
                     <li>

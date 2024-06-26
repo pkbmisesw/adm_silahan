@@ -15,6 +15,17 @@ if (isset($_POST['id'])) {
 	]);
 
 	if ($result) {
+		$des2 = $_SESSION['nama']." - Baru Saja Mengedit Permohonan ".$nama.", dan Isi = ".$des." dengan file ".$berkas['name'];
+            $sql = "INSERT INTO m_log SET
+                surat_id = :id_surat,
+                user_id = :id_user,
+                des = :des2";
+
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':surat_id', $_POST['id']);
+            $stmt->bindParam(':id_user', $_SESSION['user_id']);
+            $stmt->bindParam(':des2', $des2);
+            $stmt->execute();
 		$response['code'] = 200;
 	} else {
 		$response['code'] = 505;
